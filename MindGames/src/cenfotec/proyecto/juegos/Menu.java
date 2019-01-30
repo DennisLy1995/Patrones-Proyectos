@@ -1,7 +1,6 @@
 package cenfotec.proyecto.juegos;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -28,14 +27,31 @@ public class Menu {
 				while(breakerMenu == 0) {
 					
 					//Despliegue del menu principal
+					int breakerSubMenu = 0;
 					imprimirMenuPrincipal();
 					String opcionMenu = in.readLine();
+					
 					switch(opcionMenu) {
 					case "1":
+						imprimirMenuAjedres();
+						while(breakerSubMenu==0) {
+							
+						}
+						breakerSubMenu = 0;
 						break;
 					case "2":
+						imprimirMenuTablero();
+						while(breakerSubMenu==0) {
+							
+						}
+						breakerSubMenu = 0;
 						break;
 					case "3":
+						imprimirMenuGo();
+						while(breakerSubMenu==0) {
+							
+						}
+						breakerSubMenu = 0;
 						break;
 					case "4":
 						breakerMenu = 1;
@@ -58,6 +74,9 @@ public class Menu {
 
 	}
 	
+	/*
+	 * Funciones creadas para impresion de los diferentes Menus.
+	 */
 	
 	public static void imprimirMenuPrincipal() {
 		String[] opcionesMenu = {"1.Ajedrez","2.Tablero","3.Go","4.Salir"};
@@ -71,15 +90,30 @@ public class Menu {
 	
 	
 	public static void imprimirMenuAjedres(){
-
+		String[] opcionesMenu = {"---Ajedrez---","1.Continuar","2.Nueva partida","3.Salir"};
+		System.out.println("\n");
+		for(int i=0;i<opcionesMenu.length;i++) {
+			System.out.println(opcionesMenu[i]);
+		}
+		System.out.println("\n");
 	}
 	
 	public static void imprimirMenuTablero(){
-
+		String[] opcionesMenu = {"---Tablero---","1.Continuar","2.Nueva partida","3.Salir"};
+		System.out.println("\n");
+		for(int i=0;i<opcionesMenu.length;i++) {
+			System.out.println(opcionesMenu[i]);
+		}
+		System.out.println("\n");
 	}
 	
 	public static void imprimirMenuGo() {
-
+		String[] opcionesMenu = {"---GO---","1.Continuar","2.Nueva partida","3.Salir"};
+		System.out.println("\n");
+		for(int i=0;i<opcionesMenu.length;i++) {
+			System.out.println(opcionesMenu[i]);
+		}
+		System.out.println("\n");
 	}
 
 }
