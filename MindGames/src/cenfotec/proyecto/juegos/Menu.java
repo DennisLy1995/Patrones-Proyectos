@@ -15,8 +15,7 @@ public class Menu {
 		
 		while(breakerLogin==0) {
 			
-			System.out.println("Bienvenido a Mind Games\n");
-			System.out.println("Ingrese su nombre de usuario\n");
+			System.out.println("Bienvenido a Mind Games\nIngrese su nombre de usuario\\n");
 			String nombreUsuario = in.readLine();
 			System.out.println("Ingrese su contraseña\n");
 			String contrasena = in.readLine();
