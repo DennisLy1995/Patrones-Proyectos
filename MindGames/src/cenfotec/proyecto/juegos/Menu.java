@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import cenfotec.proyecto.artefactos.PartidaAjedrez;
+
 public class Menu {
 
 	static java.io.BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
@@ -127,7 +129,16 @@ public class Menu {
 			System.out.println("Cargar partida de ajedrez esta en progreso.");
 			break;
 		case "2":
-			System.out.println("Cargar partida de ajedrez esta en progreso.");
+			//System.out.println("Nueva partida de ajedrez esta en progreso.");
+			
+			PartidaAjedrez test = new PartidaAjedrez();
+			for(int i=0;i<8;i++){
+				for(int e=0;e<8;e++) {
+					System.out.print(test.tablero[i][e]);
+				}
+				System.out.println();
+			}
+			
 			break;
 		case "3":
 			System.out.println("\nDe vuelta al menu de mindgames.\n");
@@ -146,7 +157,7 @@ public class Menu {
 			System.out.println("Cargar partida de GO esta en progreso.");
 			break;
 		case "2":
-			System.out.println("Cargar partida de GO esta en progreso.");
+			System.out.println("Nueva partida partida de GO esta en progreso.");
 			break;
 		case "3":
 			System.out.println("\nDe vuelta al menu de mindgames.\n");
@@ -165,7 +176,7 @@ public class Menu {
 			System.out.println("Cargar partida de Damas esta en progreso.");
 			break;
 		case "2":
-			System.out.println("Cargar partida de Damas esta en progreso.");
+			System.out.println("Nueva partida partida de Damas esta en progreso.");
 			break;
 		case "3":
 			System.out.println("\nDe vuelta al menu de mindgames.\n");
