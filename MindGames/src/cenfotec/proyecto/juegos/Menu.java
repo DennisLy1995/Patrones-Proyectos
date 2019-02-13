@@ -130,28 +130,7 @@ public class Menu {
 			break;
 		case "2":
 			//System.out.println("Nueva partida de ajedrez esta en progreso.");
-			
-			PartidaAjedrez test = new PartidaAjedrez();
-			for(int i=0;i<8;i++){
-				for(int e=0;e<8;e++) {
-					System.out.print(test.tablero[i][e]);
-				}
-				System.out.println();
-			}
-			
-			
-			System.out.println("\n\n");
-			
-			
-			for(int i=0;i<8;i++){
-				for(int e=0;e<8;e++) {
-					System.out.print(test.tableroPosiciones[i][e].nombre);
-				}
-				System.out.println();
-			}
-			
-			
-			
+			Menu.pruebaImpresionMapaAjedrez();
 			break;
 		case "3":
 			System.out.println("\nDe vuelta al menu de mindgames.\n");
@@ -201,4 +180,50 @@ public class Menu {
 		return retorno;
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//Este metodo ahi que borrarlo.
+	public static void pruebaImpresionMapaAjedrez() {
+		
+		System.out.println("|------------------------|\n| Coordenadas de ajedrez.|\n|------------------------|\n\n");
+		
+		PartidaAjedrez test = new PartidaAjedrez();
+		for(int i=0;i<8;i++){
+			for(int e=0;e<8;e++) {
+				System.out.print(test.tablero[i][e]+" ");
+			}
+			System.out.println();
+		}
+		
+		System.out.println("\n|------------------------|\n|     Partida actual     |\n|------------------------|\n\n");
+		
+		for(int i=0;i<8;i++){
+			for(int e=0;e<8;e++) {
+				System.out.print(test.tableroPosiciones[i][e].nombre+" ");
+			}
+			System.out.println();
+		}
+	}
+	
+	
+	
 }
