@@ -6,7 +6,7 @@ public class Pieza {
 	public String nombre;
 	public String movimiento;
 	
-	public Pieza(String jugador, String nombre, String movimiento) {
+	public Pieza(String nombre,String jugador, String movimiento) {
 		this.jugador = jugador;
 		this.nombre = nombre;
 		this.movimiento = movimiento;

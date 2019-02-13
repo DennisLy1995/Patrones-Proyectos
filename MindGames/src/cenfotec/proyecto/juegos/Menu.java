@@ -139,6 +139,19 @@ public class Menu {
 				System.out.println();
 			}
 			
+			
+			System.out.println("\n\n");
+			
+			
+			for(int i=0;i<8;i++){
+				for(int e=0;e<8;e++) {
+					System.out.print(test.tableroPosiciones[i][e].nombre);
+				}
+				System.out.println();
+			}
+			
+			
+			
 			break;
 		case "3":
 			System.out.println("\nDe vuelta al menu de mindgames.\n");
