@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import cenfotec.proyecto.artefactos.PartidaAjedrez;
+import cenfotec.proyecto.artefactos.PartidaDamas;
 
 public class Menu {
 
@@ -39,7 +40,7 @@ public class Menu {
 							opcionMenuJuego = Menu.opcionmenuJuego();
 							breakerSubMenu = Menu.redireccionadorAjedrez(opcionMenuJuego);
 						}
-						
+
 						break;
 					case "2":
 						while (breakerSubMenu == 0) {
@@ -47,7 +48,7 @@ public class Menu {
 							opcionMenuJuego = Menu.opcionmenuJuego();
 							breakerSubMenu = Menu.redireccionadorDamas(opcionMenuJuego);
 						}
-						
+
 						break;
 					case "3":
 						while (breakerSubMenu == 0) {
@@ -116,7 +117,6 @@ public class Menu {
 		System.out.println("\n");
 	}
 
-	
 	public static String opcionmenuJuego() throws IOException {
 		String opcion = in.readLine();
 		return opcion;
@@ -129,50 +129,12 @@ public class Menu {
 			System.out.println("Cargar partida de ajedrez esta en progreso.");
 			break;
 		case "2":
-			//System.out.println("Nueva partida de ajedrez esta en progreso.");
+			// System.out.println("Nueva partida de ajedrez esta en progreso.");
 			Menu.pruebaImpresionMapaAjedrez();
 			break;
 		case "3":
 			System.out.println("\nDe vuelta al menu de mindgames.\n");
-			retorno =1;
-			break;
-		default:
-			break;
-		}
-		return retorno;
-	}
-	
-	public static int redireccionadorGo(String opcionMenu) {
-		int retorno = 0;
-		switch (opcionMenu) {
-		case "1":
-			System.out.println("Cargar partida de GO esta en progreso.");
-			break;
-		case "2":
-			System.out.println("Nueva partida partida de GO esta en progreso.");
-			break;
-		case "3":
-			System.out.println("\nDe vuelta al menu de mindgames.\n");
-			retorno =1;
-			break;
-		default:
-			break;
-		}
-		return retorno;
-	}
-	
-	public static int redireccionadorDamas(String opcionMenu) {
-		int retorno = 0;
-		switch (opcionMenu) {
-		case "1":
-			System.out.println("Cargar partida de Damas esta en progreso.");
-			break;
-		case "2":
-			System.out.println("Nueva partida partida de Damas esta en progreso.");
-			break;
-		case "3":
-			System.out.println("\nDe vuelta al menu de mindgames.\n");
-			retorno =1;
+			retorno = 1;
 			break;
 		default:
 			break;
@@ -180,50 +142,95 @@ public class Menu {
 		return retorno;
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	//Este metodo ahi que borrarlo.
+	public static int redireccionadorGo(String opcionMenu) {
+		int retorno = 0;
+		switch (opcionMenu) {
+		case "1":
+			System.out.println("Cargar partida de GO esta en progreso.");
+			break;
+		case "2":
+			//System.out.println("Nueva partida partida de GO esta en progreso.");
+			Menu.pruebaImpresionMapaGo();
+			break;
+		case "3":
+			System.out.println("\nDe vuelta al menu de mindgames.\n");
+			retorno = 1;
+			break;
+		default:
+			break;
+		}
+		return retorno;
+	}
+
+	public static int redireccionadorDamas(String opcionMenu) {
+		int retorno = 0;
+		switch (opcionMenu) {
+		case "1":
+			System.out.println("Cargar partida de Damas esta en progreso.");
+			break;
+		case "2":
+			//System.out.println("Nueva partida partida de Damas esta en progreso.");
+			Menu.pruebaImpresionMapaDamas();
+			break;
+		case "3":
+			System.out.println("\nDe vuelta al menu de mindgames.\n");
+			retorno = 1;
+			break;
+		default:
+			break;
+		}
+		return retorno;
+	}
+
+	// Este metodo ahi que borrarlo.
 	public static void pruebaImpresionMapaAjedrez() {
-		
+
 		System.out.println("|------------------------|\n| Coordenadas de ajedrez.|\n|------------------------|\n\n");
-		
+
 		PartidaAjedrez test = new PartidaAjedrez();
-		for(int i=0;i<8;i++){
-			for(int e=0;e<8;e++) {
-				System.out.print(test.tablero[i][e]+" ");
+		for (int i = 0; i < 8; i++) {
+			for (int e = 0; e < 8; e++) {
+				System.out.print(test.tablero[i][e] + " ");
 			}
 			System.out.println();
 		}
-		
+
 		System.out.println("\n|------------------------|\n|     Partida actual     |\n|------------------------|\n\n");
-		
-		for(int i=0;i<8;i++){
-			for(int e=0;e<8;e++) {
-				System.out.print(test.tableroPosiciones[i][e].nombre+" ");
+
+		for (int i = 0; i < 8; i++) {
+			for (int e = 0; e < 8; e++) {
+				System.out.print(test.tableroPosiciones[i][e].nombre + " ");
 			}
 			System.out.println();
 		}
 	}
+
+	public static void pruebaImpresionMapaDamas() {
+
+		System.out.println("|-------------------------------|\n| Coordenadas de Damas chinas.  |\n|-------------------------------|\n\n");
+
+		PartidaDamas test = new PartidaDamas();
+		for (int i = 0; i < 10; i++) {
+			for (int e = 0; e < 10; e++) {
+				System.out.print(test.tablero[i][e] + " ");
+			}
+			System.out.println();
+		}
+
+		System.out.println("\n");
+		
+		for (int i = 0; i < 10; i++) {
+			for (int e = 0; e < 10; e++) {
+				System.out.print(test.tableroColores[i][e] + " ");
+			}
+			System.out.println();
+		}
+		
+		
+	}
 	
-	
-	
+	public static void pruebaImpresionMapaGo() {
+
+	}
+
 }
