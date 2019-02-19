@@ -38,21 +38,20 @@ public class PartidaDamas extends Tablero {
 		
 		
 		//Ciclo for para colocar las piezas blancas.
+		PiezaDamas temporal = null;
 		for (int i = 0; i < 10; i++) {
 			for (int e = 0; e < 10; e++) {
+				//String nombre, String jugador, String movimiento, String color
+				if(tableroColores[i][e].equals("BL")) {
+					temporal = devolverPieza(4);
+				}else {
+					temporal = devolverPieza(i);
+				}
+				tableroPiezas[i][e] = temporal;
 				
 			}
 		}
 		
-		//Ciclo for para colocar las piezas negras.
-		for (int i = 0; i < 10; i++) {
-			for (int e = 0; e < 10; e++) {
-				
-			}
-		}
-		
-		
-
 	}
 	
 	public String devolverColorOpuesto(String color) {
@@ -62,6 +61,18 @@ public class PartidaDamas extends Tablero {
 			color = "BL";
 		}
 		return color;
+	}
+	
+	public PiezaDamas devolverPieza(int fila) {
+		PiezaDamas temporal=null;
+		if(fila>=0 && fila <=3) {
+			temporal = new PiezaDamas("P","N","P","N");
+		}else if(fila>=4 && fila <=5) {
+			temporal = new PiezaDamas("-","-","-","-");
+		}else if(fila>=6) {
+			temporal = new PiezaDamas("P","B","P","B");
+		}
+		return temporal;
 	}
 
 }

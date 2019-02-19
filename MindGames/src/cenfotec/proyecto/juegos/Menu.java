@@ -223,6 +223,18 @@ public class Menu {
 			}
 			System.out.println();
 		}
+		System.out.println();
+		System.out.println("|--------------------------------------------------------------------------|");
+		System.out.println("|                                 Partida                                  |");
+		System.out.println("|--------------------------------------------------------------------------|");
+		System.out.println();
+		for (int i = 0; i < 10; i++) {
+			System.out.print("                        ");
+			for (int e = 0; e < 10; e++) {
+				System.out.print(test.tableroPiezas[i][e].nombre + test.tableroPiezas[i][e].getColor() + " ");
+			}
+			System.out.println();
+		}
 
 	}
 
