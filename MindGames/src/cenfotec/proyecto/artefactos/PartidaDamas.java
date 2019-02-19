@@ -3,6 +3,7 @@ package cenfotec.proyecto.artefactos;
 public class PartidaDamas extends Tablero {
 
 	public String[][] tableroColores = new String[10][10];
+	public PiezaDamas[][] tableroPiezas = new PiezaDamas[10][10];
 
 	public PartidaDamas() {
 
@@ -33,6 +34,24 @@ public class PartidaDamas extends Tablero {
 			}
 			color = devolverColorOpuesto(color);
 		}
+		
+		
+		
+		//Ciclo for para colocar las piezas blancas.
+		for (int i = 0; i < 10; i++) {
+			for (int e = 0; e < 10; e++) {
+				
+			}
+		}
+		
+		//Ciclo for para colocar las piezas negras.
+		for (int i = 0; i < 10; i++) {
+			for (int e = 0; e < 10; e++) {
+				
+			}
+		}
+		
+		
 
 	}
 	

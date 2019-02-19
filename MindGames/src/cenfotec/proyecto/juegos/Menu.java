@@ -20,9 +20,9 @@ public class Menu {
 		while (breakerLogin == 0) {
 
 			System.out.println("Bienvenido a Mind Games\nIngrese su nombre de usuario\\n");
-			String nombreUsuario = in.readLine();
+			String nombreUsuario = "Dennis";
 			System.out.println("Ingrese su contraseña\n");
-			String contrasena = in.readLine();
+			String contrasena = "1234";
 
 			// Se valida que la contraseña y el nombre de usuario sean los correctos.
 			if (nombreUsuario.equals("Dennis") && contrasena.contentEquals("1234")) {
