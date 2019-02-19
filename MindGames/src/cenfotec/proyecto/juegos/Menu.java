@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 
 import cenfotec.proyecto.artefactos.PartidaAjedrez;
 import cenfotec.proyecto.artefactos.PartidaDamas;
+import cenfotec.proyecto.artefactos.PartidaGo;
 
 public class Menu {
 
@@ -149,7 +150,7 @@ public class Menu {
 			System.out.println("Cargar partida de GO esta en progreso.");
 			break;
 		case "2":
-			//System.out.println("Nueva partida partida de GO esta en progreso.");
+			// System.out.println("Nueva partida partida de GO esta en progreso.");
 			Menu.pruebaImpresionMapaGo();
 			break;
 		case "3":
@@ -169,7 +170,7 @@ public class Menu {
 			System.out.println("Cargar partida de Damas esta en progreso.");
 			break;
 		case "2":
-			//System.out.println("Nueva partida partida de Damas esta en progreso.");
+			// System.out.println("Nueva partida partida de Damas esta en progreso.");
 			Menu.pruebaImpresionMapaDamas();
 			break;
 		case "3":
@@ -185,19 +186,18 @@ public class Menu {
 	// Este metodo ahi que borrarlo.
 	public static void pruebaImpresionMapaAjedrez() {
 
-		System.out.println("|------------------------|\n| Coordenadas de ajedrez.|\n|------------------------|\n\n");
+		System.out.println("|-------------------------------|   |-------------------------------|");
+		System.out.println("|          Coordenadas          |   |         Partida actual        |");
+		System.out.println("|-------------------------------|   |-------------------------------|");
+		System.out.println();
 
 		PartidaAjedrez test = new PartidaAjedrez();
 		for (int i = 0; i < 8; i++) {
+			System.out.print("     ");
 			for (int e = 0; e < 8; e++) {
 				System.out.print(test.tablero[i][e] + " ");
 			}
-			System.out.println();
-		}
-
-		System.out.println("\n|------------------------|\n|     Partida actual     |\n|------------------------|\n\n");
-
-		for (int i = 0; i < 8; i++) {
+			System.out.print("            ");
 			for (int e = 0; e < 8; e++) {
 				System.out.print(test.tableroPosiciones[i][e].nombre + " ");
 			}
@@ -207,30 +207,38 @@ public class Menu {
 
 	public static void pruebaImpresionMapaDamas() {
 
-		System.out.println("|-------------------------------|\n| Coordenadas de Damas chinas.  |\n|-------------------------------|\n\n");
-
+		System.out.println("|-------------------------------|          |-------------------------------|");
+		System.out.println("|          Coordenadas          |          |        Colores tablero        |");
+		System.out.println("|-------------------------------|          |-------------------------------|");
+		System.out.println();
 		PartidaDamas test = new PartidaDamas();
 		for (int i = 0; i < 10; i++) {
+			System.out.print("  ");
 			for (int e = 0; e < 10; e++) {
 				System.out.print(test.tablero[i][e] + " ");
 			}
-			System.out.println();
-		}
-
-		System.out.println("\n");
-		
-		for (int i = 0; i < 10; i++) {
+			System.out.print("             ");
 			for (int e = 0; e < 10; e++) {
 				System.out.print(test.tableroColores[i][e] + " ");
 			}
 			System.out.println();
 		}
-		
-		
-	}
-	
-	public static void pruebaImpresionMapaGo() {
 
+	}
+
+	public static void pruebaImpresionMapaGo() {
+		System.out.println("           |-------------------------------|");
+		System.out.println("           |          Coordenadas          |");
+		System.out.println("           |-------------------------------|");
+		System.out.println();
+		PartidaGo test = new PartidaGo();
+		for (int i = 0; i < 19; i++) {
+			System.out.print("  ");
+			for (int e = 0; e < 19; e++) {
+				System.out.print(test.tablero[i][e] + " ");
+			}
+			System.out.println();
+		}
 	}
 
 }
