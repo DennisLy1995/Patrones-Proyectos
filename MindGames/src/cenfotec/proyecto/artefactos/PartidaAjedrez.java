@@ -129,4 +129,12 @@ public class PartidaAjedrez extends Tablero {
 		return piezaRetorno;
 	}
 
+	public PiezaAjedrez[][] getTableroPosiciones() {
+		return tableroPosiciones;
+	}
+
+	public void setTableroPosiciones(PiezaAjedrez[][] tableroPosiciones) {
+		this.tableroPosiciones = tableroPosiciones;
+	}
+
 }
