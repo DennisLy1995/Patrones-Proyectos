@@ -2,6 +2,7 @@ package cenfotec.proyecto.juegos;
 
 import cenfotec.proyecto.artefactos.PartidaAjedrez;
 import cenfotec.proyecto.artefactos.PiezaAjedrez;
+import cenfotec.proyecto.logica.GeneralesJuego;
 import cenfotec.proyecto.logica.MovimientosAjedrez;
 
 public class JuegoAjedrez extends Juego implements MovimientosAjedrez{
@@ -37,10 +38,28 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez{
 		JuegoAjedrez.partida = partida;
 	}	
 	
-	public static PiezaAjedrez[] retornarTablerojuego() {
-		return null;
+	public static PiezaAjedrez[][] retornarTablerojuego() {
+		return partida.getTableroPosiciones();
 	}
 	
+	public static void ImprimirEstadoJuego() {
+		System.out.println("|-------------------------------|   |-------------------------------|");
+		System.out.println("|          Coordenadas          |   |         Partida actual        |");
+		System.out.println("|-------------------------------|   |-------------------------------|");
+		System.out.println();
+
+		for (int i = 0; i < 8; i++) {
+			System.out.print("     ");
+			for (int e = 0; e < 8; e++) {
+				System.out.print(partida.tablero[i][e] + " ");
+			}
+			System.out.print("            ");
+			for (int e = 0; e < 8; e++) {
+				System.out.print(partida.tableroPosiciones[i][e].nombre + " ");
+			}
+			System.out.println();
+		}
+	}
 	
 	
 	
@@ -72,6 +91,7 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez{
 		
 		
 	}
+
 	
 
 	

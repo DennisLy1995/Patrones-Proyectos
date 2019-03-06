@@ -7,6 +7,7 @@ import java.io.InputStreamReader;
 import cenfotec.proyecto.artefactos.PartidaAjedrez;
 import cenfotec.proyecto.artefactos.PartidaDamas;
 import cenfotec.proyecto.artefactos.PartidaGo;
+import cenfotec.proyecto.gestores.GestorAjedrez;
 
 public class Menu {
 
@@ -186,23 +187,7 @@ public class Menu {
 	// Este metodo ahi que borrarlo.
 	public static void pruebaImpresionMapaAjedrez() {
 
-		System.out.println("|-------------------------------|   |-------------------------------|");
-		System.out.println("|          Coordenadas          |   |         Partida actual        |");
-		System.out.println("|-------------------------------|   |-------------------------------|");
-		System.out.println();
-
-		PartidaAjedrez test = new PartidaAjedrez();
-		for (int i = 0; i < 8; i++) {
-			System.out.print("     ");
-			for (int e = 0; e < 8; e++) {
-				System.out.print(test.tablero[i][e] + " ");
-			}
-			System.out.print("            ");
-			for (int e = 0; e < 8; e++) {
-				System.out.print(test.tableroPosiciones[i][e].nombre + " ");
-			}
-			System.out.println();
-		}
+		GestorAjedrez.imprimirEstadoJuego();
 	}
 
 	public static void pruebaImpresionMapaDamas() {
