@@ -1,29 +1,63 @@
 package cenfotec.proyecto.juegos;
 
+import java.util.Scanner;
+
 import cenfotec.proyecto.artefactos.PartidaAjedrez;
 import cenfotec.proyecto.artefactos.PiezaAjedrez;
 import cenfotec.proyecto.logica.GeneralesJuego;
 import cenfotec.proyecto.logica.MovimientosAjedrez;
 
-public class JuegoAjedrez extends Juego implements MovimientosAjedrez{
+public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 
 	private static PartidaAjedrez partida = new PartidaAjedrez();
-	
+	private static Scanner in = new Scanner(System.in);
+
 	public JuegoAjedrez(String jugador1, String jugador2, String ganador, String perdedor) {
 		super(jugador1, jugador2, ganador, perdedor);
-		
+
 	}
 
-	public void cargarPartida() {
-		
+	public static void iniciarPartida() {
+
+		boolean breaker = false;
+		while (breaker==false) {
+			ImprimirEstadoJuego();
+			switch (lecturaOpcionMenu()) {
+			case "1":
+				breaker = false;
+				break;
+			case "2":
+				breaker = false;
+				break;
+			case "3":
+				breaker = true;
+				break;
+
+			}
+		}
+
 	}
 
-	public void initializarPartida() {
-		
+	public static void imprimirOpcionesJuego() {
+		System.out.println("");
+		System.out.println("1.Mover Pieza.");
+		System.out.println("2.Guardar partida.");
+		System.out.println("3.Terminar partida.");
+
 	}
-	
-	
-	
+
+	public static String lecturaOpcionMenu() {
+		imprimirOpcionesJuego();
+		String temp = "";
+		temp = in.nextLine();
+		if (temp.equals("1") || temp.equals("2") || temp.equals("3")) {
+			
+		}else {
+			temp = "3";
+		}
+		return temp;
+	}
+
 	
 	
 	
@@ -36,12 +70,12 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez{
 
 	public static void setPartida(PartidaAjedrez partida) {
 		JuegoAjedrez.partida = partida;
-	}	
-	
+	}
+
 	public static PiezaAjedrez[][] retornarTablerojuego() {
 		return partida.getTableroPosiciones();
 	}
-	
+
 	public static void ImprimirEstadoJuego() {
 		System.out.println("|-------------------------------|   |-------------------------------|");
 		System.out.println("|          Coordenadas          |   |         Partida actual        |");
@@ -60,39 +94,30 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez{
 			System.out.println();
 		}
 	}
-	
-	
-	
-	
-	//metodos de la interfaz.
-	
 
+	// metodos de la interfaz.
 
 	@Override
 	public boolean CalcularMovimiento() {
-		
+
 		return false;
 	}
 
 	@Override
 	public boolean verificarPosicionFinal() {
-		
+
 		return false;
 	}
 
 	@Override
 	public boolean verificarPosicionesEnMedio() {
-		
+
 		return false;
 	}
 
 	@Override
 	public void moverPieza(PiezaAjedrez pieza) {
-		
-		
+
 	}
 
-	
-
-	
 }

@@ -134,7 +134,7 @@ public class Menu {
 			break;
 		case "2":
 			// System.out.println("Nueva partida de ajedrez esta en progreso.");
-			Menu.pruebaImpresionMapaAjedrez();
+			Menu.iniciarJuegoNuevoAjedrez();
 			break;
 		case "3":
 			System.out.println("\nDe vuelta al menu de mindgames.\n");
@@ -154,7 +154,7 @@ public class Menu {
 			break;
 		case "2":
 			// System.out.println("Nueva partida partida de GO esta en progreso.");
-			Menu.pruebaImpresionMapaGo();
+			Menu.iniciarJuegoNuevoGo();
 			break;
 		case "3":
 			System.out.println("\nDe vuelta al menu de mindgames.\n");
@@ -174,7 +174,7 @@ public class Menu {
 			break;
 		case "2":
 			// System.out.println("Nueva partida partida de Damas esta en progreso.");
-			Menu.pruebaImpresionMapaDamas();
+			Menu.iniciarJuegoNuevoDamas();
 			break;
 		case "3":
 			System.out.println("\nDe vuelta al menu de mindgames.\n");
@@ -187,17 +187,17 @@ public class Menu {
 	}
 
 	// Este metodo ahi que borrarlo.
-	public static void pruebaImpresionMapaAjedrez() {
+	public static void iniciarJuegoNuevoAjedrez() {
 
-		GestorAjedrez.imprimirEstadoJuego();
+		GestorAjedrez.iniciarPartida();
 	}
 
-	public static void pruebaImpresionMapaDamas() {
+	public static void iniciarJuegoNuevoDamas() {
 
 		GestorDamas.imprimirEstadoJuego();
 	}
 
-	public static void pruebaImpresionMapaGo() {
+	public static void iniciarJuegoNuevoGo() {
 		GestorGo.imprimirEstadoJuego();
 	}
 
