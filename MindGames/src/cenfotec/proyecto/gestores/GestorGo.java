@@ -5,7 +5,7 @@ import cenfotec.proyecto.juegos.JuegoGo;
 public class GestorGo {
 
 	public static void imprimirEstadoJuego() {
-		//JuegoGo.ImprimirEstadoJuego();
+		JuegoGo.ImprimirEstadoJuego();
 	}
 	
 }

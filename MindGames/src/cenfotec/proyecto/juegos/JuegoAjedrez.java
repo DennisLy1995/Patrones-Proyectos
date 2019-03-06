@@ -7,7 +7,7 @@ import cenfotec.proyecto.logica.MovimientosAjedrez;
 
 public class JuegoAjedrez extends Juego implements MovimientosAjedrez{
 
-	public static PartidaAjedrez partida = new PartidaAjedrez();
+	private static PartidaAjedrez partida = new PartidaAjedrez();
 	
 	public JuegoAjedrez(String jugador1, String jugador2, String ganador, String perdedor) {
 		super(jugador1, jugador2, ganador, perdedor);

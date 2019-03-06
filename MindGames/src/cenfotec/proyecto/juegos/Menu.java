@@ -8,6 +8,8 @@ import cenfotec.proyecto.artefactos.PartidaAjedrez;
 import cenfotec.proyecto.artefactos.PartidaDamas;
 import cenfotec.proyecto.artefactos.PartidaGo;
 import cenfotec.proyecto.gestores.GestorAjedrez;
+import cenfotec.proyecto.gestores.GestorDamas;
+import cenfotec.proyecto.gestores.GestorGo;
 
 public class Menu {
 
@@ -192,50 +194,11 @@ public class Menu {
 
 	public static void pruebaImpresionMapaDamas() {
 
-		System.out.println("|-------------------------------|          |-------------------------------|");
-		System.out.println("|          Coordenadas          |          |        Colores tablero        |");
-		System.out.println("|-------------------------------|          |-------------------------------|");
-		System.out.println();
-		PartidaDamas test = new PartidaDamas();
-		for (int i = 0; i < 10; i++) {
-			System.out.print("  ");
-			for (int e = 0; e < 10; e++) {
-				System.out.print(test.tablero[i][e] + " ");
-			}
-			System.out.print("             ");
-			for (int e = 0; e < 10; e++) {
-				System.out.print(test.tableroColores[i][e] + " ");
-			}
-			System.out.println();
-		}
-		System.out.println();
-		System.out.println("|--------------------------------------------------------------------------|");
-		System.out.println("|                                 Partida                                  |");
-		System.out.println("|--------------------------------------------------------------------------|");
-		System.out.println();
-		for (int i = 0; i < 10; i++) {
-			System.out.print("                        ");
-			for (int e = 0; e < 10; e++) {
-				System.out.print(test.tableroPiezas[i][e].nombre + test.tableroPiezas[i][e].getColor() + " ");
-			}
-			System.out.println();
-		}
-
+		GestorDamas.imprimirEstadoJuego();
 	}
 
 	public static void pruebaImpresionMapaGo() {
-		System.out.println("           |-------------------------------|");
-		System.out.println("           |          Coordenadas          |");
-		System.out.println("           |-------------------------------|");
-		System.out.println();
-		PartidaGo test = new PartidaGo();
-		for (int i = 0; i < 19; i++) {
-			System.out.print("  ");
-			for (int e = 0; e < 19; e++) {
-				System.out.print(test.tablero[i][e] + " ");
-			}
-			System.out.println();
-		}
+		GestorGo.imprimirEstadoJuego();
 	}
 
 }
