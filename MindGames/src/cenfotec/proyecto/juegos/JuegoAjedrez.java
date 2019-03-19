@@ -24,6 +24,7 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 			ImprimirEstadoJuego();
 			switch (lecturaOpcionMenu()) {
 			case "1":
+				moverPieza();
 				breaker = false;
 				break;
 			case "2":
@@ -58,7 +59,17 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		return temp;
 	}
 
-	
+	public static void moverPieza() {
+		String coordenadaInicial;
+		String coordenadaFinal;
+		System.out.println("Ingrese la coordenada donde la pieza se encuentra ubicada:");
+		coordenadaInicial = in.nextLine();
+		System.out.println("Ingrese la coordenada final:");
+		coordenadaFinal = in.nextLine();
+		System.out.println(MovimientosAjedrez.verificarPosicion(coordenadaInicial));
+		System.out.println(MovimientosAjedrez.verificarPosicion(coordenadaFinal));
+		
+	}
 	
 	
 	
@@ -95,29 +106,5 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		}
 	}
 
-	// metodos de la interfaz.
-
-	@Override
-	public boolean CalcularMovimiento() {
-
-		return false;
-	}
-
-	@Override
-	public boolean verificarPosicionFinal() {
-
-		return false;
-	}
-
-	@Override
-	public boolean verificarPosicionesEnMedio() {
-
-		return false;
-	}
-
-	@Override
-	public void moverPieza(PiezaAjedrez pieza) {
-
-	}
 
 }
