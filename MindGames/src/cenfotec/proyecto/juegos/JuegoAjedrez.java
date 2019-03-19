@@ -4,11 +4,12 @@ import java.util.Scanner;
 
 import cenfotec.proyecto.artefactos.PartidaAjedrez;
 import cenfotec.proyecto.artefactos.PiezaAjedrez;
-import cenfotec.proyecto.logica.GeneralesJuego;
 import cenfotec.proyecto.logica.MovimientosAjedrez;
 
 public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 
+	private static int contador;
+	
 	private static PartidaAjedrez partida = new PartidaAjedrez();
 	private static Scanner in = new Scanner(System.in);
 
@@ -19,12 +20,22 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 
 	public static void iniciarPartida() {
 
+		System.out.println("Inician las piezas Negras.");
+		
+		contador = 2;
 		boolean breaker = false;
 		while (breaker==false) {
 			ImprimirEstadoJuego();
 			switch (lecturaOpcionMenu()) {
 			case "1":
-				moverPieza();
+				if(contador%2 == 0) {
+					System.out.println("Mueven las piezas negras.");
+					moverPieza("N");
+				}else {
+					System.out.println("Mueven las piezas blancas.");
+					moverPieza("B");
+				}
+				
 				breaker = false;
 				break;
 			case "2":
@@ -59,19 +70,45 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		return temp;
 	}
 
-	public static void moverPieza() {
+	public static void moverPieza(String color) {
 		String coordenadaInicial;
 		String coordenadaFinal;
+		String piezaRetorno="";
+		
 		System.out.println("Ingrese la coordenada donde la pieza se encuentra ubicada:");
 		coordenadaInicial = in.nextLine();
 		System.out.println("Ingrese la coordenada final:");
 		coordenadaFinal = in.nextLine();
-		System.out.println(MovimientosAjedrez.verificarPosicion(coordenadaInicial));
-		System.out.println(MovimientosAjedrez.verificarPosicion(coordenadaFinal));
+		if(MovimientosAjedrez.verificarPosicion(coordenadaInicial) == true && 
+				MovimientosAjedrez.verificarPosicion(coordenadaFinal) == true) {
+			piezaRetorno = retornarObjetoEnPosicion(coordenadaInicial);
+			if(color.charAt(0) == piezaRetorno.charAt(1) ) {
+				
+				System.out.println("Se puede proceder a mover la pieza.");
+				contador++;
+				
+			}else {
+				System.out.println("No puedes mover la pieza en la posicion " + coordenadaInicial + " porque no te pertenece.");
+			}
+			
+		}else {
+			System.out.println("Coordenadas incorrectas.");
+		}
 		
 	}
 	
-	
+	public static String retornarObjetoEnPosicion(String posicion) {
+		String retorno="";
+		for (int i = 0; i < 8; i++) {
+			for (int e = 0; e < 8; e++) {
+				if(posicion.equals(partida.tablero[i][e])) {
+					retorno = partida.tableroPosiciones[i][e].nombre;
+				}
+			}
+		}
+		
+		return retorno;
+	}
 	
 	
 	
