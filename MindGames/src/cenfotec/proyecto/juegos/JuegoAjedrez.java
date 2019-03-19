@@ -83,8 +83,7 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 				MovimientosAjedrez.verificarPosicion(coordenadaFinal) == true) {
 			piezaRetorno = retornarObjetoEnPosicion(coordenadaInicial);
 			if(color.charAt(0) == piezaRetorno.charAt(1) ) {
-				
-				System.out.println("Se puede proceder a mover la pieza.");
+				colocarPieza(coordenadaInicial, coordenadaFinal, color);
 				contador++;
 				
 			}else {
@@ -97,6 +96,30 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		
 	}
 	
+	private static void colocarPieza(String coordenadaInicial, String coordenadaFinal, String color) {
+		PiezaAjedrez temp= null;
+		//Remover pieza de posicion inicial.
+		for (int i = 0; i < 8; i++) {
+			for (int e = 0; e < 8; e++) {
+				if(coordenadaInicial.equals(partida.tablero[i][e])) {
+					temp = partida.tableroPosiciones[i][e];
+					partida.tableroPosiciones[i][e]=new PiezaAjedrez("--", "*", "*", "*");
+				}
+			}
+		}
+		
+		//Recolocacion de la pieza.
+		for (int i = 0; i < 8; i++) {
+			for (int e = 0; e < 8; e++) {
+				if(coordenadaFinal.equals(partida.tablero[i][e])) {
+					partida.tableroPosiciones[i][e]=temp;
+				}
+			}
+		}
+		
+		
+	}
+
 	public static String retornarObjetoEnPosicion(String posicion) {
 		String retorno="";
 		for (int i = 0; i < 8; i++) {
