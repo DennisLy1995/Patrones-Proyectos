@@ -4,12 +4,12 @@ public class Pieza {
 
 	public String jugador;
 	public String nombre;
-	public String movimiento;
+	public String movimientoPieza;
 	
 	public Pieza(String nombre,String jugador, String movimiento) {
 		this.jugador = jugador;
 		this.nombre = nombre;
-		this.movimiento = movimiento;
+		this.movimientoPieza = movimiento;
 	}
 	
 	

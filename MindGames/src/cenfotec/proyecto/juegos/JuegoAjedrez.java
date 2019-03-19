@@ -1,11 +1,14 @@
 package cenfotec.proyecto.juegos;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import cenfotec.proyecto.artefactos.PartidaAjedrez;
 import cenfotec.proyecto.artefactos.PiezaAjedrez;
 import cenfotec.proyecto.logica.MovimientosAjedrez;
 import com.google.gson.*;
+
+import cenfote.proyecto.utiles.PersistenciaTexto;
 
 public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 
@@ -186,12 +189,15 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 	
 	//Prueba de conversion de objeto a JSON.
 	
-	public static void guardarPartida() {
+	public static void guardarPartida() throws FileNotFoundException {
 		String json = convertirPartidaJSON();
+		String nombrePartida = "";
 		if(json.equals("Default")) {
-			System.out.println("Upps, no se ha logrado convertir la partida en JSON.");
+			System.out.println("Upps, no se ha logrado convertir la partida en formato JSON.");
 		}else {
-			System.out.println(json);
+			System.out.println("Ingrese el nombre de la partida:");
+			nombrePartida = in.nextLine();
+			PersistenciaTexto.guardarArchivo(nombrePartida, json);
 		}
 	}
 	

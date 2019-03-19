@@ -1,5 +1,6 @@
 package cenfotec.proyecto.gestores;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import cenfotec.proyecto.juegos.JuegoAjedrez;
@@ -14,7 +15,7 @@ public class GestorAjedrez {
 		JuegoAjedrez.iniciarPartida();
 	}
 	
-	public static void guardarPartida() {
+	public static void guardarPartida() throws FileNotFoundException {
 		JuegoAjedrez.guardarPartida();
 	}
 

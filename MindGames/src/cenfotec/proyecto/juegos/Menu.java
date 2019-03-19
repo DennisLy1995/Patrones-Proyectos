@@ -1,6 +1,7 @@
 package cenfotec.proyecto.juegos;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -137,7 +138,11 @@ public class Menu {
 			Menu.iniciarJuegoNuevoAjedrez();
 			break;
 		case "3":
-			Menu.guardarPartida();
+			try {
+				Menu.guardarPartida();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
 			break;
 		case "4":
 			System.out.println("\nDe vuelta al menu de mindgames.\n");
@@ -207,7 +212,7 @@ public class Menu {
 	}
 
 	
-	private static void guardarPartida() {
+	private static void guardarPartida() throws FileNotFoundException {
 		GestorAjedrez.guardarPartida();
 	}
 	

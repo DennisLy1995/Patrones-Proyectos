@@ -13,33 +13,33 @@ public class PiezaAjedrez extends Pieza{
 	
 	
 	public static String retornarMovimiento(String nombrePieza) {
-		String movimiento="";
+		String movimientoPieza="";
 		switch(nombrePieza) {
 		case "peon":
-			movimiento = "frente/consume diagnonal";
+			movimientoPieza = "frente/consume diagnonal";
 			break;
 		case "torre":
-			movimiento = "recto ilimitado";
+			movimientoPieza = "recto ilimitado";
 			break;
 		case "alfil":
-			movimiento = "Diagonal ilimitado";
+			movimientoPieza = "Diagonal ilimitado";
 			break;
 		case "caballo":
-			movimiento = "movimiento en L";
+			movimientoPieza = "movimiento en L";
 			break;
 		case "reina":
-			movimiento = "recto y diagonal ilimitado";
+			movimientoPieza = "recto y diagonal ilimitado";
 			break;
 		case "rey":
-			movimiento = "recto 1 posicion";
+			movimientoPieza = "recto 1 posicion";
 			break;
 		case "*":
-			movimiento = "Ninguno";
+			movimientoPieza = "Ninguno";
 			break;
 		}
 		
 		
-		return movimiento;
+		return movimientoPieza;
 	}
 
 
