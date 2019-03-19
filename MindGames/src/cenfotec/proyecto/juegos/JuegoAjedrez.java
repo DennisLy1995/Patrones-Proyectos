@@ -5,6 +5,7 @@ import java.util.Scanner;
 import cenfotec.proyecto.artefactos.PartidaAjedrez;
 import cenfotec.proyecto.artefactos.PiezaAjedrez;
 import cenfotec.proyecto.logica.MovimientosAjedrez;
+import com.google.gson.*;
 
 public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 
@@ -98,6 +99,15 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 	
 	private static void colocarPieza(String coordenadaInicial, String coordenadaFinal, String color) {
 		PiezaAjedrez temp= null;
+		
+		//Validar que el movimiento sea valido segun la pieza.
+		/*
+		boolean checker = validarMovimiento(String coordenadaInicial, String coordenadaFinal, color);
+		if(checker == true) {
+			//colocar aqui el cambio de pieza
+		}
+		*/
+		
 		//Remover pieza de posicion inicial.
 		for (int i = 0; i < 8; i++) {
 			for (int e = 0; e < 8; e++) {
@@ -164,6 +174,37 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 			}
 			System.out.println();
 		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//Prueba de conversion de objeto a JSON.
+	
+	public static void guardarPartida() {
+		String json = convertirPartidaJSON();
+		if(json.equals("Default")) {
+			System.out.println("Upps, no se ha logrado convertir la partida en JSON.");
+		}else {
+			System.out.println(json);
+		}
+	}
+	
+	public static String convertirPartidaJSON() {
+		String partidaTemp = "Default";
+		Gson gson = new Gson();
+		try{
+			partidaTemp = gson.toJson(partida);
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		
+		return partidaTemp;
 	}
 
 

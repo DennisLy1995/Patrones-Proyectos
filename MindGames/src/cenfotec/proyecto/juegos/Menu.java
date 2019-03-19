@@ -95,7 +95,7 @@ public class Menu {
 	}
 
 	public static void imprimirMenuAjedres() {
-		String[] opcionesMenu = { "---Ajedrez---", "1.Cargar partida", "2.Nueva partida", "3.Salir" };
+		String[] opcionesMenu = { "---Ajedrez---", "1.Cargar partida", "2.Nueva partida", "3.Guardar partida actual" , "4.Salir" };
 		System.out.println("\n");
 		for (int i = 0; i < opcionesMenu.length; i++) {
 			System.out.println(opcionesMenu[i]);
@@ -137,6 +137,9 @@ public class Menu {
 			Menu.iniciarJuegoNuevoAjedrez();
 			break;
 		case "3":
+			Menu.guardarPartida();
+			break;
+		case "4":
 			System.out.println("\nDe vuelta al menu de mindgames.\n");
 			retorno = 1;
 			break;
@@ -145,6 +148,8 @@ public class Menu {
 		}
 		return retorno;
 	}
+
+
 
 	public static int redireccionadorGo(String opcionMenu) {
 		int retorno = 0;
@@ -201,4 +206,9 @@ public class Menu {
 		GestorGo.imprimirEstadoJuego();
 	}
 
+	
+	private static void guardarPartida() {
+		GestorAjedrez.guardarPartida();
+	}
+	
 }

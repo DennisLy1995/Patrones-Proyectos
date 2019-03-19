@@ -13,5 +13,9 @@ public class GestorAjedrez {
 	public static void iniciarPartida() {
 		JuegoAjedrez.iniciarPartida();
 	}
+	
+	public static void guardarPartida() {
+		JuegoAjedrez.guardarPartida();
+	}
 
 }

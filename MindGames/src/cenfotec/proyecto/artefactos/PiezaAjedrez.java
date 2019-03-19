@@ -41,6 +41,26 @@ public class PiezaAjedrez extends Pieza{
 		
 		return movimiento;
 	}
+
+
+	public String getMovimiento() {
+		return movimiento;
+	}
+
+
+	public void setMovimiento(String movimiento) {
+		this.movimiento = movimiento;
+	}
+
+
+	public String getColor() {
+		return color;
+	}
+
+
+	public void setColor(String color) {
+		this.color = color;
+	}
 	
 	
 }
