@@ -42,6 +42,14 @@ public class JuegoDamas extends Juego implements MovimientosDamas{
 			System.out.println();
 		}
 	}
+
+	public static PartidaDamas getPartida() {
+		return partida;
+	}
+
+	public static void setPartida(PartidaDamas partida) {
+		JuegoDamas.partida = partida;
+	}
 	
 	
 }

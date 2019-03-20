@@ -26,5 +26,13 @@ public class JuegoGo extends Juego implements MovimientosGo{
 			System.out.println();
 		}
 	}
+
+	public static PartidaGo getPartida() {
+		return partida;
+	}
+
+	public static void setPartida(PartidaGo partida) {
+		JuegoGo.partida = partida;
+	}
 	
 }

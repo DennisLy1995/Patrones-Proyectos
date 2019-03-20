@@ -7,6 +7,7 @@ import cenfotec.proyecto.artefactos.PartidaAjedrez;
 import cenfotec.proyecto.artefactos.PiezaAjedrez;
 import cenfotec.proyecto.logica.MovimientosAjedrez;
 import cenfotec.proyecto.utiles.PersistenciaTexto;
+import cenfotec.proyecto.utiles.Serializer;
 
 import com.google.gson.*;
 
@@ -182,7 +183,8 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 	//Prueba de conversion de objeto a JSON.
 	
 	public static void guardarPartida() throws FileNotFoundException {
-		String json = convertirPartidaJSON();
+		
+		String json = Serializer.convertirPartidaJSON(1);
 		String nombrePartida = "";
 		if(json.equals("Default")) {
 			System.out.println("Upps, no se ha logrado convertir la partida en formato JSON.");
@@ -193,7 +195,7 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		}
 	}
 	
-	public static String convertirPartidaJSON() {
+	/*public static String convertirPartidaJSON() {
 		String partidaTemp = "Default";
 		Gson gson = new Gson();
 		try{
@@ -203,7 +205,7 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		}
 		
 		return partidaTemp;
-	}
+	}*/
 
 	public static void cargarPartida() throws IOException {
 		

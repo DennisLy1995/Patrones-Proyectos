@@ -5,10 +5,14 @@ import com.google.gson.Gson;
 import cenfotec.proyecto.artefactos.PartidaAjedrez;
 import cenfotec.proyecto.artefactos.PartidaDamas;
 import cenfotec.proyecto.artefactos.PartidaGo;
+import cenfotec.proyecto.artefactos.Tablero;
+import cenfotec.proyecto.juegos.JuegoAjedrez;
+import cenfotec.proyecto.juegos.JuegoDamas;
+import cenfotec.proyecto.juegos.JuegoGo;
 
 public class Serializer {
 
-	//serializacion
+	//Deserializacion.
 	
 	public static PartidaAjedrez convertirJSONPartidaAjedrez(String temp) {
 		Gson gson = new Gson();
@@ -25,13 +29,14 @@ public class Serializer {
 		return gson.fromJson(temp, PartidaDamas.class);
 	}
 	
-	//Deserializacion
+	//Serializacion
 	
-	public static String convertirPartidaAjedrezJSON(PartidaAjedrez partida) {
+	
+	public static String convertirPartidaJSON(int tipoJuego) {
 		String partidaTemp = "Default";
 		Gson gson = new Gson();
 		try{
-			partidaTemp = gson.toJson(partida);
+			partidaTemp = gson.toJson(retornarPartida(tipoJuego));
 		}catch(Exception e) {
 			System.out.println(e);
 		}
@@ -40,29 +45,23 @@ public class Serializer {
 	}
 	
 	
-	public static String convertirPartidaDamasJSON(PartidaDamas partida) {
-		String partidaTemp = "Default";
-		Gson gson = new Gson();
-		try{
-			partidaTemp = gson.toJson(partida);
-		}catch(Exception e) {
-			System.out.println(e);
+	
+	public static Tablero retornarPartida(int tipoJuego) {
+		
+		Tablero partida = null;
+		switch(tipoJuego) {
+		case 1:
+			partida = JuegoAjedrez.getPartida();
+			break;
+		case 2:
+			partida = JuegoDamas.getPartida();
+			break;
+		case 3:
+			partida = JuegoGo.getPartida();
+			break;
 		}
 		
-		return partidaTemp;
-	}
-	
-	
-	public static String convertirPartidaGoJSON(PartidaGo partida) {
-		String partidaTemp = "Default";
-		Gson gson = new Gson();
-		try{
-			partidaTemp = gson.toJson(partida);
-		}catch(Exception e) {
-			System.out.println(e);
-		}
-		
-		return partidaTemp;
+		return partida;
 	}
 	
 	
