@@ -6,9 +6,9 @@ import java.util.Scanner;
 import cenfotec.proyecto.artefactos.PartidaAjedrez;
 import cenfotec.proyecto.artefactos.PiezaAjedrez;
 import cenfotec.proyecto.logica.MovimientosAjedrez;
-import com.google.gson.*;
+import cenfotec.proyecto.utiles.PersistenciaTexto;
 
-import cenfote.proyecto.utiles.PersistenciaTexto;
+import com.google.gson.*;
 
 public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 

@@ -1,4 +1,4 @@
-package cenfote.proyecto.utiles;
+package cenfotec.proyecto.utiles;
 
 import java.io.BufferedReader;
 import java.io.File;
