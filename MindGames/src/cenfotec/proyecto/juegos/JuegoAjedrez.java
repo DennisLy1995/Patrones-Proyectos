@@ -173,15 +173,6 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	//Prueba de conversion de objeto a JSON.
-	
 	public static void guardarPartida() throws FileNotFoundException {
 		
 		String json = Serializer.convertirPartidaJSON(1);
@@ -195,29 +186,22 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		}
 	}
 	
-	/*public static String convertirPartidaJSON() {
-		String partidaTemp = "Default";
-		Gson gson = new Gson();
-		try{
-			partidaTemp = gson.toJson(partida);
+
+	public static boolean cargarPartida() throws IOException {
+		System.out.println("Ingrese el nombre de la partida:");
+		String nombreArchivo = in.nextLine();
+		try {
+			String temp = PersistenciaTexto.leerArchivoTexto(nombreArchivo);
+			partida = Serializer.convertirJSONPartidaAjedrez(temp);
+			ImprimirEstadoJuego();
+			return true;
 		}catch(Exception e) {
-			System.out.println(e);
+			System.out.println("No se ha cargado el archivo, verifique que el archivo exista.");
+			return false;
 		}
 		
-		return partidaTemp;
-	}*/
-
-	public static void cargarPartida() throws IOException {
-		
-		String temp = PersistenciaTexto.leerArchivoTexto("temp");
-		convertirJSONObjeto(temp);
-		ImprimirEstadoJuego();
 	}
 	
-	public static void convertirJSONObjeto(String temp) {
-		Gson gson = new Gson();
-		partida = gson.fromJson(temp, PartidaAjedrez.class);
-	}
 
 	//Metodos Get y Set de la clase.
 

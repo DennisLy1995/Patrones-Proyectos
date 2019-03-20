@@ -39,6 +39,7 @@ public class PersistenciaTexto {
 	public static String leerArchivoTexto(String nombre) throws IOException {
 		String lecturaTemp = "";
 		String lectura="";
+		direccionArchivos = "C:\\Users\\Public\\Documents\\";
 		direccionArchivos = direccionArchivos+nombre+".txt";
 		FileReader fileReader = new FileReader(direccionArchivos);
 		try {

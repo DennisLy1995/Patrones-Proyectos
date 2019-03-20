@@ -96,7 +96,7 @@ public class Menu {
 	}
 
 	public static void imprimirMenuAjedres() {
-		String[] opcionesMenu = { "---Ajedrez---", "1.Cargar partida", "2.Nueva partida", "3.Guardar partida actual" , "4.Salir" };
+		String[] opcionesMenu = { "-----Ajedrez-----","", "1.Cargar partida", "2.Nueva partida", "3.Guardar partida actual" , "4.Salir","", "---Ajedrez---" };
 		System.out.println("\n");
 		for (int i = 0; i < opcionesMenu.length; i++) {
 			System.out.println(opcionesMenu[i]);
@@ -105,7 +105,7 @@ public class Menu {
 	}
 
 	public static void imprimirMenuTablero() {
-		String[] opcionesMenu = { "---Tablero---", "1.Cargar partida", "2.Nueva partida", "3.Salir" };
+		String[] opcionesMenu = { "-----Tablero-----","", "1.Cargar partida", "2.Nueva partida", "3.Salir","", "---Tablero---" };
 		System.out.println("\n");
 		for (int i = 0; i < opcionesMenu.length; i++) {
 			System.out.println(opcionesMenu[i]);
@@ -114,7 +114,7 @@ public class Menu {
 	}
 
 	public static void imprimirMenuGo() {
-		String[] opcionesMenu = { "---GO---", "1.Cargar partida", "2.Nueva partida", "3.Salir" };
+		String[] opcionesMenu = { "-----GO-----","", "1.Cargar partida", "2.Nueva partida", "3.Salir","", "---GO---" };
 		System.out.println("\n");
 		for (int i = 0; i < opcionesMenu.length; i++) {
 			System.out.println(opcionesMenu[i]);
@@ -131,7 +131,6 @@ public class Menu {
 		int retorno = 0;
 		switch (opcionMenu) {
 		case "1":
-			System.out.println("Cargar partida de ajedrez esta en progreso.");
 			try {
 				Menu.cargarPartidaAjedrez();
 			} catch (IOException e1) {
