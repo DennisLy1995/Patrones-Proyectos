@@ -14,9 +14,9 @@ public class Serializer {
 
 	//Deserializacion.
 	
-	public static PartidaAjedrez convertirJSONPartidaAjedrez(String temp) {
+	public static Tablero convertirJSONPartida(String temp) {
 		Gson gson = new Gson();
-		return gson.fromJson(temp, PartidaAjedrez.class);
+		return gson.fromJson(temp, Tablero.class);
 	}
 	
 	public static PartidaGo convertirJSONPartidaGo(String temp) {
@@ -29,7 +29,7 @@ public class Serializer {
 		return gson.fromJson(temp, PartidaDamas.class);
 	}
 	
-	//Serializacion
+	//Serializacion.
 	
 	
 	public static String convertirPartidaJSON(int tipoJuego) {
