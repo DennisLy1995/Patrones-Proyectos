@@ -25,6 +25,7 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 	public static void iniciarPartida() {
 
 		System.out.println("Inician las piezas Negras.");
+		partida = new PartidaAjedrez();
 		
 		contador = 2;
 		boolean breaker = false;
