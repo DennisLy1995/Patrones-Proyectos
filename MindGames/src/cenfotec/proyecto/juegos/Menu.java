@@ -132,9 +132,13 @@ public class Menu {
 		switch (opcionMenu) {
 		case "1":
 			System.out.println("Cargar partida de ajedrez esta en progreso.");
+			try {
+				Menu.cargarPartidaAjedrez();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 			break;
 		case "2":
-			// System.out.println("Nueva partida de ajedrez esta en progreso.");
 			Menu.iniciarJuegoNuevoAjedrez();
 			break;
 		case "3":
@@ -153,6 +157,8 @@ public class Menu {
 		}
 		return retorno;
 	}
+
+
 
 
 
@@ -214,6 +220,13 @@ public class Menu {
 	
 	private static void guardarPartida() throws FileNotFoundException {
 		GestorAjedrez.guardarPartida();
+	}
+	
+	
+	
+	private static void cargarPartidaAjedrez() throws IOException {
+		GestorAjedrez.cargarPartida();
+		
 	}
 	
 }

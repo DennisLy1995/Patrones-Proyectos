@@ -1,7 +1,9 @@
 package cenfote.proyecto.utiles;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -31,9 +33,28 @@ public class PersistenciaTexto {
             }
         }
 		
-		
 		return checker;
+	}
+	
+	public static String leerArchivoTexto(String nombre) throws IOException {
+		String lecturaTemp = "";
+		String lectura="";
+		direccionArchivos = direccionArchivos+nombre+".txt";
+		FileReader fileReader = new FileReader(direccionArchivos);
+		try {
+			
+			BufferedReader buffer = new BufferedReader(fileReader);
+			
+			while((lecturaTemp=buffer.readLine())!=null) {
+				lectura = lectura + lecturaTemp;
+			}
+			fileReader.close();
+		}catch(Exception e) {
+			fileReader.close();
+			System.out.println("No se ha logrado leer el archivo.");
+		}
 		
+		return lectura;
 	}
 	
 }

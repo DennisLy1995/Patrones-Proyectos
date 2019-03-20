@@ -1,8 +1,8 @@
 package cenfotec.proyecto.juegos;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
-
 import cenfotec.proyecto.artefactos.PartidaAjedrez;
 import cenfotec.proyecto.artefactos.PiezaAjedrez;
 import cenfotec.proyecto.logica.MovimientosAjedrez;
@@ -146,15 +146,6 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		return retorno;
 	}
 	
-	
-	
-	public static PartidaAjedrez getPartida() {
-		return partida;
-	}
-
-	public static void setPartida(PartidaAjedrez partida) {
-		JuegoAjedrez.partida = partida;
-	}
 
 	public static PiezaAjedrez[][] retornarTablerojuego() {
 		return partida.getTableroPosiciones();
@@ -213,5 +204,27 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		return partidaTemp;
 	}
 
+	public static void cargarPartida() throws IOException {
+		
+		String temp = PersistenciaTexto.leerArchivoTexto("temp");
+		convertirJSONObjeto(temp);
+		ImprimirEstadoJuego();
+	}
+	
+	public static void convertirJSONObjeto(String temp) {
+		Gson gson = new Gson();
+		partida = gson.fromJson(temp, PartidaAjedrez.class);
+	}
 
+	//Metodos Get y Set de la clase.
+
+	public static PartidaAjedrez getPartida() {
+		return partida;
+	}
+
+	public static void setPartida(PartidaAjedrez partida) {
+		JuegoAjedrez.partida = partida;
+	}
+	
+	
 }
