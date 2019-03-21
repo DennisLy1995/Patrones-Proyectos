@@ -4,10 +4,6 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
-
-import cenfotec.proyecto.artefactos.PartidaAjedrez;
-import cenfotec.proyecto.artefactos.PartidaDamas;
-import cenfotec.proyecto.artefactos.PartidaGo;
 import cenfotec.proyecto.gestores.GestorAjedrez;
 import cenfotec.proyecto.gestores.GestorDamas;
 import cenfotec.proyecto.gestores.GestorGo;
@@ -15,11 +11,16 @@ import cenfotec.proyecto.gestores.GestorGo;
 public class Menu {
 
 	static java.io.BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+	private static String[] menuPrincipal= { "1.Ajedrez", "2.Tablero", "3.Go", "4.Salir" };
+	private static String[] menuAjedrez= { "-----Ajedrez-----","", "1.Cargar partida", "2.Nueva partida", "3.Descargar partida actual en archivo de texto." , "4.Salir","", "---Ajedrez---" };
+	private static String[] menuDamas= { "-----Damas-----","", "1.Cargar partida", "2.Nueva partida", "3.Descargar partida actual en archivo de texto." , "4.Salir","", "-----Damas-----" };
+	private static String[] menuGo= { "-----Go-----","", "1.Cargar partida", "2.Nueva partida", "3.Descargar partida actual en archivo de texto." , "4.Salir","", "-----Go-----" };
 
 	public static void main(String[] args) throws IOException {
 
 		int breakerLogin = 0;
 		int breakerMenu = 0;
+		boolean validarUsuario=false;
 
 		while (breakerLogin == 0) {
 
@@ -28,20 +29,22 @@ public class Menu {
 			System.out.println("Ingrese su contraseña\n");
 			String contrasena = "1234";
 
+			validarUsuario = validacionCredenciales(nombreUsuario, contrasena);
+			
 			// Se valida que la contraseña y el nombre de usuario sean los correctos.
-			if (nombreUsuario.equals("Dennis") && contrasena.contentEquals("1234")) {
+			if (validarUsuario == true) {
 
 				while (breakerMenu == 0) {
 
 					// Despliegue del menu principal
 					int breakerSubMenu = 0;
-					imprimirMenuPrincipal();
+					imprimirMenu(menuPrincipal);
 					String opcionMenu = in.readLine();
 					String opcionMenuJuego = "";
 					switch (opcionMenu) {
 					case "1":
 						while (breakerSubMenu == 0) {
-							imprimirMenuAjedres();
+							imprimirMenu(menuAjedrez);
 							opcionMenuJuego = Menu.opcionmenuJuego();
 							breakerSubMenu = Menu.redireccionadorAjedrez(opcionMenuJuego);
 						}
@@ -49,7 +52,7 @@ public class Menu {
 						break;
 					case "2":
 						while (breakerSubMenu == 0) {
-							imprimirMenuTablero();
+							imprimirMenu(menuDamas);
 							opcionMenuJuego = Menu.opcionmenuJuego();
 							breakerSubMenu = Menu.redireccionadorDamas(opcionMenuJuego);
 						}
@@ -57,7 +60,7 @@ public class Menu {
 						break;
 					case "3":
 						while (breakerSubMenu == 0) {
-							imprimirMenuGo();
+							imprimirMenu(menuGo);
 							opcionMenuJuego = Menu.opcionmenuJuego();
 							breakerSubMenu = Menu.redireccionadorGo(opcionMenuJuego);
 						}
@@ -82,12 +85,12 @@ public class Menu {
 
 	}
 
-	/*
-	 * Funciones creadas para impresion de los diferentes Menus.
-	 */
+	private static boolean validacionCredenciales(String nombreUsuario, String contrasena) {
+		
+		return true;
+	}
 
-	public static void imprimirMenuPrincipal() {
-		String[] opcionesMenu = { "1.Ajedrez", "2.Tablero", "3.Go", "4.Salir" };
+	public static void imprimirMenu(String[] opcionesMenu) {
 		System.out.println("\n");
 		for (int i = 0; i < opcionesMenu.length; i++) {
 			System.out.println(opcionesMenu[i]);
@@ -95,33 +98,7 @@ public class Menu {
 		System.out.println("\n");
 	}
 
-	public static void imprimirMenuAjedres() {
-		String[] opcionesMenu = { "-----Ajedrez-----","", "1.Cargar partida", "2.Nueva partida", "3.Descargar partida actual en archivo de texto." , "4.Salir","", "---Ajedrez---" };
-		System.out.println("\n");
-		for (int i = 0; i < opcionesMenu.length; i++) {
-			System.out.println(opcionesMenu[i]);
-		}
-		System.out.println("\n");
-	}
-
-	public static void imprimirMenuTablero() {
-		String[] opcionesMenu = { "-----Tablero-----","", "1.Cargar partida", "2.Nueva partida", "3.Descargar partida actual en archivo de texto." , "4.Salir","", "---Tablero---" };
-		System.out.println("\n");
-		for (int i = 0; i < opcionesMenu.length; i++) {
-			System.out.println(opcionesMenu[i]);
-		}
-		System.out.println("\n");
-	}
-
-	public static void imprimirMenuGo() {
-		String[] opcionesMenu = { "-----GO-----","", "1.Cargar partida", "2.Nueva partida", "3.Descargar partida actual en archivo de texto." , "4.Salir","", "---GO---" };
-		System.out.println("\n");
-		for (int i = 0; i < opcionesMenu.length; i++) {
-			System.out.println(opcionesMenu[i]);
-		}
-		System.out.println("\n");
-	}
-
+	
 	public static String opcionmenuJuego() throws IOException {
 		String opcion = in.readLine();
 		return opcion;
