@@ -4,6 +4,7 @@ public class PartidaGo extends Tablero {
 
 	public PartidaGo() {
 
+		this.tipoJuego = "Go";
 		this.tablero = new String[19][19];
 
 		// Se agregan las coordenadas del tablero.

@@ -76,16 +76,15 @@ public class JuegoDamas extends Juego implements MovimientosDamas{
 	}
 
 
-	public static boolean cargarPartida() throws IOException {
-		System.out.println("Ingrese el nombre de la partida:");
-		String nombreArchivo = in.nextLine();
-		try {
-			String temp = PersistenciaTexto.leerArchivoTexto(nombreArchivo);
-			partida = Serializer.convertirJSONPartidaDamas(temp);
+	public static boolean cargarPartidaArchivoTexto(String tipo) throws IOException {
+		
+		boolean checker = false;
+		checker = PersistenciaTexto.compararJSONTipoSolicitado(partida, tipo);
+		
+		if(checker) {
 			ImprimirEstadoJuego();
 			return true;
-		}catch(Exception e) {
-			System.out.println("No se ha cargado el archivo, verifique que el archivo exista.");
+		}else {
 			return false;
 		}
 		

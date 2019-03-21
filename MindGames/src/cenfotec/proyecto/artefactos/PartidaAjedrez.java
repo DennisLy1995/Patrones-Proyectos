@@ -6,6 +6,7 @@ public class PartidaAjedrez extends Tablero {
 
 	public PartidaAjedrez() {
 
+		this.tipoJuego = "Ajedrez";
 		this.tablero = new String[8][8];
 		tableroPosiciones = new PiezaAjedrez[8][8];
 		String letra = "";

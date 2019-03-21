@@ -6,10 +6,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
+
+import cenfotec.proyecto.artefactos.Tablero;
 
 
 public class PersistenciaTexto {
 
+	private static Scanner in = new Scanner(System.in);
 	private static String direccionArchivos = "C:\\Users\\Public\\Documents\\";
 	private static File file;
 	
@@ -57,5 +61,26 @@ public class PersistenciaTexto {
 		
 		return lectura;
 	}
+	
+	public static boolean compararJSONTipoSolicitado(Tablero partida, String tipo) {
+		System.out.println("Ingrese el nombre de la partida:");
+		String nombreArchivo = in.nextLine();
+		try {
+			String temp = PersistenciaTexto.leerArchivoTexto(nombreArchivo);
+			partida = Serializer.convertirJSONPartidaAjedrez(temp);
+			if(partida.getTipoJuego().equals(tipo)) {
+				//ImprimirEstadoJuego();
+				return true;
+			}else {
+				System.out.println("Verifique que el archivo pertenezca a una partida de " +tipo+".");
+				return false;
+			}
+			
+		}catch(Exception e) {
+			System.out.println("No se ha cargado el archivo, verifique que el archivo exista.");
+			return false;
+		}
+	}
+	
 	
 }

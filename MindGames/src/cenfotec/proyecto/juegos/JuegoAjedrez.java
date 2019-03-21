@@ -5,11 +5,10 @@ import java.io.IOException;
 import java.util.Scanner;
 import cenfotec.proyecto.artefactos.PartidaAjedrez;
 import cenfotec.proyecto.artefactos.PiezaAjedrez;
+import cenfotec.proyecto.artefactos.Tablero;
 import cenfotec.proyecto.logica.MovimientosAjedrez;
 import cenfotec.proyecto.utiles.PersistenciaTexto;
 import cenfotec.proyecto.utiles.Serializer;
-
-import com.google.gson.*;
 
 public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 
@@ -20,7 +19,6 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 
 	public JuegoAjedrez(String jugador1, String jugador2, String ganador, String perdedor) {
 		super(jugador1, jugador2, ganador, perdedor);
-
 	}
 
 	public static void iniciarPartida() {
@@ -192,16 +190,15 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 	}
 	
 
-	public static boolean cargarPartida() throws IOException {
-		System.out.println("Ingrese el nombre de la partida:");
-		String nombreArchivo = in.nextLine();
-		try {
-			String temp = PersistenciaTexto.leerArchivoTexto(nombreArchivo);
-			partida = Serializer.convertirJSONPartidaAjedrez(temp);
+	public static boolean cargarPartidaArchivoTexto(String tipo) throws IOException {
+		
+		boolean checker = false;
+		checker = PersistenciaTexto.compararJSONTipoSolicitado(partida, tipo);
+		
+		if(checker) {
 			ImprimirEstadoJuego();
 			return true;
-		}catch(Exception e) {
-			System.out.println("No se ha cargado el archivo, verifique que el archivo exista.");
+		}else {
 			return false;
 		}
 		

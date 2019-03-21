@@ -18,7 +18,7 @@ public class Menu {
 			                                  "            3. Go.", 
 			                                  "             4. Salir.",
 			                                  "",
-			                                  "          INGRESAR LA OPCION: "};
+			                                  "INGRESAR LA OPCION: "};
 	private static String[] menuAjedrez= { "Ajedrez",
 			                                "---------------------------------------------------------------------",
                                             "          1. Cargar partida.", 
@@ -248,18 +248,43 @@ public class Menu {
 	
 	
 	private static void cargarPartidaAjedrez() throws IOException {
-		GestorAjedrez.cargarPartida();
-		
+		System.out.println("Ingrese un 1 para cargar partida de un archivo de texto.\n"
+				+ "Ingrese un 2 para cargar la partida de nuestra base de datos.");
+		String router=in.readLine();
+		switch(router) {
+		case "1":
+			GestorAjedrez.cargarPartidaArchivoTexto();
+			break;
+		case "2":
+			break;
+		}
 	}
 	
 	private static void cargarPartidaDamas() throws IOException {
-		GestorDamas.cargarPartida();
-		
+		System.out.println("Ingrese un 1 para cargar partida de un archivo de texto.\n"
+				+ "Ingrese un 2 para cargar la partida de nuestra base de datos.");
+		String router=in.readLine();
+		switch(router) {
+		case "1":
+			GestorDamas.cargarPartida();
+			break;
+		case "2":
+			break;
+		}
+
 	}
 	
 	private static void cargarPartidaGo() throws IOException {
-		GestorAjedrez.cargarPartida();
-		
+		System.out.println("Ingrese un 1 para cargar partida de un archivo de texto.\n"
+				+ "Ingrese un 2 para cargar la partida de nuestra base de datos.");
+		String router=in.readLine();
+		switch(router) {
+		case "1":
+			GestorGo.cargarPartida();
+			break;
+		case "2":
+			break;
+		}
 	}
 	
 }

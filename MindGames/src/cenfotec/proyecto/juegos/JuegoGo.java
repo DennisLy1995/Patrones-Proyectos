@@ -35,7 +35,7 @@ public class JuegoGo extends Juego implements MovimientosGo{
 	
 	public static void guardarPartida() throws FileNotFoundException {
 		
-		String json = Serializer.convertirPartidaJSON(2);
+		String json = Serializer.convertirPartidaJSON(3);
 		String nombrePartida = "";
 		if(json.equals("Default")) {
 			System.out.println("Upps, no se ha logrado convertir la partida en formato JSON.");
@@ -56,16 +56,15 @@ public class JuegoGo extends Juego implements MovimientosGo{
 		JuegoGo.partida = partida;
 	}
 
-	public static boolean cargarPartida() throws IOException {
-		System.out.println("Ingrese el nombre de la partida:");
-		String nombreArchivo = in.nextLine();
-		try {
-			String temp = PersistenciaTexto.leerArchivoTexto(nombreArchivo);
-			partida = Serializer.convertirJSONPartidaGo(temp);
+	public static boolean cargarPartidaArchivoTexto(String tipo) throws IOException {
+		
+		boolean checker = false;
+		checker = PersistenciaTexto.compararJSONTipoSolicitado(partida, tipo);
+		
+		if(checker) {
 			ImprimirEstadoJuego();
 			return true;
-		}catch(Exception e) {
-			System.out.println("No se ha cargado el archivo, verifique que el archivo exista.");
+		}else {
 			return false;
 		}
 		

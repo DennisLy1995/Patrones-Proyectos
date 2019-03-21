@@ -7,6 +7,7 @@ public class PartidaDamas extends Tablero {
 
 	public PartidaDamas() {
 
+		this.tipoJuego = "Damas";
 		this.tablero = new String[10][10];
 
 		// Se agregan las coordenadas del tablero.
