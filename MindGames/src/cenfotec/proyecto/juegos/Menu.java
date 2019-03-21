@@ -11,10 +11,38 @@ import cenfotec.proyecto.gestores.GestorGo;
 public class Menu {
 
 	static java.io.BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-	private static String[] menuPrincipal= { "1.Ajedrez", "2.Tablero", "3.Go", "4.Salir" };
-	private static String[] menuAjedrez= { "-----Ajedrez-----","", "1.Cargar partida", "2.Nueva partida", "3.Descargar partida actual en archivo de texto." , "4.Salir","", "---Ajedrez---" };
-	private static String[] menuDamas= { "-----Damas-----","", "1.Cargar partida", "2.Nueva partida", "3.Descargar partida actual en archivo de texto." , "4.Salir","", "-----Damas-----" };
-	private static String[] menuGo= { "-----Go-----","", "1.Cargar partida", "2.Nueva partida", "3.Descargar partida actual en archivo de texto." , "4.Salir","", "-----Go-----" };
+	private static String[] menuPrincipal= { "Mindgames",
+			                                  "----------------------------------------------------",
+			                                  "          1. Ajedrez.", 
+			                                  "           2. Tablero.", 
+			                                  "            3. Go.", 
+			                                  "             4. Salir.",
+			                                  "",
+			                                  "          INGRESAR LA OPCION: "};
+	private static String[] menuAjedrez= { "Ajedrez",
+			                                "---------------------------------------------------------------------",
+                                            "          1. Cargar partida.", 
+                                            "           2. Nueva partida.", 
+                                            "            3. Descargar partida actual en archivo de texto." , 
+                                            "             4. Salir.",
+                                            "", 
+                                            "INGRESAR LA OPCION: " };
+	private static String[] menuDamas= { "Damas Chinas",
+                                          "---------------------------------------------------------------------",
+                                          "          1. Cargar partida.", 
+                                          "           2. Nueva partida.", 
+                                          "            3. Descargar partida actual en archivo de texto." , 
+                                          "             4. Salir.",
+                                          "", 
+                                          "INGRESAR LA OPCION: " };
+	private static String[] menuGo= { "GO",
+                                       "---------------------------------------------------------------------",
+                                       "          1. Cargar partida.", 
+                                       "           2. Nueva partida.", 
+                                       "            3. Descargar partida actual en archivo de texto." , 
+                                       "             4. Salir.",
+                                       "", 
+                                       "INGRESAR LA OPCION: " };
 
 	public static void main(String[] args) throws IOException {
 
@@ -24,10 +52,10 @@ public class Menu {
 
 		while (breakerLogin == 0) {
 
-			System.out.println("Bienvenido a Mind Games\nIngrese su nombre de usuario\\n");
-			String nombreUsuario = "Dennis";
+			System.out.println("Bienvenido a Mind Games\nIngrese su nombre de usuario\n");
+			String nombreUsuario = in.readLine();
 			System.out.println("Ingrese su contraseña\n");
-			String contrasena = "1234";
+			String contrasena = in.readLine();
 
 			validarUsuario = validacionCredenciales(nombreUsuario, contrasena);
 			
@@ -135,18 +163,14 @@ public class Menu {
 		return retorno;
 	}
 
-
-
-
-
-	public static int redireccionadorGo(String opcionMenu) {
+	
+	public static int redireccionadorGo(String opcionMenu) throws IOException {
 		int retorno = 0;
 		switch (opcionMenu) {
 		case "1":
-			System.out.println("Cargar partida de GO esta en progreso.");
+			cargarPartidaGo();
 			break;
 		case "2":
-			// System.out.println("Nueva partida partida de GO esta en progreso.");
 			Menu.iniciarJuegoNuevoGo();
 			break;
 		case "3":
@@ -166,11 +190,11 @@ public class Menu {
 		return retorno;
 	}
 
-	public static int redireccionadorDamas(String opcionMenu) {
+	public static int redireccionadorDamas(String opcionMenu) throws IOException {
 		int retorno = 0;
 		switch (opcionMenu) {
 		case "1":
-			System.out.println("Cargar partida de Damas esta en progreso.");
+			cargarPartidaDamas();
 			break;
 		case "2":
 			Menu.iniciarJuegoNuevoDamas();
@@ -192,7 +216,8 @@ public class Menu {
 		return retorno;
 	}
 
-	// Este metodo ahi que borrarlo.
+
+	
 	public static void iniciarJuegoNuevoAjedrez() {
 
 		GestorAjedrez.iniciarPartida();
@@ -223,6 +248,16 @@ public class Menu {
 	
 	
 	private static void cargarPartidaAjedrez() throws IOException {
+		GestorAjedrez.cargarPartida();
+		
+	}
+	
+	private static void cargarPartidaDamas() throws IOException {
+		GestorDamas.cargarPartida();
+		
+	}
+	
+	private static void cargarPartidaGo() throws IOException {
 		GestorAjedrez.cargarPartida();
 		
 	}

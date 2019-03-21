@@ -1,6 +1,7 @@
 package cenfotec.proyecto.juegos;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 import cenfotec.proyecto.artefactos.PartidaDamas;
@@ -72,6 +73,22 @@ public class JuegoDamas extends Juego implements MovimientosDamas{
 
 	public static void setPartida(PartidaDamas partida) {
 		JuegoDamas.partida = partida;
+	}
+
+
+	public static boolean cargarPartida() throws IOException {
+		System.out.println("Ingrese el nombre de la partida:");
+		String nombreArchivo = in.nextLine();
+		try {
+			String temp = PersistenciaTexto.leerArchivoTexto(nombreArchivo);
+			partida = Serializer.convertirJSONPartidaDamas(temp);
+			ImprimirEstadoJuego();
+			return true;
+		}catch(Exception e) {
+			System.out.println("No se ha cargado el archivo, verifique que el archivo exista.");
+			return false;
+		}
+		
 	}
 	
 	

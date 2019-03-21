@@ -1,6 +1,7 @@
 package cenfotec.proyecto.juegos;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Scanner;
 
 import cenfotec.proyecto.artefactos.PartidaGo;
@@ -53,6 +54,21 @@ public class JuegoGo extends Juego implements MovimientosGo{
 
 	public static void setPartida(PartidaGo partida) {
 		JuegoGo.partida = partida;
+	}
+
+	public static boolean cargarPartida() throws IOException {
+		System.out.println("Ingrese el nombre de la partida:");
+		String nombreArchivo = in.nextLine();
+		try {
+			String temp = PersistenciaTexto.leerArchivoTexto(nombreArchivo);
+			partida = Serializer.convertirJSONPartidaGo(temp);
+			ImprimirEstadoJuego();
+			return true;
+		}catch(Exception e) {
+			System.out.println("No se ha cargado el archivo, verifique que el archivo exista.");
+			return false;
+		}
+		
 	}
 	
 }
