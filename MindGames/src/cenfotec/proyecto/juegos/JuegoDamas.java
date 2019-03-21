@@ -1,11 +1,17 @@
 package cenfotec.proyecto.juegos;
 
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+
 import cenfotec.proyecto.artefactos.PartidaDamas;
 import cenfotec.proyecto.logica.MovimientosDamas;
+import cenfotec.proyecto.utiles.PersistenciaTexto;
+import cenfotec.proyecto.utiles.Serializer;
 
 public class JuegoDamas extends Juego implements MovimientosDamas{
 
 	private static PartidaDamas partida = new PartidaDamas();
+	private static Scanner in = new Scanner(System.in);
 	
 	public JuegoDamas(String jugador1, String jugador2, String ganador, String perdedor) {
 		super(jugador1, jugador2, ganador, perdedor);
@@ -43,6 +49,23 @@ public class JuegoDamas extends Juego implements MovimientosDamas{
 		}
 	}
 
+	public static void guardarPartida() throws FileNotFoundException {
+		
+		String json = Serializer.convertirPartidaJSON(2);
+		String nombrePartida = "";
+		if(json.equals("Default")) {
+			System.out.println("Upps, no se ha logrado convertir la partida en formato JSON.");
+		}else {
+			System.out.println("Ingrese el nombre de la partida:");
+			nombrePartida = in.nextLine();
+			PersistenciaTexto.guardarArchivo(nombrePartida, json);
+			System.out.println("Partida guardada en la siguiente direccion: C:\\Users\\Public\\Documents\\"+nombrePartida+".txt");
+		}
+	}
+	
+	
+	
+	
 	public static PartidaDamas getPartida() {
 		return partida;
 	}

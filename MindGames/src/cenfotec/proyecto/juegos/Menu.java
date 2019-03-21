@@ -142,7 +142,7 @@ public class Menu {
 			break;
 		case "3":
 			try {
-				Menu.guardarPartida();
+				Menu.guardarPartidaAjedrez();
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
@@ -173,6 +173,13 @@ public class Menu {
 			Menu.iniciarJuegoNuevoGo();
 			break;
 		case "3":
+			try {
+				Menu.guardarPartidaGo();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			break;
+		case "4":
 			System.out.println("\nDe vuelta al menu de mindgames.\n");
 			retorno = 1;
 			break;
@@ -189,10 +196,16 @@ public class Menu {
 			System.out.println("Cargar partida de Damas esta en progreso.");
 			break;
 		case "2":
-			// System.out.println("Nueva partida partida de Damas esta en progreso.");
 			Menu.iniciarJuegoNuevoDamas();
 			break;
 		case "3":
+			try {
+				Menu.guardarPartidaDamas();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			break;
+		case "4":
 			System.out.println("\nDe vuelta al menu de mindgames.\n");
 			retorno = 1;
 			break;
@@ -218,8 +231,16 @@ public class Menu {
 	}
 
 	
-	private static void guardarPartida() throws FileNotFoundException {
+	private static void guardarPartidaAjedrez() throws FileNotFoundException {
 		GestorAjedrez.guardarPartida();
+	}
+	
+	private static void guardarPartidaDamas() throws FileNotFoundException {
+		GestorDamas.guardarPartida();
+	}
+	
+	private static void guardarPartidaGo() throws FileNotFoundException {
+		GestorGo.guardarPartida();
 	}
 	
 	

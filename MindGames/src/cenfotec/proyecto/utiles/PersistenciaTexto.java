@@ -16,6 +16,7 @@ public class PersistenciaTexto {
 	public static boolean guardarArchivo(String nombre, String datos) throws FileNotFoundException {
 		
 		boolean checker = false;
+		direccionArchivos = "C:\\Users\\Public\\Documents\\";
 		direccionArchivos = direccionArchivos+nombre+".txt";
 		file = new File(direccionArchivos);
         FileWriter fileWriter = null;
@@ -25,7 +26,6 @@ public class PersistenciaTexto {
         } catch (IOException e) {
             e.printStackTrace();
         }finally{
-            //close resources
             try {
                 fileWriter.close();
             } catch (IOException e) {
