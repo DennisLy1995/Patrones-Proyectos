@@ -72,7 +72,7 @@ public class PersistenciaTexto {
 				//ImprimirEstadoJuego();
 				return true;
 			}else {
-				System.out.println("Verifique que el archivo pertenezca a una partida de " +tipo+".");
+				System.out.println("Verifique que el archivo pertenezca a una partida de " + tipo +".");
 				return false;
 			}
 			
