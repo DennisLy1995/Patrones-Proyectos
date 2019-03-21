@@ -96,7 +96,7 @@ public class Menu {
 	}
 
 	public static void imprimirMenuAjedres() {
-		String[] opcionesMenu = { "-----Ajedrez-----","", "1.Cargar partida", "2.Nueva partida", "3.Guardar partida actual" , "4.Salir","", "---Ajedrez---" };
+		String[] opcionesMenu = { "-----Ajedrez-----","", "1.Cargar partida", "2.Nueva partida", "3.Descargar partida actual en archivo de texto." , "4.Salir","", "---Ajedrez---" };
 		System.out.println("\n");
 		for (int i = 0; i < opcionesMenu.length; i++) {
 			System.out.println(opcionesMenu[i]);
@@ -105,7 +105,7 @@ public class Menu {
 	}
 
 	public static void imprimirMenuTablero() {
-		String[] opcionesMenu = { "-----Tablero-----","", "1.Cargar partida", "2.Nueva partida", "3.Salir","", "---Tablero---" };
+		String[] opcionesMenu = { "-----Tablero-----","", "1.Cargar partida", "2.Nueva partida", "3.Descargar partida actual en archivo de texto." , "4.Salir","", "---Tablero---" };
 		System.out.println("\n");
 		for (int i = 0; i < opcionesMenu.length; i++) {
 			System.out.println(opcionesMenu[i]);
@@ -114,7 +114,7 @@ public class Menu {
 	}
 
 	public static void imprimirMenuGo() {
-		String[] opcionesMenu = { "-----GO-----","", "1.Cargar partida", "2.Nueva partida", "3.Salir","", "---GO---" };
+		String[] opcionesMenu = { "-----GO-----","", "1.Cargar partida", "2.Nueva partida", "3.Descargar partida actual en archivo de texto." , "4.Salir","", "---GO---" };
 		System.out.println("\n");
 		for (int i = 0; i < opcionesMenu.length; i++) {
 			System.out.println(opcionesMenu[i]);
@@ -152,6 +152,7 @@ public class Menu {
 			retorno = 1;
 			break;
 		default:
+			retorno = 0;
 			break;
 		}
 		return retorno;

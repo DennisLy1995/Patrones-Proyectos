@@ -50,7 +50,11 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 			case "3":
 				breaker = true;
 				break;
-
+			default:
+				System.out.println("Opcion no valida.");
+				breaker = false;
+				break;
+					
 			}
 		}
 
@@ -71,7 +75,7 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		if (temp.equals("1") || temp.equals("2") || temp.equals("3")) {
 			
 		}else {
-			temp = "3";
+			temp = "repita";
 		}
 		return temp;
 	}
@@ -183,6 +187,7 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 			System.out.println("Ingrese el nombre de la partida:");
 			nombrePartida = in.nextLine();
 			PersistenciaTexto.guardarArchivo(nombrePartida, json);
+			System.out.println("Partida guardada en la siguiente direccion: C:\\Users\\Public\\Documents\\"+nombrePartida+".txt");
 		}
 	}
 	
