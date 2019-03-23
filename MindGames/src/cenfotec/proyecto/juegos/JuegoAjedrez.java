@@ -189,30 +189,66 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 					}
 				}
 
-			} /*
-				 * else if (true) {// Cuando el peon es nuevo y quiere avanzar dos posicines al
-				 * frente. checker = true; } else if (true) {// Cuando el peon no nuevo yquiere
-				 * consumir una posicion en diagonal.
-				 * 
-				 * checker = true; } else if (true) {//// Cuando el peon no nuevo y quiere
-				 * avanzar una sola posicion al frente. checker = true; }
-				 */
+			} else if (posicionFinal.charAt(0) == retornarSiguienteColumna(posicionInicial.charAt(0) + "").charAt(0)) {
+				// Cuando se quiere comer una posicion
+				if (Character.getNumericValue(posicionInicial.charAt(1)) + 1 == Character
+						.getNumericValue(posicionFinal.charAt(1))) {
+					if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
+
+					} else {
+						checker = true;
+					}
+				}
+			}else if (posicionFinal.charAt(0) == retornarAnteriorColumna(posicionInicial.charAt(0) + "").charAt(0)) {
+				// Cuando se quiere comer una posicion
+				if (Character.getNumericValue(posicionInicial.charAt(1)) + 1 == Character
+						.getNumericValue(posicionFinal.charAt(1))) {
+					if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
+
+					} else {
+						checker = true;
+					}
+				}
+			}
 
 		} else if (contador % 2 != 0) {// Si pieza es blanca.
 
-//			  if() {//Cuando el peon es nuevo y quiere avanzar una sola posicion al frente.
-//			  
-//			  checker = true; 
-//			  }else if() {//Cuando el peon es nuevo y quiere avanzar dos posicines al frente. 
-//			  
-//			  
-//			  checker = true; 
-//			  }else if() {//Cuando el peon no nuevo y quiere consumir una posicion en diagonal. 
-//			  
-//			  checker = true; }else if()
-//			  
-//			  {////Cuando el peon no nuevo y quiere avanzar una sola posicion al frente.
-//			  checker = true; }
+			if (posicionInicial.charAt(0) == posicionFinal.charAt(0)) {// Cuando el peon es nuevo y quiere avanzar una
+				// sola posicion al frente.
+				if (Character.getNumericValue(posicionInicial.charAt(1)) - 1 == Character
+						.getNumericValue(posicionFinal.charAt(1))) {
+					if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
+						checker = true;
+					}
+				}
+				if (Character.getNumericValue(posicionInicial.charAt(1)) - 2 == Character
+						.getNumericValue(posicionFinal.charAt(1)) && peon.getCantidadMovimientos() == 0) {
+					if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
+						checker = true;
+					}
+				}
+
+			} else if (posicionFinal.charAt(0) == retornarSiguienteColumna(posicionInicial.charAt(0) + "").charAt(0)) {
+//				Cuando se quiere comer una posicion
+				if (Character.getNumericValue(posicionInicial.charAt(1)) -1 == Character
+						.getNumericValue(posicionFinal.charAt(1))) {
+					if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
+
+					} else {
+						checker = true;
+					}
+				}
+			}else if (posicionFinal.charAt(0) == retornarAnteriorColumna(posicionInicial.charAt(0) + "").charAt(0)) {
+				// Cuando se quiere comer una posicion
+				if (Character.getNumericValue(posicionInicial.charAt(1)) - 1 == Character
+						.getNumericValue(posicionFinal.charAt(1))) {
+					if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
+
+					} else {
+						checker = true;
+					}
+				}
+			}
 
 		}
 
@@ -311,6 +347,54 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 			return false;
 		}
 
+	}
+
+	public static String retornarSiguienteColumna(String columnaActual) {
+
+		switch (columnaActual) {
+		case "a":
+			return "b";
+		case "b":
+			return "c";
+		case "c":
+			return "d";
+		case "d":
+			return "e";
+		case "e":
+			return "f";
+		case "f":
+			return "g";
+		case "g":
+			return "h";
+		case "h":
+			return "NO";
+		default:
+			return "NO";
+		}
+	}
+	
+	public static String retornarAnteriorColumna(String columnaActual) {
+
+		switch (columnaActual) {
+		case "a":
+			return "NO";
+		case "b":
+			return "a";
+		case "c":
+			return "b";
+		case "d":
+			return "c";
+		case "e":
+			return "d";
+		case "f":
+			return "e";
+		case "g":
+			return "f";
+		case "h":
+			return "g";
+		default:
+			return "NO";
+		}
 	}
 
 	// Metodos Get y Set de la clase.
