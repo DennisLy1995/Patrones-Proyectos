@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.Scanner;
 import cenfotec.proyecto.artefactos.PartidaAjedrez;
 import cenfotec.proyecto.artefactos.PiezaAjedrez;
-import cenfotec.proyecto.artefactos.Tablero;
 import cenfotec.proyecto.logica.MovimientosAjedrez;
 import cenfotec.proyecto.utiles.PersistenciaTexto;
 import cenfotec.proyecto.utiles.Serializer;
@@ -13,7 +12,6 @@ import cenfotec.proyecto.utiles.Serializer;
 public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 
 	private static int contador;
-
 	private static PartidaAjedrez partida = new PartidaAjedrez();
 	private static Scanner in = new Scanner(System.in);
 
@@ -92,7 +90,7 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 			piezaRetorno = retornarObjetoEnPosicion(coordenadaInicial);
 			if (color.charAt(0) == piezaRetorno.charAt(1)) {
 				colocarPieza(coordenadaInicial, coordenadaFinal, color);
-				contador++;
+				//contador++;
 
 			} else {
 				System.out.println(
@@ -128,9 +126,11 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 				for (int e = 0; e < 8; e++) {
 					if (coordenadaFinal.equals(partida.tablero[i][e])) {
 						partida.tableroPosiciones[i][e] = temp;
+						partida.tableroPosiciones[i][e].sumarMovimiento();
 					}
 				}
 			}
+			contador++;
 		} else if (checker == false) {
 			System.out.println("No puedes realizar ese movimiento, vuelvelo a intentar.");
 		}
@@ -141,12 +141,35 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		String codigo = pieza.nombre.charAt(0) + "";
 		boolean checker = true;
 		switch (codigo) {
-		case "G":
+		case "G"://Peon
 
-			checker = movimientoPeon(coordenadaInicial, coordenadaFinal, JuegoAjedrez.getPartida().tablero,
-					JuegoAjedrez.getPartida().tableroPosiciones, pieza);
+			checker = movimientoPeon(coordenadaInicial, coordenadaFinal, pieza);
 			break;
+			
+		case "R"://Torre
+			
+			break;
+			
+		case "K"://Rey
+			
+			
+			break;
+			
+		case "Q"://Reina
+			
+			break;
+			
+		case "N"://alfil
+			
+			break;
+			
+		case "B"://Caballo
+			
+			
+			break;
+			
 		}
+		
 		return checker;
 
 	}
@@ -168,90 +191,93 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		return partida.getTableroPosiciones();
 	}
 
-	public static boolean movimientoPeon(String posicionInicial, String posicionFinal, String[][] posiciones,
-			PiezaAjedrez[][] piezas, PiezaAjedrez peon) {
+	public static boolean movimientoPeon(String posicionInicial, String posicionFinal, PiezaAjedrez peon) {
 		boolean checker = false;
 
-		if (contador % 2 == 0) {// Si pieza es negra.
+		if(posicionInicial.contentEquals(posicionFinal)) {
+			System.out.println("Las coordenadas no pueden coincidir.");
+		}else {
+			if (contador % 2 == 0) {// Si pieza es negra.
 
-			if (posicionInicial.charAt(0) == posicionFinal.charAt(0)) {// Cuando el peon es nuevo y quiere avanzar una
-																		// sola posicion al frente.
-				if (Character.getNumericValue(posicionInicial.charAt(1)) + 1 == Character
-						.getNumericValue(posicionFinal.charAt(1))) {
-					if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
-						checker = true;
+				if (posicionInicial.charAt(0) == posicionFinal.charAt(0)) {// Cuando el peon es nuevo y quiere avanzar una
+																			// sola posicion al frente.
+					if (Character.getNumericValue(posicionInicial.charAt(1)) + 1 == Character
+							.getNumericValue(posicionFinal.charAt(1))) {
+						if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
+							checker = true;
+						}
+					}
+					if (Character.getNumericValue(posicionInicial.charAt(1)) + 2 == Character
+							.getNumericValue(posicionFinal.charAt(1)) && peon.getCantidadMovimientos() == 0) {
+						if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
+							checker = true;
+						}
+					}
+
+				} else if (posicionFinal.charAt(0) == retornarSiguienteColumna(posicionInicial.charAt(0) + "").charAt(0)) {
+					// Cuando se quiere comer una posicion
+					if (Character.getNumericValue(posicionInicial.charAt(1)) + 1 == Character
+							.getNumericValue(posicionFinal.charAt(1))) {
+						if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
+
+						} else {
+							checker = true;
+						}
+					}
+				}else if (posicionFinal.charAt(0) == retornarAnteriorColumna(posicionInicial.charAt(0) + "").charAt(0)) {
+					// Cuando se quiere comer una posicion
+					if (Character.getNumericValue(posicionInicial.charAt(1)) + 1 == Character
+							.getNumericValue(posicionFinal.charAt(1))) {
+						if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
+
+						} else {
+							checker = true;
+						}
 					}
 				}
-				if (Character.getNumericValue(posicionInicial.charAt(1)) + 2 == Character
-						.getNumericValue(posicionFinal.charAt(1)) && peon.getCantidadMovimientos() == 0) {
-					if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
-						checker = true;
+
+			} else if (contador % 2 != 0) {// Si pieza es blanca.
+
+				if (posicionInicial.charAt(0) == posicionFinal.charAt(0)) {// Cuando el peon es nuevo y quiere avanzar una
+					// sola posicion al frente.
+					if (Character.getNumericValue(posicionInicial.charAt(1)) - 1 == Character
+							.getNumericValue(posicionFinal.charAt(1))) {
+						if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
+							checker = true;
+						}
+					}
+					if (Character.getNumericValue(posicionInicial.charAt(1)) - 2 == Character
+							.getNumericValue(posicionFinal.charAt(1)) && peon.getCantidadMovimientos() == 0) {
+						if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
+							checker = true;
+						}
+					}
+
+				} else if (posicionFinal.charAt(0) == retornarSiguienteColumna(posicionInicial.charAt(0) + "").charAt(0)) {
+//					Cuando se quiere comer una posicion
+					if (Character.getNumericValue(posicionInicial.charAt(1)) -1 == Character
+							.getNumericValue(posicionFinal.charAt(1))) {
+						if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
+
+						} else {
+							checker = true;
+						}
+					}
+				}else if (posicionFinal.charAt(0) == retornarAnteriorColumna(posicionInicial.charAt(0) + "").charAt(0)) {
+					// Cuando se quiere comer una posicion
+					if (Character.getNumericValue(posicionInicial.charAt(1)) - 1 == Character
+							.getNumericValue(posicionFinal.charAt(1))) {
+						if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
+
+						} else {
+							checker = true;
+						}
 					}
 				}
 
-			} else if (posicionFinal.charAt(0) == retornarSiguienteColumna(posicionInicial.charAt(0) + "").charAt(0)) {
-				// Cuando se quiere comer una posicion
-				if (Character.getNumericValue(posicionInicial.charAt(1)) + 1 == Character
-						.getNumericValue(posicionFinal.charAt(1))) {
-					if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
-
-					} else {
-						checker = true;
-					}
-				}
-			}else if (posicionFinal.charAt(0) == retornarAnteriorColumna(posicionInicial.charAt(0) + "").charAt(0)) {
-				// Cuando se quiere comer una posicion
-				if (Character.getNumericValue(posicionInicial.charAt(1)) + 1 == Character
-						.getNumericValue(posicionFinal.charAt(1))) {
-					if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
-
-					} else {
-						checker = true;
-					}
-				}
 			}
-
-		} else if (contador % 2 != 0) {// Si pieza es blanca.
-
-			if (posicionInicial.charAt(0) == posicionFinal.charAt(0)) {// Cuando el peon es nuevo y quiere avanzar una
-				// sola posicion al frente.
-				if (Character.getNumericValue(posicionInicial.charAt(1)) - 1 == Character
-						.getNumericValue(posicionFinal.charAt(1))) {
-					if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
-						checker = true;
-					}
-				}
-				if (Character.getNumericValue(posicionInicial.charAt(1)) - 2 == Character
-						.getNumericValue(posicionFinal.charAt(1)) && peon.getCantidadMovimientos() == 0) {
-					if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
-						checker = true;
-					}
-				}
-
-			} else if (posicionFinal.charAt(0) == retornarSiguienteColumna(posicionInicial.charAt(0) + "").charAt(0)) {
-//				Cuando se quiere comer una posicion
-				if (Character.getNumericValue(posicionInicial.charAt(1)) -1 == Character
-						.getNumericValue(posicionFinal.charAt(1))) {
-					if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
-
-					} else {
-						checker = true;
-					}
-				}
-			}else if (posicionFinal.charAt(0) == retornarAnteriorColumna(posicionInicial.charAt(0) + "").charAt(0)) {
-				// Cuando se quiere comer una posicion
-				if (Character.getNumericValue(posicionInicial.charAt(1)) - 1 == Character
-						.getNumericValue(posicionFinal.charAt(1))) {
-					if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
-
-					} else {
-						checker = true;
-					}
-				}
-			}
-
 		}
-
+		
 		return checker;
 	}
 
@@ -273,8 +299,35 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		return checker;
 	}
 
-	public static boolean movimientoTorre(String posicionInicial, String posicionFinal) {
+	public static boolean movimientoTorre(String posicionInicial, String posicionFinal, PiezaAjedrez peon) {
 		boolean checker = false;
+		if(posicionInicial.contentEquals(posicionFinal)) {
+			System.out.println("Las coordenadas no pueden coincidir.");
+		}else {
+			if (contador % 2 == 0) {// Si la pieza es negra.
+				
+				if(posicionInicial.charAt(0) == posicionFinal.charAt(0)) {//Si el movimiento es en la misma fila
+					
+					if(Character.getNumericValue(posicionInicial.charAt(1)) < Character.getNumericValue(posicionInicial.charAt(1))) {//Si el movimiento es hacia el frente.
+						for(int i=Character.getNumericValue(posicionInicial.charAt(1)); i< Character.getNumericValue(posicionInicial.charAt(1)); i++){
+							
+						}
+					}else if(Character.getNumericValue(posicionInicial.charAt(1)) > Character.getNumericValue(posicionInicial.charAt(1))) {//Si el movimiento es hacia atras.
+						for(int i=Character.getNumericValue(posicionInicial.charAt(1)); i> Character.getNumericValue(posicionInicial.charAt(1)); i--){
+							
+						}
+					}
+					
+				}else if(posicionInicial.charAt(1) == posicionFinal.charAt(1)){//Si el movimiento es en la misma columna
+					
+					
+					
+				}
+				
+			}else if(contador %2 != 0) {//Si la pieza es blanca.
+				
+			}
+		}
 
 		return checker;
 	}
