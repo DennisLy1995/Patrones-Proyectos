@@ -13,7 +13,7 @@ import cenfotec.proyecto.utiles.Serializer;
 public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 
 	private static int contador;
-	
+
 	private static PartidaAjedrez partida = new PartidaAjedrez();
 	private static Scanner in = new Scanner(System.in);
 
@@ -25,21 +25,21 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 
 		System.out.println("Inician las piezas Negras.");
 		partida = new PartidaAjedrez();
-		
+
 		contador = 2;
 		boolean breaker = false;
-		while (breaker==false) {
+		while (breaker == false) {
 			ImprimirEstadoJuego();
 			switch (lecturaOpcionMenu()) {
 			case "1":
-				if(contador%2 == 0) {
+				if (contador % 2 == 0) {
 					System.out.println("Mueven las piezas negras.");
 					moverPieza("N");
-				}else {
+				} else {
 					System.out.println("Mueven las piezas blancas.");
 					moverPieza("B");
 				}
-				
+
 				breaker = false;
 				break;
 			case "2":
@@ -52,7 +52,7 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 				System.out.println("Opcion no valida.");
 				breaker = false;
 				break;
-					
+
 			}
 		}
 
@@ -71,8 +71,8 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		String temp = "";
 		temp = in.nextLine();
 		if (temp.equals("1") || temp.equals("2") || temp.equals("3")) {
-			
-		}else {
+
+		} else {
 			temp = "repita";
 		}
 		return temp;
@@ -81,78 +81,188 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 	public static void moverPieza(String color) {
 		String coordenadaInicial;
 		String coordenadaFinal;
-		String piezaRetorno="";
-		
+		String piezaRetorno = "";
+
 		System.out.println("Ingrese la coordenada donde la pieza se encuentra ubicada:");
 		coordenadaInicial = in.nextLine();
 		System.out.println("Ingrese la coordenada final:");
 		coordenadaFinal = in.nextLine();
-		if(MovimientosAjedrez.verificarPosicion(coordenadaInicial) == true && 
-				MovimientosAjedrez.verificarPosicion(coordenadaFinal) == true) {
+		if (MovimientosAjedrez.verificarPosicion(coordenadaInicial) == true
+				&& MovimientosAjedrez.verificarPosicion(coordenadaFinal) == true) {
 			piezaRetorno = retornarObjetoEnPosicion(coordenadaInicial);
-			if(color.charAt(0) == piezaRetorno.charAt(1) ) {
+			if (color.charAt(0) == piezaRetorno.charAt(1)) {
 				colocarPieza(coordenadaInicial, coordenadaFinal, color);
 				contador++;
-				
-			}else {
-				System.out.println("No puedes mover la pieza en la posicion " + coordenadaInicial + " porque no te pertenece.");
+
+			} else {
+				System.out.println(
+						"No puedes mover la pieza en la posicion " + coordenadaInicial + " porque no te pertenece.");
 			}
-			
-		}else {
+
+		} else {
 			System.out.println("Coordenadas incorrectas.");
 		}
-		
+
 	}
-	
+
 	private static void colocarPieza(String coordenadaInicial, String coordenadaFinal, String color) {
-		PiezaAjedrez temp= null;
-		
-		//Validar que el movimiento sea valido segun la pieza.
-		/*
-		boolean checker = validarMovimiento(String coordenadaInicial, String coordenadaFinal, color);
-		if(checker == true) {
-			//colocar aqui el cambio de pieza
-		}
-		*/
-		
-		//Remover pieza de posicion inicial.
-		for (int i = 0; i < 8; i++) {
-			for (int e = 0; e < 8; e++) {
-				if(coordenadaInicial.equals(partida.tablero[i][e])) {
-					temp = partida.tableroPosiciones[i][e];
-					partida.tableroPosiciones[i][e]=new PiezaAjedrez("--", "*", "*", "*");
+		PiezaAjedrez temp = null;
+		// Validar que el movimiento sea valido segun la pieza.
+
+		PiezaAjedrez piezaTemp = retornarPiezaPosicion(coordenadaInicial);
+		boolean checker = validarMovimiento(piezaTemp, coordenadaInicial, coordenadaFinal);
+
+		if (checker == true) {
+			// Remover pieza de posicion inicial.
+			for (int i = 0; i < 8; i++) {
+				for (int e = 0; e < 8; e++) {
+					if (coordenadaInicial.equals(partida.tablero[i][e])) {
+						temp = partida.tableroPosiciones[i][e];
+						partida.tableroPosiciones[i][e] = new PiezaAjedrez("--", "*", "*", "*");
+					}
 				}
 			}
-		}
-		
-		//Recolocacion de la pieza.
-		for (int i = 0; i < 8; i++) {
-			for (int e = 0; e < 8; e++) {
-				if(coordenadaFinal.equals(partida.tablero[i][e])) {
-					partida.tableroPosiciones[i][e]=temp;
+
+			// Recolocacion de la pieza.
+			for (int i = 0; i < 8; i++) {
+				for (int e = 0; e < 8; e++) {
+					if (coordenadaFinal.equals(partida.tablero[i][e])) {
+						partida.tableroPosiciones[i][e] = temp;
+					}
 				}
 			}
+		} else if (checker == false) {
+			System.out.println("No puedes realizar ese movimiento, vuelvelo a intentar.");
 		}
-		
-		
+
+	}
+
+	public static boolean validarMovimiento(PiezaAjedrez pieza, String coordenadaInicial, String coordenadaFinal) {
+		String codigo = pieza.nombre.charAt(0) + "";
+		boolean checker = true;
+		switch (codigo) {
+		case "G":
+
+			checker = movimientoPeon(coordenadaInicial, coordenadaFinal, JuegoAjedrez.getPartida().tablero,
+					JuegoAjedrez.getPartida().tableroPosiciones, pieza);
+			break;
+		}
+		return checker;
+
 	}
 
 	public static String retornarObjetoEnPosicion(String posicion) {
-		String retorno="";
+		String retorno = "";
 		for (int i = 0; i < 8; i++) {
 			for (int e = 0; e < 8; e++) {
-				if(posicion.equals(partida.tablero[i][e])) {
+				if (posicion.equals(partida.tablero[i][e])) {
 					retorno = partida.tableroPosiciones[i][e].nombre;
 				}
 			}
 		}
-		
+
 		return retorno;
 	}
-	
 
 	public static PiezaAjedrez[][] retornarTablerojuego() {
 		return partida.getTableroPosiciones();
+	}
+
+	public static boolean movimientoPeon(String posicionInicial, String posicionFinal, String[][] posiciones,
+			PiezaAjedrez[][] piezas, PiezaAjedrez peon) {
+		boolean checker = false;
+
+		if (contador % 2 == 0) {// Si pieza es negra.
+
+			if (posicionInicial.charAt(0) == posicionFinal.charAt(0)) {// Cuando el peon es nuevo y quiere avanzar una
+																		// sola posicion al frente.
+				if (Character.getNumericValue(posicionInicial.charAt(1)) + 1 == Character
+						.getNumericValue(posicionFinal.charAt(1))) {
+					if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
+						checker = true;
+					}
+				}
+				if (Character.getNumericValue(posicionInicial.charAt(1)) + 2 == Character
+						.getNumericValue(posicionFinal.charAt(1)) && peon.getCantidadMovimientos() == 0) {
+					if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
+						checker = true;
+					}
+				}
+
+			} /*
+				 * else if (true) {// Cuando el peon es nuevo y quiere avanzar dos posicines al
+				 * frente. checker = true; } else if (true) {// Cuando el peon no nuevo yquiere
+				 * consumir una posicion en diagonal.
+				 * 
+				 * checker = true; } else if (true) {//// Cuando el peon no nuevo y quiere
+				 * avanzar una sola posicion al frente. checker = true; }
+				 */
+
+		} else if (contador % 2 != 0) {// Si pieza es blanca.
+
+//			  if() {//Cuando el peon es nuevo y quiere avanzar una sola posicion al frente.
+//			  
+//			  checker = true; 
+//			  }else if() {//Cuando el peon es nuevo y quiere avanzar dos posicines al frente. 
+//			  
+//			  
+//			  checker = true; 
+//			  }else if() {//Cuando el peon no nuevo y quiere consumir una posicion en diagonal. 
+//			  
+//			  checker = true; }else if()
+//			  
+//			  {////Cuando el peon no nuevo y quiere avanzar una sola posicion al frente.
+//			  checker = true; }
+
+		}
+
+		return checker;
+	}
+
+	public static boolean movimientoRey(String posicionInicial, String posicionFinal) {
+		boolean checker = false;
+
+		return checker;
+	}
+
+	public static boolean movimientoReina(String posicionInicial, String posicionFinal) {
+		boolean checker = false;
+
+		return checker;
+	}
+
+	public static boolean movimientoCaballo(String posicionInicial, String posicionFinal) {
+		boolean checker = false;
+
+		return checker;
+	}
+
+	public static boolean movimientoTorre(String posicionInicial, String posicionFinal) {
+		boolean checker = false;
+
+		return checker;
+	}
+
+	public static boolean movimientoAlfil(String posicionInicial, String posicionFinal) {
+		boolean checker = false;
+
+		return checker;
+	}
+
+	public static PiezaAjedrez retornarPiezaPosicion(String posicionInicial) {
+
+		PiezaAjedrez piezaTemp = new PiezaAjedrez("--", "*", "*", "*");
+
+		for (int i = 0; i < 8; i++) {
+			for (int e = 0; e < 8; e++) {
+				if (posicionInicial.equals(partida.tablero[i][e])) {
+					piezaTemp = partida.tableroPosiciones[i][e];
+				}
+			}
+		}
+
+		return piezaTemp;
+
 	}
 
 	public static void ImprimirEstadoJuego() {
@@ -173,39 +283,37 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 			System.out.println();
 		}
 	}
-	
-	
+
 	public static void guardarPartida() throws FileNotFoundException {
-		
+
 		String json = Serializer.convertirPartidaJSON(1);
 		String nombrePartida = "";
-		if(json.equals("Default")) {
+		if (json.equals("Default")) {
 			System.out.println("Upps, no se ha logrado convertir la partida en formato JSON.");
-		}else {
+		} else {
 			System.out.println("Ingrese el nombre de la partida:");
 			nombrePartida = in.nextLine();
 			PersistenciaTexto.guardarArchivo(nombrePartida, json);
-			System.out.println("Partida guardada en la siguiente direccion: C:\\Users\\Public\\Documents\\"+nombrePartida+".txt");
+			System.out.println("Partida guardada en la siguiente direccion: C:\\Users\\Public\\Documents\\"
+					+ nombrePartida + ".txt");
 		}
 	}
-	
 
 	public static boolean cargarPartidaArchivoTexto(String tipo) throws IOException {
-		
+
 		boolean checker = false;
 		checker = PersistenciaTexto.compararJSONTipoSolicitado(partida, tipo);
-		
-		if(checker) {
+
+		if (checker) {
 			ImprimirEstadoJuego();
 			return true;
-		}else {
+		} else {
 			return false;
 		}
-		
-	}
-	
 
-	//Metodos Get y Set de la clase.
+	}
+
+	// Metodos Get y Set de la clase.
 
 	public static PartidaAjedrez getPartida() {
 		return partida;
@@ -214,6 +322,5 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 	public static void setPartida(PartidaAjedrez partida) {
 		JuegoAjedrez.partida = partida;
 	}
-	
-	
+
 }

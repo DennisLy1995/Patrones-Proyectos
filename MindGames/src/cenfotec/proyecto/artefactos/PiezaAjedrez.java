@@ -4,6 +4,7 @@ public class PiezaAjedrez extends Pieza{
 	
 	String movimiento;
 	String color;
+	int cantidadMovimientos=0;
 	
 	public PiezaAjedrez(String nombre, String jugador, String pieza, String color) {
 		super(nombre, jugador, pieza);
@@ -42,64 +43,16 @@ public class PiezaAjedrez extends Pieza{
 		return movimientoPieza;
 	}
 
-	public static boolean movimientoPeon(String posicionInicial, String posicionFinal, String[][] posiciones, PiezaAjedrez[][] piezas) {
-		boolean checker = false;
-		String reExp = "{2}^[abcdefgh][12345678]$";
-		/*if() {//Cuando el peon es nuevo y quiere avanzar una sola posicion al frente.
-			
-			checker = true;
-		}else if() {//Cuando el peon es nuevo y quiere avanzar dos posicines al frente.
-			checker = true;
-		}else if() {//Cuando el peon no nuevo y quiere consumir una posicion en diagonal.
-			checker = true;
-		}else if() {////Cuando el peon no nuevo y quiere avanzar una sola posicion al frente.
-			checker = true;
-		}
-		*/
-		return checker;
+	
+	public void sumarMovimiento() {
+		cantidadMovimientos++;
 	}
 	
-	public static boolean movimientoRey(String posicionInicial, String posicionFinal) {
-		boolean checker = false;
-		
-		return checker;
-	}
-	
-	public static boolean movimientoReina(String posicionInicial, String posicionFinal) {
-		boolean checker = false;
-		
-		return checker;
-	}
-	
-	public static boolean movimientoCaballo(String posicionInicial, String posicionFinal) {
-		boolean checker = false;
-		
-		return checker;
-	}
-	
-	public static boolean movimientoTorre(String posicionInicial, String posicionFinal) {
-		boolean checker = false;
-		
-		return checker;
-	}
-	
-	public static boolean movimientoAlfil(String posicionInicial, String posicionFinal) {
-		boolean checker = false;
-		
-		return checker;
+	public void restarMovimiento() {
+		cantidadMovimientos--;
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 	public String getMovimiento() {
 		return movimiento;
 	}
@@ -118,6 +71,18 @@ public class PiezaAjedrez extends Pieza{
 	public void setColor(String color) {
 		this.color = color;
 	}
+
+
+	public int getCantidadMovimientos() {
+		return cantidadMovimientos;
+	}
+
+
+	public void setCantidadMovimientos(int cantidadMovimientos) {
+		this.cantidadMovimientos = cantidadMovimientos;
+	}
+	
+	
 	
 	
 }

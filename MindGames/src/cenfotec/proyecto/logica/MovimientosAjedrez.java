@@ -33,7 +33,7 @@ public interface MovimientosAjedrez {
 
 	}
 	
-	//Need to refactor the if statement with regexp.
+	
 	public static boolean verificarPosicionTablero(String x) {
 		Pattern pattern = Pattern.compile("{2}^[abcdefgh][12345678]$");
 		Matcher matcher = pattern.matcher(x);
