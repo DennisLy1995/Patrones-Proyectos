@@ -311,27 +311,35 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 				if(posicionInicial.charAt(0) == posicionFinal.charAt(0)) {
 					//Si el movimiento es en la misma fila
 					
-					if(Character.getNumericValue(posicionInicial.charAt(1)) < Character.getNumericValue(posicionInicial.charAt(1))) {//Si el movimiento es hacia el frente.
+					if(Character.getNumericValue(posicionInicial.charAt(1)) < Character.getNumericValue(posicionFinal.charAt(1))) {//Si el movimiento es hacia el frente.
 						//Si el movimiento es en columna al frente.
-						for(int i=Character.getNumericValue(posicionInicial.charAt(1)); i< Character.getNumericValue(posicionInicial.charAt(1)); i++){
+						int inicio = Character.getNumericValue(posicionInicial.charAt(1))+1;
+						int ultimo = Character.getNumericValue(posicionFinal.charAt(1));
+						for(int i=inicio; i < ultimo; i++){
+							pieza = retornarPiezaPosicion(posicionInicial.charAt(0)+Integer.toString(i));
+							if(pieza.nombre.equals("--")) {
+								
+							}else {
+								checkerPiezasEnMedio = true;
+							}
+							System.out.println("Estoy en la posicion: " + i);
+						}
+						if(checkerPiezasEnMedio) {
+							checker = false;
+							System.out.println("Hay piezas entre la posicion inicial y la posicion final.");
+						}else {
+							checker = true;
+						}
+						
+					}else if(Character.getNumericValue(posicionInicial.charAt(1)) > Character.getNumericValue(posicionFinal.charAt(1))) {
+						//Si el movimiento es en columna hacia atras.
+						for(int i=Character.getNumericValue(posicionInicial.charAt(1)); i> Character.getNumericValue(posicionInicial.charAt(1)); i--){
 							pieza = retornarPiezaPosicion(posicionInicial.charAt(0)+i+"");
 							if(pieza.nombre.equals("--")) {
 								
 							}else {
 								checkerPiezasEnMedio = true;
 							}
-							
-						}
-						if(checkerPiezasEnMedio) {
-							checker = false;
-							System.out.println("Hay piezas entre la posicion inicial y la posicion final.");
-						}
-						
-					}else if(Character.getNumericValue(posicionInicial.charAt(1)) > Character.getNumericValue(posicionInicial.charAt(1))) {
-						//Si el movimiento es en columna hacia atras.
-						for(int i=Character.getNumericValue(posicionInicial.charAt(1)); i> Character.getNumericValue(posicionInicial.charAt(1)); i--){
-							pieza = retornarPiezaPosicion(posicionInicial.charAt(0)+i+"");
-							
 						}
 					}
 					
