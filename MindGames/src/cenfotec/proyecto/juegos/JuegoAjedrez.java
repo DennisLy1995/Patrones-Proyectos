@@ -302,7 +302,10 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 	public static boolean movimientoTorre(String posicionInicial, String posicionFinal, PiezaAjedrez peon) {
 		boolean checker = false;
 		boolean checkerPiezasEnMedio = false;
+		int inicio = 0;
+		int ultimo = 0;
 		PiezaAjedrez pieza  =null;
+		
 		if(posicionInicial.contentEquals(posicionFinal)) {
 			System.out.println("Las coordenadas no pueden coincidir.");
 		}else {
@@ -313,8 +316,8 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 					
 					if(Character.getNumericValue(posicionInicial.charAt(1)) < Character.getNumericValue(posicionFinal.charAt(1))) {//Si el movimiento es hacia el frente.
 						//Si el movimiento es en columna al frente.
-						int inicio = Character.getNumericValue(posicionInicial.charAt(1))+1;
-						int ultimo = Character.getNumericValue(posicionFinal.charAt(1));
+						inicio = Character.getNumericValue(posicionInicial.charAt(1))+1;
+						ultimo = Character.getNumericValue(posicionFinal.charAt(1));
 						for(int i=inicio; i < ultimo; i++){
 							pieza = retornarPiezaPosicion(posicionInicial.charAt(0)+Integer.toString(i));
 							if(pieza.nombre.equals("--")) {
@@ -333,13 +336,22 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 						
 					}else if(Character.getNumericValue(posicionInicial.charAt(1)) > Character.getNumericValue(posicionFinal.charAt(1))) {
 						//Si el movimiento es en columna hacia atras.
-						for(int i=Character.getNumericValue(posicionInicial.charAt(1)); i> Character.getNumericValue(posicionInicial.charAt(1)); i--){
-							pieza = retornarPiezaPosicion(posicionInicial.charAt(0)+i+"");
+						inicio = Character.getNumericValue(posicionInicial.charAt(1))-1;
+						ultimo = Character.getNumericValue(posicionFinal.charAt(1));
+						for(int i=inicio; i > ultimo; i--){
+							pieza = retornarPiezaPosicion(posicionInicial.charAt(0)+Integer.toString(i));
 							if(pieza.nombre.equals("--")) {
 								
 							}else {
 								checkerPiezasEnMedio = true;
 							}
+							System.out.println("Estoy en la posicion: " + i);
+						}
+						if(checkerPiezasEnMedio) {
+							checker = false;
+							System.out.println("Hay piezas entre la posicion inicial y la posicion final.");
+						}else {
+							checker = true;
 						}
 					}
 					
