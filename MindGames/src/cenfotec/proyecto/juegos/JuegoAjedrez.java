@@ -356,7 +356,7 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 					}
 					
 				}else if(posicionInicial.charAt(1) == posicionFinal.charAt(1)){//Si el movimiento es en la misma columna
-					
+					//Trabajando en esta parte.
 					if(true) {
 						//Si el movimiento es hacia la izquierda.
 						
