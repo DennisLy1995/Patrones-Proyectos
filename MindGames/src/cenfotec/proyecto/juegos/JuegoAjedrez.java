@@ -357,15 +357,26 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 					
 				}else if(posicionInicial.charAt(1) == posicionFinal.charAt(1)){//Si el movimiento es en la misma columna
 					//Trabajando en esta parte.
-					if() {
+					
+					if(determinarDireccionHorizontal(posicionInicial, posicionFinal).contentEquals("izquierda")) {
 						//Si el movimiento es hacia la izquierda.
 						
-					}else if() {
+						
+						
+						
+					}else if(determinarDireccionHorizontal(posicionInicial, posicionFinal).contentEquals("derecha")) {
 						//Si el movimiento es hacia la derecha.
+						
+						
 						
 					}
 					
 				}
+				
+				
+				
+				
+				
 				
 			}else if(contador %2 != 0) {//Si la pieza es blanca.
 				
@@ -381,6 +392,31 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		return checker;
 	}
 
+	public static String determinarDireccionHorizontal(String posicionInicial, String posicionFinal) {
+		String lado="";
+		int primero = 0;
+		int ultimo = 0;
+		int fila = Character.getNumericValue(posicionInicial.charAt(1));
+		for (int i = 0; i < 8; i++) {
+			if (posicionInicial.equals(partida.tablero[i][fila])) {
+				primero = i;
+			}
+			if(posicionInicial.equals(partida.tablero[i][fila])) {
+				ultimo = i;
+			}
+		}
+		
+		if(primero > ultimo) {
+			lado = "izquierda";
+		}else if(primero < ultimo) {
+			lado = "derecha";
+		}
+		
+		return lado;
+	}
+	
+	
+	
 	public static PiezaAjedrez retornarPiezaPosicion(String posicionInicial) {
 
 		PiezaAjedrez piezaTemp = new PiezaAjedrez("--", "*", "*", "*");
