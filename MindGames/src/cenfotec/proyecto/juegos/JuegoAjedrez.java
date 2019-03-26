@@ -574,8 +574,8 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 	}
 
 	public static boolean movimientoAlfil(String posicionInicial, String posicionFinal) {
-		boolean checker = false;
-
+		boolean checker = calcularPiezasEnMedioDiagonal(posicionInicial, posicionFinal);
+		
 		return checker;
 	}
 
