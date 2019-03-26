@@ -354,15 +354,14 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 						}
 					}
 					
-				}else if(posicionInicial.charAt(1) == posicionFinal.charAt(1)){//Si el movimiento es en la misma columna
-					//Trabajando en esta parte.
-					
+				}else if(posicionInicial.charAt(1) == posicionFinal.charAt(1)){
+					//Si el movimiento es en la misma columna
+										
 					if(determinarDireccionHorizontal(posicionInicial, posicionFinal).contentEquals("izquierda")) {
 						//Si el movimiento es hacia la izquierda.
 						String columnaActual = retornarSiguienteColumna(posicionInicial.charAt(0)+"");
 						pieza = retornarPiezaPosicion(columnaActual + posicionInicial.charAt(1));
-						while((columnaActual).equals(posicionFinal.charAt(0)+"") != true
-								/*pieza != retornarPiezaPosicion(posicionFinal) && retornarSiguienteColumna(columnaActual) != "NO"*/) {
+						while((columnaActual).equals(retornarAnteriorColumna(posicionFinal.charAt(0)+"")) != true) {
 							
 							if(pieza.nombre.contentEquals("--")) {
 								
@@ -371,9 +370,7 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 							}
 							columnaActual = retornarSiguienteColumna(columnaActual);
 							pieza = retornarPiezaPosicion(retornarSiguienteColumna(columnaActual)+posicionInicial.charAt(1));
-							
-							
-							
+	
 						}	
 						
 						if(checkerPiezasEnMedio == true) {
@@ -383,12 +380,11 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 						}
 						
 					}else if(determinarDireccionHorizontal(posicionInicial, posicionFinal).contentEquals("derecha")) {
-						//Si el movimiento es hacia la derecha.
 						
 						//Si el movimiento es hacia la izquierda.
 						String columnaActual = retornarAnteriorColumna(posicionInicial.charAt(0)+"");
 						pieza = retornarPiezaPosicion(columnaActual + posicionInicial.charAt(1));
-						while(pieza != retornarPiezaPosicion(posicionFinal)) {
+						while((columnaActual).equals(retornarSiguienteColumna(posicionFinal.charAt(0)+"")) != true) {
 							
 							if(pieza.nombre.contentEquals("--")) {
 								
@@ -397,10 +393,10 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 							}
 							columnaActual = retornarAnteriorColumna(columnaActual);
 							pieza = retornarPiezaPosicion(retornarAnteriorColumna(columnaActual)+posicionInicial.charAt(1));
-							
+	
 						}	
 						
-						if(checkerPiezasEnMedio) {
+						if(checkerPiezasEnMedio == true) {
 							checker = false;
 						}else {
 							checker = true;
