@@ -361,7 +361,8 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 						//Si el movimiento es hacia la izquierda.
 						String columnaActual = retornarSiguienteColumna(posicionInicial.charAt(0)+"");
 						pieza = retornarPiezaPosicion(columnaActual + posicionInicial.charAt(1));
-						while(pieza != retornarPiezaPosicion(posicionFinal) && retornarSiguienteColumna(columnaActual) != "NO") {
+						while((columnaActual).equals(posicionFinal.charAt(0)+"") != true
+								/*pieza != retornarPiezaPosicion(posicionFinal) && retornarSiguienteColumna(columnaActual) != "NO"*/) {
 							
 							if(pieza.nombre.contentEquals("--")) {
 								
@@ -370,6 +371,7 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 							}
 							columnaActual = retornarSiguienteColumna(columnaActual);
 							pieza = retornarPiezaPosicion(retornarSiguienteColumna(columnaActual)+posicionInicial.charAt(1));
+							
 							
 							
 						}	
