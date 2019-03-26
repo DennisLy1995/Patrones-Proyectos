@@ -135,12 +135,12 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		}
 
 	}
-	
+
 	public static boolean verificarPiezasDiferenteEquipo(String inicial, String ultimo) {
 		boolean checker = false;
 		String valorDeInicial = "";
 		String valorDeUltimo = "";
-		
+
 		for (int i = 0; i < 8; i++) {
 			for (int e = 0; e < 8; e++) {
 				if (inicial.equals(partida.tablero[i][e])) {
@@ -151,50 +151,47 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 				}
 			}
 		}
-		
-		if(valorDeUltimo.charAt(1) == valorDeInicial.charAt(1)) {
+
+		if (valorDeUltimo.charAt(1) == valorDeInicial.charAt(1)) {
 			checker = true;
-		}else {
+		} else {
 			checker = false;
 		}
-		
+
 		return checker;
-		
+
 	}
-	
 
 	public static boolean validarMovimiento(PiezaAjedrez pieza, String coordenadaInicial, String coordenadaFinal) {
 		String codigo = pieza.nombre.charAt(0) + "";
 		boolean checker = true;
 		switch (codigo) {
-		case "G"://Peon
-
+		case "G":// Peon
 			checker = movimientoPeon(coordenadaInicial, coordenadaFinal, pieza);
 			break;
-			
-		case "R"://Torre
-			checker = movimientoTorre(coordenadaInicial, coordenadaFinal, pieza);
+
+		case "R":// Torre
+			checker = movimientoTorre(coordenadaInicial, coordenadaFinal);
 			break;
-			
-		case "K"://Rey
-			checker = movimientoRey(coordenadaInicial, coordenadaFinal, pieza);
+
+		case "K":// Rey
+			checker = movimientoRey(coordenadaInicial, coordenadaFinal);
 			break;
-			
-		case "Q"://Reina
-			
+
+		case "Q":// Reina
+			// checker = movimientoReina(coordenadaInicial, coordenadaFinal);
 			break;
-			
-		case "N"://alfil
-			
+
+		case "N":// alfil
+			checker = movimientoAlfil(coordenadaInicial, coordenadaFinal);
 			break;
-			
-		case "B"://Caballo
-			
-			
+
+		case "B":// Caballo
+			// checker = movimientoCaballo(coordenadaInicial, coordenadaFinal);
 			break;
-			
+
 		}
-		
+
 		return checker;
 
 	}
@@ -219,12 +216,13 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 	public static boolean movimientoPeon(String posicionInicial, String posicionFinal, PiezaAjedrez peon) {
 		boolean checker = false;
 
-		if(posicionInicial.contentEquals(posicionFinal)) {
+		if (posicionInicial.contentEquals(posicionFinal)) {
 			System.out.println("Las coordenadas no pueden coincidir.");
-		}else {
+		} else {
 			if (contador % 2 == 0) {// Si pieza es negra.
 
-				if (posicionInicial.charAt(0) == posicionFinal.charAt(0)) {// Cuando el peon es nuevo y quiere avanzar una
+				if (posicionInicial.charAt(0) == posicionFinal.charAt(0)) {// Cuando el peon es nuevo y quiere avanzar
+																			// una
 																			// sola posicion al frente.
 					if (Character.getNumericValue(posicionInicial.charAt(1)) + 1 == Character
 							.getNumericValue(posicionFinal.charAt(1))) {
@@ -239,7 +237,8 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 						}
 					}
 
-				} else if (posicionFinal.charAt(0) == retornarSiguienteColumna(posicionInicial.charAt(0) + "").charAt(0)) {
+				} else if (posicionFinal.charAt(0) == retornarSiguienteColumna(posicionInicial.charAt(0) + "")
+						.charAt(0)) {
 					// Cuando se quiere comer una posicion
 					if (Character.getNumericValue(posicionInicial.charAt(1)) + 1 == Character
 							.getNumericValue(posicionFinal.charAt(1))) {
@@ -249,7 +248,8 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 							checker = true;
 						}
 					}
-				}else if (posicionFinal.charAt(0) == retornarAnteriorColumna(posicionInicial.charAt(0) + "").charAt(0)) {
+				} else if (posicionFinal.charAt(0) == retornarAnteriorColumna(posicionInicial.charAt(0) + "")
+						.charAt(0)) {
 					// Cuando se quiere comer una posicion
 					if (Character.getNumericValue(posicionInicial.charAt(1)) + 1 == Character
 							.getNumericValue(posicionFinal.charAt(1))) {
@@ -263,7 +263,8 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 
 			} else if (contador % 2 != 0) {// Si pieza es blanca.
 
-				if (posicionInicial.charAt(0) == posicionFinal.charAt(0)) {// Cuando el peon es nuevo y quiere avanzar una
+				if (posicionInicial.charAt(0) == posicionFinal.charAt(0)) {// Cuando el peon es nuevo y quiere avanzar
+																			// una
 					// sola posicion al frente.
 					if (Character.getNumericValue(posicionInicial.charAt(1)) - 1 == Character
 							.getNumericValue(posicionFinal.charAt(1))) {
@@ -278,9 +279,10 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 						}
 					}
 
-				} else if (posicionFinal.charAt(0) == retornarSiguienteColumna(posicionInicial.charAt(0) + "").charAt(0)) {
+				} else if (posicionFinal.charAt(0) == retornarSiguienteColumna(posicionInicial.charAt(0) + "")
+						.charAt(0)) {
 //					Cuando se quiere comer una posicion
-					if (Character.getNumericValue(posicionInicial.charAt(1)) -1 == Character
+					if (Character.getNumericValue(posicionInicial.charAt(1)) - 1 == Character
 							.getNumericValue(posicionFinal.charAt(1))) {
 						if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
 
@@ -288,7 +290,8 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 							checker = true;
 						}
 					}
-				}else if (posicionFinal.charAt(0) == retornarAnteriorColumna(posicionInicial.charAt(0) + "").charAt(0)) {
+				} else if (posicionFinal.charAt(0) == retornarAnteriorColumna(posicionInicial.charAt(0) + "")
+						.charAt(0)) {
 					// Cuando se quiere comer una posicion
 					if (Character.getNumericValue(posicionInicial.charAt(1)) - 1 == Character
 							.getNumericValue(posicionFinal.charAt(1))) {
@@ -302,33 +305,42 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 
 			}
 		}
-		
+
 		return checker;
 	}
 
-	public static boolean movimientoRey(String posicionInicial, String posicionFinal, PiezaAjedrez peon) {
+	public static boolean movimientoRey(String posicionInicial, String posicionFinal) {
 		boolean checker = false;
 
-		if(posicionFinal.contentEquals(posicionInicial.charAt(0)+""+ Character.getNumericValue(posicionInicial.charAt(1)+1)) || 
-				posicionFinal.contentEquals(posicionInicial.charAt(0)+""+ Character.getNumericValue(posicionInicial.charAt(1)-1)) ) {
-			//Cuando el movimiento es en la misma columna.
+		if (posicionFinal.contentEquals(
+				posicionInicial.charAt(0) + "" + Character.getNumericValue(posicionInicial.charAt(1) + 1))
+				|| posicionFinal.contentEquals(
+						posicionInicial.charAt(0) + "" + Character.getNumericValue(posicionInicial.charAt(1) - 1))) {
+			// Cuando el movimiento es en la misma columna.
 			checker = true;
-		}else if(posicionFinal.contentEquals(retornarSiguienteColumna(posicionInicial.charAt(0)+"") + posicionInicial.charAt(1)) || 
-				posicionFinal.contentEquals(retornarAnteriorColumna(posicionInicial.charAt(0)+"") + posicionInicial.charAt(1) ) ) {
-			//Cuando el movimiento es en la misma fila.
+		} else if (posicionFinal
+				.contentEquals(retornarSiguienteColumna(posicionInicial.charAt(0) + "") + posicionInicial.charAt(1))
+				|| posicionFinal.contentEquals(
+						retornarAnteriorColumna(posicionInicial.charAt(0) + "") + posicionInicial.charAt(1))) {
+			// Cuando el movimiento es en la misma fila.
 			checker = true;
-		}else if(posicionFinal.contentEquals(retornarSiguienteColumna(posicionInicial.charAt(0)+"") + Character.getNumericValue(posicionInicial.charAt(1)+1) ) || 
-				posicionFinal.contentEquals(retornarAnteriorColumna(posicionInicial.charAt(0)+"") + Character.getNumericValue(posicionInicial.charAt(1)+1) ) ) {
-			//Cuando el movimiento es diagonal arriba.
-			//Trabajando en este if.
+		} else if (posicionFinal
+				.contentEquals(retornarSiguienteColumna(posicionInicial.charAt(0) + "")
+						+ Character.getNumericValue(posicionInicial.charAt(1) + 1))
+				|| posicionFinal.contentEquals(retornarAnteriorColumna(posicionInicial.charAt(0) + "")
+						+ Character.getNumericValue(posicionInicial.charAt(1) + 1))) {
+			// Cuando el movimiento es diagonal arriba.
+			// Trabajando en este if.
 			checker = true;
-		}else if(posicionFinal.contentEquals(retornarSiguienteColumna(posicionInicial.charAt(0)+"") + Character.getNumericValue(posicionInicial.charAt(1)-1) ) || 
-				posicionFinal.contentEquals(retornarAnteriorColumna(posicionInicial.charAt(0)+"") + Character.getNumericValue(posicionInicial.charAt(1)-1) ) ) {
-			//Cuando el movimiento es diagonal atras.
+		} else if (posicionFinal
+				.contentEquals(retornarSiguienteColumna(posicionInicial.charAt(0) + "")
+						+ Character.getNumericValue(posicionInicial.charAt(1) - 1))
+				|| posicionFinal.contentEquals(retornarAnteriorColumna(posicionInicial.charAt(0) + "")
+						+ Character.getNumericValue(posicionInicial.charAt(1) - 1))) {
+			// Cuando el movimiento es diagonal atras.
 			checker = true;
 		}
-		
-		
+
 		return checker;
 	}
 
@@ -344,214 +356,216 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		return checker;
 	}
 
-	public static boolean movimientoTorre(String posicionInicial, String posicionFinal, PiezaAjedrez peon) {
+	public static boolean movimientoTorre(String posicionInicial, String posicionFinal) {
 		boolean checker = false;
 		boolean checkerPiezasEnMedio = false;
 		int inicio = 0;
 		int ultimo = 0;
-		PiezaAjedrez pieza  =null;
-		
-		if(posicionInicial.contentEquals(posicionFinal)) {
+		PiezaAjedrez pieza = null;
+
+		if (posicionInicial.contentEquals(posicionFinal)) {
 			System.out.println("Las coordenadas no pueden coincidir.");
-		}else {
+		} else {
 			if (contador % 2 == 0) {// Si la pieza es negra.
-				
-				if(posicionInicial.charAt(0) == posicionFinal.charAt(0)) {
-					//Si el movimiento es en la misma fila
-					
-					if(Character.getNumericValue(posicionInicial.charAt(1)) < Character.getNumericValue(posicionFinal.charAt(1))) {//Si el movimiento es hacia el frente.
-						//Si el movimiento es en columna al frente.
-						inicio = Character.getNumericValue(posicionInicial.charAt(1))+1;
+
+				if (posicionInicial.charAt(0) == posicionFinal.charAt(0)) {
+					// Si el movimiento es en la misma fila
+
+					if (Character.getNumericValue(posicionInicial.charAt(1)) < Character
+							.getNumericValue(posicionFinal.charAt(1))) {// Si el movimiento es hacia el frente.
+						// Si el movimiento es en columna al frente.
+						inicio = Character.getNumericValue(posicionInicial.charAt(1)) + 1;
 						ultimo = Character.getNumericValue(posicionFinal.charAt(1));
-						for(int i=inicio; i < ultimo; i++){
-							pieza = retornarPiezaPosicion(posicionInicial.charAt(0)+Integer.toString(i));
-							if(pieza.nombre.equals("--")) {
-								
-							}else {
+						for (int i = inicio; i < ultimo; i++) {
+							pieza = retornarPiezaPosicion(posicionInicial.charAt(0) + Integer.toString(i));
+							if (pieza.nombre.equals("--")) {
+
+							} else {
 								checkerPiezasEnMedio = true;
 							}
 							System.out.println("Estoy en la posicion: " + i);
 						}
-						if(checkerPiezasEnMedio) {
+						if (checkerPiezasEnMedio) {
 							checker = false;
 							System.out.println("Hay piezas entre la posicion inicial y la posicion final.");
-						}else {
+						} else {
 							checker = true;
 						}
-						
-					}else if(Character.getNumericValue(posicionInicial.charAt(1)) > Character.getNumericValue(posicionFinal.charAt(1))) {
-						//Si el movimiento es en columna hacia atras.
-						inicio = Character.getNumericValue(posicionInicial.charAt(1))-1;
+
+					} else if (Character.getNumericValue(posicionInicial.charAt(1)) > Character
+							.getNumericValue(posicionFinal.charAt(1))) {
+						// Si el movimiento es en columna hacia atras.
+						inicio = Character.getNumericValue(posicionInicial.charAt(1)) - 1;
 						ultimo = Character.getNumericValue(posicionFinal.charAt(1));
-						for(int i=inicio; i > ultimo; i--){
-							pieza = retornarPiezaPosicion(posicionInicial.charAt(0)+Integer.toString(i));
-							if(pieza.nombre.equals("--")) {
-								
-							}else {
+						for (int i = inicio; i > ultimo; i--) {
+							pieza = retornarPiezaPosicion(posicionInicial.charAt(0) + Integer.toString(i));
+							if (pieza.nombre.equals("--")) {
+
+							} else {
 								checkerPiezasEnMedio = true;
 							}
 							System.out.println("Estoy en la posicion: " + i);
 						}
-						if(checkerPiezasEnMedio) {
+						if (checkerPiezasEnMedio) {
 							checker = false;
 							System.out.println("Hay piezas entre la posicion inicial y la posicion final.");
-						}else {
+						} else {
 							checker = true;
 						}
 					}
-					
-				}else if(posicionInicial.charAt(1) == posicionFinal.charAt(1)){
-					//Si el movimiento es en la misma columna
-										
-					if(determinarDireccionHorizontal(posicionInicial, posicionFinal).contentEquals("izquierda")) {
-						//Si el movimiento es hacia la izquierda.
-						String columnaActual = retornarSiguienteColumna(posicionInicial.charAt(0)+"");
+
+				} else if (posicionInicial.charAt(1) == posicionFinal.charAt(1)) {
+					// Si el movimiento es en la misma columna
+
+					if (determinarDireccionHorizontal(posicionInicial, posicionFinal).contentEquals("izquierda")) {
+						// Si el movimiento es hacia la izquierda.
+						String columnaActual = retornarSiguienteColumna(posicionInicial.charAt(0) + "");
 						pieza = retornarPiezaPosicion(columnaActual + posicionInicial.charAt(1));
-						while((columnaActual).equals(retornarAnteriorColumna(posicionFinal.charAt(0)+"")) != true) {
-							
-							if(pieza.nombre.contentEquals("--")) {
-								
-							}else {
+						while ((columnaActual).equals(retornarAnteriorColumna(posicionFinal.charAt(0) + "")) != true) {
+
+							if (pieza.nombre.contentEquals("--")) {
+
+							} else {
 								checkerPiezasEnMedio = true;
 							}
 							columnaActual = retornarSiguienteColumna(columnaActual);
-							pieza = retornarPiezaPosicion(retornarSiguienteColumna(columnaActual)+posicionInicial.charAt(1));
-	
-						}	
-						
-						if(checkerPiezasEnMedio == true) {
+							pieza = retornarPiezaPosicion(
+									retornarSiguienteColumna(columnaActual) + posicionInicial.charAt(1));
+
+						}
+
+						if (checkerPiezasEnMedio == true) {
 							checker = false;
-						}else {
+						} else {
 							checker = true;
 						}
-						
-					}else if(determinarDireccionHorizontal(posicionInicial, posicionFinal).contentEquals("derecha")) {
-						
-						//Si el movimiento es hacia la izquierda.
-						String columnaActual = retornarAnteriorColumna(posicionInicial.charAt(0)+"");
+
+					} else if (determinarDireccionHorizontal(posicionInicial, posicionFinal).contentEquals("derecha")) {
+
+						// Si el movimiento es hacia la izquierda.
+						String columnaActual = retornarAnteriorColumna(posicionInicial.charAt(0) + "");
 						pieza = retornarPiezaPosicion(columnaActual + posicionInicial.charAt(1));
-						while((columnaActual).equals(retornarSiguienteColumna(posicionFinal.charAt(0)+"")) != true) {
-							
-							if(pieza.nombre.contentEquals("--")) {
-								
-							}else {
+						while ((columnaActual).equals(retornarSiguienteColumna(posicionFinal.charAt(0) + "")) != true) {
+
+							if (pieza.nombre.contentEquals("--")) {
+
+							} else {
 								checkerPiezasEnMedio = true;
 							}
 							columnaActual = retornarAnteriorColumna(columnaActual);
-							pieza = retornarPiezaPosicion(retornarAnteriorColumna(columnaActual)+posicionInicial.charAt(1));
-	
-						}	
-						
-						if(checkerPiezasEnMedio == true) {
+							pieza = retornarPiezaPosicion(
+									retornarAnteriorColumna(columnaActual) + posicionInicial.charAt(1));
+
+						}
+
+						if (checkerPiezasEnMedio == true) {
 							checker = false;
-						}else {
+						} else {
 							checker = true;
 						}
-						
+
 					}
-					
+
 				}
-				
-				
-				
-				
-				
-				
-			}else if(contador %2 != 0) {//Si la pieza es blanca.
-				
-				
-				if(posicionInicial.charAt(0) == posicionFinal.charAt(0)) {
-					//Si el movimiento es en la misma fila
-					
-					if(Character.getNumericValue(posicionInicial.charAt(1)) < Character.getNumericValue(posicionFinal.charAt(1))) {//Si el movimiento es hacia el frente.
-						//Si el movimiento es en columna al frente.
-						inicio = Character.getNumericValue(posicionInicial.charAt(1))+1;
+
+			} else if (contador % 2 != 0) {// Si la pieza es blanca.
+
+				if (posicionInicial.charAt(0) == posicionFinal.charAt(0)) {
+					// Si el movimiento es en la misma fila
+
+					if (Character.getNumericValue(posicionInicial.charAt(1)) < Character
+							.getNumericValue(posicionFinal.charAt(1))) {// Si el movimiento es hacia el frente.
+						// Si el movimiento es en columna al frente.
+						inicio = Character.getNumericValue(posicionInicial.charAt(1)) + 1;
 						ultimo = Character.getNumericValue(posicionFinal.charAt(1));
-						for(int i=inicio; i < ultimo; i++){
-							pieza = retornarPiezaPosicion(posicionInicial.charAt(0)+Integer.toString(i));
-							if(pieza.nombre.equals("--")) {
-								
-							}else {
+						for (int i = inicio; i < ultimo; i++) {
+							pieza = retornarPiezaPosicion(posicionInicial.charAt(0) + Integer.toString(i));
+							if (pieza.nombre.equals("--")) {
+
+							} else {
 								checkerPiezasEnMedio = true;
 							}
 							System.out.println("Estoy en la posicion: " + i);
 						}
-						if(checkerPiezasEnMedio) {
+						if (checkerPiezasEnMedio) {
 							checker = false;
 							System.out.println("Hay piezas entre la posicion inicial y la posicion final.");
-						}else {
+						} else {
 							checker = true;
 						}
-						
-					}else if(Character.getNumericValue(posicionInicial.charAt(1)) > Character.getNumericValue(posicionFinal.charAt(1))) {
-						//Si el movimiento es en columna hacia atras.
-						inicio = Character.getNumericValue(posicionInicial.charAt(1))-1;
+
+					} else if (Character.getNumericValue(posicionInicial.charAt(1)) > Character
+							.getNumericValue(posicionFinal.charAt(1))) {
+						// Si el movimiento es en columna hacia atras.
+						inicio = Character.getNumericValue(posicionInicial.charAt(1)) - 1;
 						ultimo = Character.getNumericValue(posicionFinal.charAt(1));
-						for(int i=inicio; i > ultimo; i--){
-							pieza = retornarPiezaPosicion(posicionInicial.charAt(0)+Integer.toString(i));
-							if(pieza.nombre.equals("--")) {
-								
-							}else {
+						for (int i = inicio; i > ultimo; i--) {
+							pieza = retornarPiezaPosicion(posicionInicial.charAt(0) + Integer.toString(i));
+							if (pieza.nombre.equals("--")) {
+
+							} else {
 								checkerPiezasEnMedio = true;
 							}
 							System.out.println("Estoy en la posicion: " + i);
 						}
-						if(checkerPiezasEnMedio) {
+						if (checkerPiezasEnMedio) {
 							checker = false;
 							System.out.println("Hay piezas entre la posicion inicial y la posicion final.");
-						}else {
+						} else {
 							checker = true;
 						}
 					}
-					
-				}else if(posicionInicial.charAt(1) == posicionFinal.charAt(1)){
-					//Si el movimiento es en la misma columna
-										
-					if(determinarDireccionHorizontal(posicionInicial, posicionFinal).contentEquals("izquierda")) {
-						//Si el movimiento es hacia la izquierda.
-						String columnaActual = retornarSiguienteColumna(posicionInicial.charAt(0)+"");
+
+				} else if (posicionInicial.charAt(1) == posicionFinal.charAt(1)) {
+					// Si el movimiento es en la misma columna
+
+					if (determinarDireccionHorizontal(posicionInicial, posicionFinal).contentEquals("izquierda")) {
+						// Si el movimiento es hacia la izquierda.
+						String columnaActual = retornarSiguienteColumna(posicionInicial.charAt(0) + "");
 						pieza = retornarPiezaPosicion(columnaActual + posicionInicial.charAt(1));
-						while((columnaActual).equals(retornarAnteriorColumna(posicionFinal.charAt(0)+"")) != true) {
-							
-							if(pieza.nombre.contentEquals("--")) {
-								
-							}else {
+						while ((columnaActual).equals(retornarAnteriorColumna(posicionFinal.charAt(0) + "")) != true) {
+
+							if (pieza.nombre.contentEquals("--")) {
+
+							} else {
 								checkerPiezasEnMedio = true;
 							}
 							columnaActual = retornarSiguienteColumna(columnaActual);
-							pieza = retornarPiezaPosicion(retornarSiguienteColumna(columnaActual)+posicionInicial.charAt(1));
-	
-						}	
-						
-						if(checkerPiezasEnMedio == true) {
+							pieza = retornarPiezaPosicion(
+									retornarSiguienteColumna(columnaActual) + posicionInicial.charAt(1));
+
+						}
+
+						if (checkerPiezasEnMedio == true) {
 							checker = false;
-						}else {
+						} else {
 							checker = true;
 						}
-						
-					}else if(determinarDireccionHorizontal(posicionInicial, posicionFinal).contentEquals("derecha")) {
-						
-						//Si el movimiento es hacia la izquierda.
-						String columnaActual = retornarAnteriorColumna(posicionInicial.charAt(0)+"");
+
+					} else if (determinarDireccionHorizontal(posicionInicial, posicionFinal).contentEquals("derecha")) {
+
+						// Si el movimiento es hacia la izquierda.
+						String columnaActual = retornarAnteriorColumna(posicionInicial.charAt(0) + "");
 						pieza = retornarPiezaPosicion(columnaActual + posicionInicial.charAt(1));
-						while((columnaActual).equals(retornarSiguienteColumna(posicionFinal.charAt(0)+"")) != true) {
-							
-							if(pieza.nombre.contentEquals("--")) {
-								
-							}else {
+						while ((columnaActual).equals(retornarSiguienteColumna(posicionFinal.charAt(0) + "")) != true) {
+
+							if (pieza.nombre.contentEquals("--")) {
+
+							} else {
 								checkerPiezasEnMedio = true;
 							}
 							columnaActual = retornarAnteriorColumna(columnaActual);
-							pieza = retornarPiezaPosicion(retornarAnteriorColumna(columnaActual)+posicionInicial.charAt(1));
-	
-						}	
-						
-						if(checkerPiezasEnMedio == true) {
+							pieza = retornarPiezaPosicion(
+									retornarAnteriorColumna(columnaActual) + posicionInicial.charAt(1));
+
+						}
+
+						if (checkerPiezasEnMedio == true) {
 							checker = false;
-						}else {
+						} else {
 							checker = true;
-						}	
-					}	
+						}
+					}
 				}
 			}
 		}
@@ -565,32 +579,157 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		return checker;
 	}
 
+	public static boolean calcularPiezasEnMedioDiagonal(String inicial, String Final) {
+		boolean checker = false;
+		boolean breaker = false;
+		boolean piezasEnMedio = false;
+		boolean sideFound = false;
+		String posicionTemporal = inicial;
+		PiezaAjedrez piezaTemp = null;
+
+		// Seccion de arriba derecha
+		while (breaker == false) {
+			if (posicionTemporal.contentEquals(Final)) {
+				breaker = true;
+				sideFound = true;
+			} else {
+				if (retornarSiguienteColumna(posicionTemporal.charAt(0) + "").contentEquals("NO")) {
+					checker = false;
+					breaker = true;
+					piezasEnMedio = false;
+				} else {
+					posicionTemporal = retornarSiguienteColumna(posicionTemporal.charAt(0) + "")
+							+ Character.getNumericValue(posicionTemporal.charAt(0) + 1);
+					piezaTemp = retornarPiezaPosicion(posicionTemporal);
+					if (piezaTemp.nombre.contentEquals("--")) {
+
+					} else {
+						piezasEnMedio = true;
+						breaker = true;
+					}
+				}
+			}
+		}
+
+		posicionTemporal = inicial;
+		
+		// Seccion de abajo derecha.
+		if (sideFound == false) {
+			while (breaker == false) {
+				if (posicionTemporal.contentEquals(Final)) {
+					breaker = true;
+					sideFound = true;
+				} else {
+					if (retornarSiguienteColumna(posicionTemporal.charAt(0) + "").contentEquals("NO")) {
+						checker = false;
+						breaker = true;
+						piezasEnMedio = false;
+					} else {
+						posicionTemporal = retornarSiguienteColumna(posicionTemporal.charAt(0) + "")
+								+ Character.getNumericValue(posicionTemporal.charAt(0) - 1);
+						piezaTemp = retornarPiezaPosicion(posicionTemporal);
+						if (piezaTemp.nombre.contentEquals("--")) {
+
+						} else {
+							piezasEnMedio = true;
+							breaker = true;
+						}
+					}
+				}
+			}
+		}
+
+		
+		posicionTemporal = inicial;
+		
+		// Seccion de arriba izquierda
+		if (sideFound == false) {
+			while (breaker == false) {
+				if (posicionTemporal.contentEquals(Final)) {
+					breaker = true;
+					sideFound = true;
+				} else {
+					if (retornarAnteriorColumna(posicionTemporal.charAt(0) + "").contentEquals("NO")) {
+						checker = false;
+						breaker = true;
+						piezasEnMedio = false;
+					} else {
+						posicionTemporal = retornarAnteriorColumna(posicionTemporal.charAt(0) + "")
+								+ Character.getNumericValue(posicionTemporal.charAt(0) - 1);
+						piezaTemp = retornarPiezaPosicion(posicionTemporal);
+						if (piezaTemp.nombre.contentEquals("--")) {
+
+						} else {
+							piezasEnMedio = true;
+							breaker = true;
+						}
+					}
+				}
+			}
+		}
+		
+		posicionTemporal = inicial;
+
+		// seccion de abajo izquierda.
+		if (sideFound == false) {
+			while (breaker == false) {
+				if (posicionTemporal.contentEquals(Final)) {
+					breaker = true;
+					sideFound = true;
+				} else {
+					if (retornarAnteriorColumna(posicionTemporal.charAt(0) + "").contentEquals("NO")) {
+						checker = false;
+						breaker = true;
+						piezasEnMedio = false;
+					} else {
+						posicionTemporal = retornarAnteriorColumna(posicionTemporal.charAt(0) + "")
+								+ Character.getNumericValue(posicionTemporal.charAt(0) - 1);
+						piezaTemp = retornarPiezaPosicion(posicionTemporal);
+						if (piezaTemp.nombre.contentEquals("--")) {
+
+						} else {
+							piezasEnMedio = true;
+							breaker = true;
+						}
+					}
+				}
+			}
+		}
+
+		// evaluacion final.
+		if (piezasEnMedio == true) {
+			checker = false;
+		} else {
+			checker = true;
+		}
+		
+		return checker;
+	}
+
 	public static String determinarDireccionHorizontal(String posicionInicial, String posicionFinal) {
-		String lado="";
+		String lado = "";
 		int primero = 0;
 		int ultimo = 0;
-		int fila = Character.getNumericValue(posicionInicial.charAt(1)-1);
+		int fila = Character.getNumericValue(posicionInicial.charAt(1) - 1);
 		for (int i = 0; i < 8; i++) {
 			String temp = partida.tablero[fila][i];
 			if (posicionInicial.equals(partida.tablero[fila][i]) && ultimo != 1) {
 				primero = 1;
 			}
-			if(posicionFinal.equals(partida.tablero[fila][i]) && primero != 1) {
+			if (posicionFinal.equals(partida.tablero[fila][i]) && primero != 1) {
 				ultimo = 1;
 			}
 		}
-		
-		if(primero > ultimo) {
+
+		if (primero > ultimo) {
 			lado = "izquierda";
-		}else if(primero < ultimo) {
+		} else if (primero < ultimo) {
 			lado = "derecha";
 		}
-		
+
 		return lado;
 	}
-	
-	
-	
+
 	public static PiezaAjedrez retornarPiezaPosicion(String posicionInicial) {
 
 		PiezaAjedrez piezaTemp = new PiezaAjedrez("--", "*", "*", "*");
@@ -678,7 +817,7 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 			return "NO";
 		}
 	}
-	
+
 	public static String retornarAnteriorColumna(String columnaActual) {
 
 		switch (columnaActual) {
