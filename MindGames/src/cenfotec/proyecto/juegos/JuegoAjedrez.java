@@ -90,7 +90,6 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 			piezaRetorno = retornarObjetoEnPosicion(coordenadaInicial);
 			if (color.charAt(0) == piezaRetorno.charAt(1)) {
 				colocarPieza(coordenadaInicial, coordenadaFinal, color);
-				//contador++;
 
 			} else {
 				System.out.println(
@@ -360,14 +359,50 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 					
 					if(determinarDireccionHorizontal(posicionInicial, posicionFinal).contentEquals("izquierda")) {
 						//Si el movimiento es hacia la izquierda.
+						String columnaActual = retornarSiguienteColumna(posicionInicial.charAt(0)+"");
+						pieza = retornarPiezaPosicion(columnaActual + posicionInicial.charAt(1));
+						while(pieza != retornarPiezaPosicion(posicionFinal) && retornarSiguienteColumna(columnaActual) != "NO") {
+							
+							if(pieza.nombre.contentEquals("--")) {
+								
+							}else {
+								checkerPiezasEnMedio = true;
+							}
+							columnaActual = retornarSiguienteColumna(columnaActual);
+							pieza = retornarPiezaPosicion(retornarSiguienteColumna(columnaActual)+posicionInicial.charAt(1));
+							
+							
+						}	
 						
-						
-						
+						if(checkerPiezasEnMedio == true) {
+							checker = false;
+						}else {
+							checker = true;
+						}
 						
 					}else if(determinarDireccionHorizontal(posicionInicial, posicionFinal).contentEquals("derecha")) {
 						//Si el movimiento es hacia la derecha.
 						
+						//Si el movimiento es hacia la izquierda.
+						String columnaActual = retornarAnteriorColumna(posicionInicial.charAt(0)+"");
+						pieza = retornarPiezaPosicion(columnaActual + posicionInicial.charAt(1));
+						while(pieza != retornarPiezaPosicion(posicionFinal)) {
+							
+							if(pieza.nombre.contentEquals("--")) {
+								
+							}else {
+								checkerPiezasEnMedio = true;
+							}
+							columnaActual = retornarAnteriorColumna(columnaActual);
+							pieza = retornarPiezaPosicion(retornarAnteriorColumna(columnaActual)+posicionInicial.charAt(1));
+							
+						}	
 						
+						if(checkerPiezasEnMedio) {
+							checker = false;
+						}else {
+							checker = true;
+						}
 						
 					}
 					
@@ -396,13 +431,14 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		String lado="";
 		int primero = 0;
 		int ultimo = 0;
-		int fila = Character.getNumericValue(posicionInicial.charAt(1));
+		int fila = Character.getNumericValue(posicionInicial.charAt(1)-1);
 		for (int i = 0; i < 8; i++) {
-			if (posicionInicial.equals(partida.tablero[i][fila])) {
-				primero = i;
+			String temp = partida.tablero[fila][i];
+			if (posicionInicial.equals(partida.tablero[fila][i]) && ultimo != 1) {
+				primero = 1;
 			}
-			if(posicionInicial.equals(partida.tablero[i][fila])) {
-				ultimo = i;
+			if(posicionFinal.equals(partida.tablero[fila][i]) && primero != 1) {
+				ultimo = 1;
 			}
 		}
 		
