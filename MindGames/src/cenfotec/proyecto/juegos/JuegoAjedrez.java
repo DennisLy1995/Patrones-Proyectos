@@ -584,6 +584,7 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		boolean breaker = false;
 		boolean piezasEnMedio = false;
 		boolean sideFound = false;
+		int siguiente = 0;
 		String posicionTemporal = inicial;
 		PiezaAjedrez piezaTemp = null;
 
@@ -598,19 +599,24 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 					breaker = true;
 					piezasEnMedio = false;
 				} else {
+					siguiente = Character.getNumericValue(posicionTemporal.charAt(1)) + 1;
 					posicionTemporal = retornarSiguienteColumna(posicionTemporal.charAt(0) + "")
-							+ Character.getNumericValue(posicionTemporal.charAt(0) + 1);
+							+ siguiente;
 					piezaTemp = retornarPiezaPosicion(posicionTemporal);
 					if (piezaTemp.nombre.contentEquals("--")) {
-
+						
 					} else {
-						piezasEnMedio = true;
-						breaker = true;
+						if(retornarPiezaPosicion(Final).nombre.contentEquals(piezaTemp.nombre)) {
+							
+						}else {
+							piezasEnMedio = true;
+							breaker = true;
+						}
 					}
 				}
 			}
 		}
-
+/*
 		posicionTemporal = inicial;
 		
 		// Seccion de abajo derecha.
@@ -632,7 +638,7 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 
 						} else {
 							piezasEnMedio = true;
-							breaker = true;
+							//breaker = true;
 						}
 					}
 				}
@@ -661,7 +667,7 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 
 						} else {
 							piezasEnMedio = true;
-							breaker = true;
+							//breaker = true;
 						}
 					}
 				}
@@ -689,13 +695,13 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 
 						} else {
 							piezasEnMedio = true;
-							breaker = true;
+							//breaker = true;
 						}
 					}
 				}
 			}
 		}
-
+*/
 		// evaluacion final.
 		if (piezasEnMedio == true) {
 			checker = false;
