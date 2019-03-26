@@ -177,8 +177,7 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 			break;
 			
 		case "K"://Rey
-			
-			
+			checker = movimientoRey(coordenadaInicial, coordenadaFinal, pieza);
 			break;
 			
 		case "Q"://Reina
@@ -307,9 +306,29 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		return checker;
 	}
 
-	public static boolean movimientoRey(String posicionInicial, String posicionFinal) {
+	public static boolean movimientoRey(String posicionInicial, String posicionFinal, PiezaAjedrez peon) {
 		boolean checker = false;
 
+		if(posicionFinal.contentEquals(posicionInicial.charAt(0)+""+ Character.getNumericValue(posicionInicial.charAt(1)+1)) || 
+				posicionFinal.contentEquals(posicionInicial.charAt(0)+""+ Character.getNumericValue(posicionInicial.charAt(1)-1)) ) {
+			//Cuando el movimiento es en la misma columna.
+			checker = true;
+		}else if(posicionFinal.contentEquals(retornarSiguienteColumna(posicionInicial.charAt(0)+"") + posicionInicial.charAt(1)) || 
+				posicionFinal.contentEquals(retornarAnteriorColumna(posicionInicial.charAt(0)+"") + posicionInicial.charAt(1) ) ) {
+			//Cuando el movimiento es en la misma fila.
+			checker = true;
+		}else if(posicionFinal.contentEquals(retornarSiguienteColumna(posicionInicial.charAt(0)+"") + Character.getNumericValue(posicionInicial.charAt(1)+1) ) || 
+				posicionFinal.contentEquals(retornarAnteriorColumna(posicionInicial.charAt(0)+"") + Character.getNumericValue(posicionInicial.charAt(1)+1) ) ) {
+			//Cuando el movimiento es diagonal arriba.
+			//Trabajando en este if.
+			checker = true;
+		}else if(posicionFinal.contentEquals(retornarSiguienteColumna(posicionInicial.charAt(0)+"") + Character.getNumericValue(posicionInicial.charAt(1)-1) ) || 
+				posicionFinal.contentEquals(retornarAnteriorColumna(posicionInicial.charAt(0)+"") + Character.getNumericValue(posicionInicial.charAt(1)-1) ) ) {
+			//Cuando el movimiento es diagonal atras.
+			checker = true;
+		}
+		
+		
 		return checker;
 	}
 
