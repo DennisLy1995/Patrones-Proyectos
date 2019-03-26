@@ -616,11 +616,18 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 				}
 			}
 		}
-/*
-		posicionTemporal = inicial;
+
+		
 		
 		// Seccion de abajo derecha.
 		if (sideFound == false) {
+			
+			checker = false;
+			breaker = false;
+			piezasEnMedio = false;
+			sideFound = false;
+			posicionTemporal = inicial;
+			
 			while (breaker == false) {
 				if (posicionTemporal.contentEquals(Final)) {
 					breaker = true;
@@ -631,14 +638,19 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 						breaker = true;
 						piezasEnMedio = false;
 					} else {
+						siguiente = Character.getNumericValue(posicionTemporal.charAt(1)) - 1;
 						posicionTemporal = retornarSiguienteColumna(posicionTemporal.charAt(0) + "")
-								+ Character.getNumericValue(posicionTemporal.charAt(0) - 1);
+								+ siguiente;
 						piezaTemp = retornarPiezaPosicion(posicionTemporal);
 						if (piezaTemp.nombre.contentEquals("--")) {
 
 						} else {
-							piezasEnMedio = true;
-							//breaker = true;
+							if(retornarPiezaPosicion(Final).nombre.contentEquals(piezaTemp.nombre)) {
+								
+							}else {
+								piezasEnMedio = true;
+								breaker = true;
+							}
 						}
 					}
 				}
@@ -650,6 +662,13 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		
 		// Seccion de arriba izquierda
 		if (sideFound == false) {
+			
+			checker = false;
+			breaker = false;
+			piezasEnMedio = false;
+			sideFound = false;
+			posicionTemporal = inicial;
+			
 			while (breaker == false) {
 				if (posicionTemporal.contentEquals(Final)) {
 					breaker = true;
@@ -660,14 +679,19 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 						breaker = true;
 						piezasEnMedio = false;
 					} else {
+						siguiente = Character.getNumericValue(posicionTemporal.charAt(1)) + 1;
 						posicionTemporal = retornarAnteriorColumna(posicionTemporal.charAt(0) + "")
-								+ Character.getNumericValue(posicionTemporal.charAt(0) - 1);
+								+ siguiente;
 						piezaTemp = retornarPiezaPosicion(posicionTemporal);
 						if (piezaTemp.nombre.contentEquals("--")) {
 
 						} else {
-							piezasEnMedio = true;
-							//breaker = true;
+							if(retornarPiezaPosicion(Final).nombre.contentEquals(piezaTemp.nombre)) {
+								
+							}else {
+								piezasEnMedio = true;
+								breaker = true;
+							}
 						}
 					}
 				}
@@ -678,6 +702,13 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 
 		// seccion de abajo izquierda.
 		if (sideFound == false) {
+			
+			checker = false;
+			breaker = false;
+			piezasEnMedio = false;
+			sideFound = false;
+			posicionTemporal = inicial;
+			
 			while (breaker == false) {
 				if (posicionTemporal.contentEquals(Final)) {
 					breaker = true;
@@ -688,22 +719,27 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 						breaker = true;
 						piezasEnMedio = false;
 					} else {
+						siguiente = Character.getNumericValue(posicionTemporal.charAt(0)) - 1;
 						posicionTemporal = retornarAnteriorColumna(posicionTemporal.charAt(0) + "")
-								+ Character.getNumericValue(posicionTemporal.charAt(0) - 1);
+								+ siguiente;
 						piezaTemp = retornarPiezaPosicion(posicionTemporal);
 						if (piezaTemp.nombre.contentEquals("--")) {
 
 						} else {
-							piezasEnMedio = true;
-							//breaker = true;
+							if(retornarPiezaPosicion(Final).nombre.contentEquals(piezaTemp.nombre)) {
+								
+							}else {
+								piezasEnMedio = true;
+								breaker = true;
+							}
 						}
 					}
 				}
 			}
 		}
-*/
+
 		// evaluacion final.
-		if (piezasEnMedio == true) {
+		if (piezasEnMedio == true || sideFound == false) {
 			checker = false;
 		} else {
 			checker = true;
