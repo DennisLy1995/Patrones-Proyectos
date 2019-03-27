@@ -350,8 +350,33 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 
 	public static boolean movimientoReina(String posicionInicial, String posicionFinal) {
 		boolean checker = false;
+		boolean found = false;
 
 		//trabajando en este movimiento.
+		if(posicionInicial.contentEquals(posicionFinal)) {
+			checker = false;
+		}else {
+			//Evaluar movimiento en diagonales.
+			found = calcularPiezasEnMedioDiagonal(posicionInicial, posicionFinal);
+			
+			if(found == false) {
+				//Evaluar movimiento al frente y hacia atras.
+				
+				
+			}
+			if(found == false) {
+				//Evaluar movimiento horizontal.
+				
+			}
+			
+
+			//Ultima evaluacion.
+			if(found == false) {
+				checker = false;
+			}else {
+				checker = true;
+			}
+		}
 		
 		
 		return checker;
@@ -870,7 +895,7 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 	    
 		System.out.println();
 		System.out.println("                  |-------------------------------|");
-		System.out.println("                  |              Juego            |");
+		System.out.println("                  |             Juego             |");
 		System.out.println("                  |-------------------------------|");
 		System.out.println();
 
