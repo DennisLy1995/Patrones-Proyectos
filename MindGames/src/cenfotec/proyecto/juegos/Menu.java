@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
 import cenfotec.proyecto.gestores.GestorAjedrez;
 import cenfotec.proyecto.gestores.GestorDamas;
 import cenfotec.proyecto.gestores.GestorGo;
@@ -50,6 +51,8 @@ public class Menu {
 		int breakerMenu = 0;
 		boolean validarUsuario=false;
 
+		//Testing para imprimir unicode.
+		
 		while (breakerLogin == 0) {
 
 			System.out.println("Bienvenido a Mind Games\nIngrese su nombre de usuario\n");

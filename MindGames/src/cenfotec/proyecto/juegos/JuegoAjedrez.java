@@ -2,12 +2,16 @@ package cenfotec.proyecto.juegos;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 import cenfotec.proyecto.artefactos.PartidaAjedrez;
 import cenfotec.proyecto.artefactos.PiezaAjedrez;
 import cenfotec.proyecto.logica.MovimientosAjedrez;
 import cenfotec.proyecto.utiles.PersistenciaTexto;
 import cenfotec.proyecto.utiles.Serializer;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 
 public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 
@@ -179,7 +183,7 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 			break;
 
 		case "Q":// Reina
-			// checker = movimientoReina(coordenadaInicial, coordenadaFinal);
+			checker = movimientoReina(coordenadaInicial, coordenadaFinal);
 			break;
 
 		case "N":// alfil
@@ -347,6 +351,9 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 	public static boolean movimientoReina(String posicionInicial, String posicionFinal) {
 		boolean checker = false;
 
+		//trabajando en este movimiento.
+		
+		
 		return checker;
 	}
 
@@ -799,7 +806,6 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		int ultimo = 0;
 		int fila = Character.getNumericValue(posicionInicial.charAt(1) - 1);
 		for (int i = 0; i < 8; i++) {
-			String temp = partida.tablero[fila][i];
 			if (posicionInicial.equals(partida.tablero[fila][i]) && ultimo != 1) {
 				primero = 1;
 			}
@@ -850,7 +856,87 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 			}
 			System.out.println();
 		}
+		//Impresion de los Simbolos.
+		try {
+			imprimirTableroLogos();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
 	}
+	
+	
+	public static void imprimirTableroLogos() throws UnsupportedEncodingException {
+	    
+		System.out.println();
+		System.out.println("                  |-------------------------------|");
+		System.out.println("                  |              Juego            |");
+		System.out.println("                  |-------------------------------|");
+		System.out.println();
+
+		for (int i = 0; i < 8; i++) {
+			System.out.print("                                                                         ");
+			for (int e = 0; e < 8; e++) {
+				System.out.print(retornarLogo(partida.tableroPosiciones[i][e].nombre)+" ");
+			}
+			System.out.println();
+		}
+	     
+	  }
+	
+	public static String retornarLogo(String pieza) {
+		
+		String unicodeMessage = pieza;
+		
+		switch(unicodeMessage) {
+		case "GN":
+			unicodeMessage = "\u265F";
+			break;
+		case "RN":
+			unicodeMessage = "\u265C";
+			break;
+		case "NN":
+			unicodeMessage = "\u265D";
+			break;
+		case "BN":
+			unicodeMessage = "\u265E";
+			break;
+		case "KN":
+			unicodeMessage = "\u265A";
+			break;
+		case "QN":
+			unicodeMessage = "\u265B";
+			break;
+		case "GB":
+			unicodeMessage = "\u2659";
+			break;
+		case "RB":
+			unicodeMessage = "\u2656";
+			break;
+		case "NB":
+			unicodeMessage = "\u2658";
+			break;
+		case "BB":
+			unicodeMessage = "\u2657";
+			break;
+		case "QB":
+			unicodeMessage = "\u2655";
+			break;
+		case "KB":
+			unicodeMessage = "\u2654";
+			break;
+		case "--":
+			unicodeMessage = "\u058E";
+			break;
+			
+		}
+
+	    //PrintStream out = new PrintStream(System.out, true, "UTF-8");
+	    return unicodeMessage;
+		
+	}
+	
+	
 
 	public static void guardarPartida() throws FileNotFoundException {
 
