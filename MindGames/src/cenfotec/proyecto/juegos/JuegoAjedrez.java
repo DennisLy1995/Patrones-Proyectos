@@ -187,7 +187,7 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 			break;
 
 		case "B":// Caballo
-			// checker = movimientoCaballo(coordenadaInicial, coordenadaFinal);
+			 checker = movimientoCaballo(coordenadaInicial, coordenadaFinal);
 			break;
 
 		}
@@ -353,6 +353,51 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 	public static boolean movimientoCaballo(String posicionInicial, String posicionFinal) {
 		boolean checker = false;
 
+		String PosicionArribaDerechaUnaAlfrente = retornarSiguienteColumna(retornarSiguienteColumna(posicionInicial.charAt(0) + "")) + 
+				(Character.getNumericValue(posicionInicial.charAt(1))+1);
+		
+		String PosicionArribaIzquierdaUnaAlfrente = retornarAnteriorColumna(retornarAnteriorColumna(posicionInicial.charAt(0) + "")) + 
+				(Character.getNumericValue(posicionInicial.charAt(1))+1);
+		
+		String posicionAbajoDerechaUnaAtras = retornarSiguienteColumna(retornarSiguienteColumna(posicionInicial.charAt(0) + "")) + 
+				(Character.getNumericValue(posicionInicial.charAt(1))-1);
+		
+		String posicionAbajoIzquierdaUnaAtras = retornarAnteriorColumna(retornarAnteriorColumna(posicionInicial.charAt(0) + "")) + 
+				(Character.getNumericValue(posicionInicial.charAt(1))-1);
+		
+		
+		String PosicionArribaDerechaTresAlfrente = retornarSiguienteColumna(posicionInicial.charAt(0) + "") + 
+				(Character.getNumericValue(posicionInicial.charAt(1))+2);
+		
+		String PosicionArribaIzquierdaTresAlfrente = retornarAnteriorColumna(posicionInicial.charAt(0) + "") + 
+				(Character.getNumericValue(posicionInicial.charAt(1))+2);
+		
+		String posicionAbajoDerechaTresAtras = retornarSiguienteColumna(posicionInicial.charAt(0) + "") + 
+				(Character.getNumericValue(posicionInicial.charAt(1))-2);
+		
+		String posicionAbajoIzquierdaTresAtras = retornarAnteriorColumna(posicionInicial.charAt(0) + "") + 
+				(Character.getNumericValue(posicionInicial.charAt(1))-2);
+		
+		if(posicionFinal.contentEquals(PosicionArribaDerechaUnaAlfrente)) {
+			checker = true;
+		}else if(posicionFinal.contentEquals(PosicionArribaIzquierdaUnaAlfrente)) {
+			checker = true;
+		}else if(posicionFinal.contentEquals(posicionAbajoDerechaUnaAtras)) {
+			checker = true;
+		}else if(posicionFinal.contentEquals(posicionAbajoIzquierdaUnaAtras)) {
+			checker = true;
+		}else if(posicionFinal.contentEquals(PosicionArribaDerechaTresAlfrente)) {
+			checker = true;
+		}else if(posicionFinal.contentEquals(PosicionArribaIzquierdaTresAlfrente)) {
+			checker = true;
+		}else if(posicionFinal.contentEquals(posicionAbajoDerechaTresAtras)) {
+			checker = true;
+		}else if(posicionFinal.contentEquals(posicionAbajoIzquierdaTresAtras)) {
+			checker = true;
+		}else {
+			checker = false;
+		}
+		
 		return checker;
 	}
 
