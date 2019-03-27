@@ -719,7 +719,7 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 						breaker = true;
 						piezasEnMedio = false;
 					} else {
-						siguiente = Character.getNumericValue(posicionTemporal.charAt(0)) - 1;
+						siguiente = Character.getNumericValue(posicionTemporal.charAt(1)) - 1;
 						posicionTemporal = retornarAnteriorColumna(posicionTemporal.charAt(0) + "")
 								+ siguiente;
 						piezaTemp = retornarPiezaPosicion(posicionTemporal);
