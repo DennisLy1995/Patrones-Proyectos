@@ -361,14 +361,13 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 			
 			if(found == false) {
 				//Evaluar movimiento al frente y hacia atras.
-				
-				
-			}
-			if(found == false) {
-				//Evaluar movimiento horizontal.
-				
+				found = movimientoLineal(posicionInicial, posicionFinal);
 			}
 			
+			if(found == false) {
+				//Evaluar movimiento horizontal.
+				found = movimientoHorizontal(posicionInicial, posicionFinal);
+			}
 
 			//Ultima evaluacion.
 			if(found == false) {
@@ -387,26 +386,18 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 
 		String PosicionArribaDerechaUnaAlfrente = retornarSiguienteColumna(retornarSiguienteColumna(posicionInicial.charAt(0) + "")) + 
 				(Character.getNumericValue(posicionInicial.charAt(1))+1);
-		
 		String PosicionArribaIzquierdaUnaAlfrente = retornarAnteriorColumna(retornarAnteriorColumna(posicionInicial.charAt(0) + "")) + 
 				(Character.getNumericValue(posicionInicial.charAt(1))+1);
-		
 		String posicionAbajoDerechaUnaAtras = retornarSiguienteColumna(retornarSiguienteColumna(posicionInicial.charAt(0) + "")) + 
 				(Character.getNumericValue(posicionInicial.charAt(1))-1);
-		
 		String posicionAbajoIzquierdaUnaAtras = retornarAnteriorColumna(retornarAnteriorColumna(posicionInicial.charAt(0) + "")) + 
 				(Character.getNumericValue(posicionInicial.charAt(1))-1);
-		
-		
 		String PosicionArribaDerechaTresAlfrente = retornarSiguienteColumna(posicionInicial.charAt(0) + "") + 
 				(Character.getNumericValue(posicionInicial.charAt(1))+2);
-		
 		String PosicionArribaIzquierdaTresAlfrente = retornarAnteriorColumna(posicionInicial.charAt(0) + "") + 
 				(Character.getNumericValue(posicionInicial.charAt(1))+2);
-		
 		String posicionAbajoDerechaTresAtras = retornarSiguienteColumna(posicionInicial.charAt(0) + "") + 
 				(Character.getNumericValue(posicionInicial.charAt(1))-2);
-		
 		String posicionAbajoIzquierdaTresAtras = retornarAnteriorColumna(posicionInicial.charAt(0) + "") + 
 				(Character.getNumericValue(posicionInicial.charAt(1))-2);
 		
@@ -562,7 +553,6 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 							} else {
 								checkerPiezasEnMedio = true;
 							}
-							System.out.println("Estoy en la posicion: " + i);
 						}
 						if (checkerPiezasEnMedio) {
 							checker = false;
@@ -654,6 +644,128 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		boolean checker = calcularPiezasEnMedioDiagonal(posicionInicial, posicionFinal);
 		
 		return checker;
+	}
+	
+	public static boolean movimientoHorizontal(String inicial, String Final) {
+		boolean checker = false;
+		boolean piezasEnMedio = false;
+		boolean breaker = false;
+		boolean found = false;
+		String posicionActual = inicial;
+		PiezaAjedrez piezaTemp = null;
+		int contador = 0;
+		
+		while(breaker == false) {
+			
+			if(posicionActual == Final) {
+				
+			}else {
+				posicionActual = retornarSiguienteColumna(Character.toString(posicionActual.charAt(0))) + Integer.toString(1);
+			}
+			breaker = true;
+			
+		}
+		
+		if(found == false) {
+			
+			while(breaker == false) {
+				
+				breaker = true;
+				
+			}
+			
+		}
+		
+		
+		
+		
+		if(piezasEnMedio == true) {
+			found = false;
+		}
+		
+		if(found == false) {
+			checker = false;
+		}else {
+			checker = true;
+		}
+		
+		return checker;
+	}
+	
+	public static boolean movimientoLineal(String inicial, String Final) {
+		boolean checker = false;
+		boolean breaker = false;
+		boolean piezasEnMedio = false;
+		boolean found = false;
+		String posicionActual = inicial;
+		PiezaAjedrez piezaTemp = null;
+		int contador = 0;
+		
+		while(breaker == false) {
+			
+			if(posicionActual.contentEquals(Final)) {
+				breaker = true;
+				found = true;
+			}else {
+				posicionActual = (posicionActual.charAt(0)) + 
+					Integer.toString((Character.getNumericValue(posicionActual.charAt(1))+1));
+				piezaTemp = retornarPiezaPosicion(posicionActual);
+				
+				if(piezaTemp.nombre.contentEquals("--")) {
+					
+				}else {
+					piezasEnMedio = true;
+				}
+			}
+			if(contador>9) {
+				breaker = true;
+				piezasEnMedio= false;
+				checker = false;
+			}
+			contador++;			
+		}
+		
+		if(found == false) {
+			contador =0;
+			breaker = false;
+			piezasEnMedio = false;
+			checker = false;
+			
+			while(breaker == false) {
+				
+				if(posicionActual.contentEquals(Final)) {
+					breaker = true;
+					found = true;
+				}else {
+					piezaTemp = retornarPiezaPosicion((posicionActual.charAt(0)) + 
+							(Character.getNumericValue(posicionActual.charAt(1))-1) + "");
+					if(piezaTemp.nombre.contentEquals("--")) {
+						
+					}else {
+						piezasEnMedio = true;
+					}
+				}
+				if(contador>9) {
+					breaker = true;
+					piezasEnMedio= false;
+					checker = false;
+				}
+				contador++;
+			}
+		}
+		
+		if(piezasEnMedio == true) {
+			found = false;
+		}
+		
+		if(found == false) {
+			checker = false;
+		}else {
+			checker = true;
+		}
+		
+		return checker;
+		
 	}
 
 	public static boolean calcularPiezasEnMedioDiagonal(String inicial, String Final) {
