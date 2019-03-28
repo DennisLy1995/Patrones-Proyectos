@@ -451,7 +451,6 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 							} else {
 								checkerPiezasEnMedio = true;
 							}
-							System.out.println("Estoy en la posicion: " + i);
 						}
 						if (checkerPiezasEnMedio) {
 							checker = false;
@@ -649,68 +648,42 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 	public static boolean movimientoHorizontal(String inicial, String Final) {
 		boolean checker = false;
 		boolean piezasEnMedio = false;
-		boolean breaker = false;
 		boolean found = false;
 		String posicionActual = inicial;
 		PiezaAjedrez piezaTemp = null;
-		int contador = 0;
+		String lado = "";
 		
-		while(breaker == false) {
-			
-			if(posicionActual == Final) {
-				
-			}else {
-				posicionActual = retornarSiguienteColumna(Character.toString(posicionActual.charAt(0))) + Integer.toString(1);
-				if(posicionActual.charAt(0) == 'N') {
-					
-				}else{
-					piezaTemp = retornarPiezaPosicion(posicionActual);
-					if(piezaTemp.nombre.contentEquals("--")) {
-						
-					}else {
-						piezasEnMedio = true;
-						breaker = true;
-					}
-				}
-			}
-			if(contador>9) {
-				breaker = true;
-				found = false;
-				piezasEnMedio = false;
-			}
-			contador++;
-		}
 		
-		if(found == false) {
+		lado = determinarDireccionHorizontal(inicial, Final);
+		if(lado.contentEquals("izquierda")) {
 			
-			while(breaker == false) {
-				
-				if(posicionActual == Final) {
+			while(posicionActual.contentEquals(Final)) {
+				posicionActual = retornarSiguienteColumna(Character.toString(posicionActual.charAt(0))) + Integer.toString(posicionActual.charAt(0));
+				piezaTemp = retornarPiezaPosicion(posicionActual);
+				if(piezaTemp.nombre.contentEquals("--")) {
 					
 				}else {
-					posicionActual = retornarAnteriorColumna(Character.toString(posicionActual.charAt(0))) + Integer.toString(1);
-					if(posicionActual.charAt(0) == 'N') {
-						
-					}else{
-						piezaTemp = retornarPiezaPosicion(posicionActual);
-						if(piezaTemp.nombre.contentEquals("--")) {
-							
-						}else {
-							piezasEnMedio = true;
-							breaker = true;
-						}
-					}
+					piezasEnMedio = true;
 				}
-				if(contador>9) {
-					breaker = true;
-					found = false;
-					piezasEnMedio = false;
-				}
-				contador++;
 			}
 			
+		}else if(lado.contentEquals("derecha")) {
+			
+			while(posicionActual.contentEquals(Final)) {
+				posicionActual = retornarAnteriorColumna(Character.toString(posicionActual.charAt(0))) + Integer.toString(posicionActual.charAt(0));
+				piezaTemp = retornarPiezaPosicion(posicionActual);
+				if(piezaTemp.nombre.contentEquals("--")) {
+					
+				}else {
+					piezasEnMedio = true;
+				}
+			}
+			
+		}else {
+			checker = false;
 		}
 		
+
 		//Evaluacion Final.
 		if(piezasEnMedio == true) {
 			found = false;
@@ -721,6 +694,8 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		}else {
 			checker = true;
 		}
+		
+		
 		
 		return checker;
 	}
@@ -738,7 +713,7 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 			
 			if(posicionActual.contentEquals(Final)) {
 				breaker = true;
-				found = true;
+				//found = true;
 			}else {
 				posicionActual = (posicionActual.charAt(0)) + 
 					Integer.toString((Character.getNumericValue(posicionActual.charAt(1))+1));
@@ -763,6 +738,7 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 			breaker = false;
 			piezasEnMedio = false;
 			checker = false;
+			posicionActual = inicial;
 			
 			while(breaker == false) {
 				
@@ -770,8 +746,9 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 					breaker = true;
 					found = true;
 				}else {
-					piezaTemp = retornarPiezaPosicion((posicionActual.charAt(0)) + 
-							(Character.getNumericValue(posicionActual.charAt(1))-1) + "");
+					posicionActual = (posicionActual.charAt(0)) + 
+							Integer.toString(Character.getNumericValue(posicionActual.charAt(1))-1);
+					piezaTemp = retornarPiezaPosicion(posicionActual);
 					if(piezaTemp.nombre.contentEquals("--")) {
 						
 					}else {
@@ -1059,40 +1036,40 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		String unicodeMessage = pieza;
 		
 		switch(unicodeMessage) {
-		case "GN":
+		case "GB":
 			unicodeMessage = "\u265F";
 			break;
-		case "RN":
+		case "RB":
 			unicodeMessage = "\u265C";
 			break;
-		case "NN":
+		case "NB":
 			unicodeMessage = "\u265D";
 			break;
-		case "BN":
+		case "BB":
 			unicodeMessage = "\u265E";
 			break;
-		case "KN":
+		case "KB":
 			unicodeMessage = "\u265A";
 			break;
-		case "QN":
+		case "QB":
 			unicodeMessage = "\u265B";
 			break;
-		case "GB":
+		case "GN":
 			unicodeMessage = "\u2659";
 			break;
-		case "RB":
+		case "RN":
 			unicodeMessage = "\u2656";
 			break;
-		case "NB":
+		case "NN":
 			unicodeMessage = "\u2658";
 			break;
-		case "BB":
+		case "BN":
 			unicodeMessage = "\u2657";
 			break;
-		case "QB":
+		case "QN":
 			unicodeMessage = "\u2655";
 			break;
-		case "KB":
+		case "KN":
 			unicodeMessage = "\u2654";
 			break;
 		case "--":
