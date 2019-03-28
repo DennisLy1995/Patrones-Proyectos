@@ -661,24 +661,57 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 				
 			}else {
 				posicionActual = retornarSiguienteColumna(Character.toString(posicionActual.charAt(0))) + Integer.toString(1);
+				if(posicionActual.charAt(0) == 'N') {
+					
+				}else{
+					piezaTemp = retornarPiezaPosicion(posicionActual);
+					if(piezaTemp.nombre.contentEquals("--")) {
+						
+					}else {
+						piezasEnMedio = true;
+						breaker = true;
+					}
+				}
 			}
-			breaker = true;
-			
+			if(contador>9) {
+				breaker = true;
+				found = false;
+				piezasEnMedio = false;
+			}
+			contador++;
 		}
 		
 		if(found == false) {
 			
 			while(breaker == false) {
 				
-				breaker = true;
-				
+				if(posicionActual == Final) {
+					
+				}else {
+					posicionActual = retornarAnteriorColumna(Character.toString(posicionActual.charAt(0))) + Integer.toString(1);
+					if(posicionActual.charAt(0) == 'N') {
+						
+					}else{
+						piezaTemp = retornarPiezaPosicion(posicionActual);
+						if(piezaTemp.nombre.contentEquals("--")) {
+							
+						}else {
+							piezasEnMedio = true;
+							breaker = true;
+						}
+					}
+				}
+				if(contador>9) {
+					breaker = true;
+					found = false;
+					piezasEnMedio = false;
+				}
+				contador++;
 			}
 			
 		}
 		
-		
-		
-		
+		//Evaluacion Final.
 		if(piezasEnMedio == true) {
 			found = false;
 		}
