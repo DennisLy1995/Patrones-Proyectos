@@ -21,52 +21,39 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 	}
 
 	public static void iniciarPartida() {
-		String ganador = EvaluarGanador();
-		if(ganador.contentEquals("Ninguno")) {
-			System.out.println("Inician las piezas Negras.");
-			partida = new PartidaAjedrez();
 
-			contador = 2;
-			boolean breaker = false;
-			while (breaker == false) {
-				ImprimirEstadoJuego();
-				switch (lecturaOpcionMenu()) {
-				case "1":
-					if (contador % 2 == 0) {
-						System.out.println("Mueven las piezas negras.");
-						moverPieza("N");
-					} else {
-						System.out.println("Mueven las piezas blancas.");
-						moverPieza("B");
-					}
-					breaker = false;
-					break;
-				case "2":
-					breaker = false;
-					break;
-				case "3":
-					breaker = true;
-					break;
-				default:
-					System.out.println("Opcion no valida.");
-					breaker = false;
-					break;
+		System.out.println("Inician las piezas Negras.");
+		partida = new PartidaAjedrez();
 
+		contador = 2;
+		boolean breaker = false;
+		while (breaker == false) {
+			ImprimirEstadoJuego();
+			switch (lecturaOpcionMenu()) {
+			case "1":
+				if (contador % 2 == 0) {
+					System.out.println("Mueven las piezas negras.");
+					moverPieza("N");
+				} else {
+					System.out.println("Mueven las piezas blancas.");
+					moverPieza("B");
 				}
-			}
+				breaker = false;
+				break;
+			case "2":
+				breaker = false;
+				break;
+			case "3":
+				breaker = true;
+				break;
+			default:
+				System.out.println("Opcion no valida.");
+				breaker = false;
+				break;
 
-		}else if(ganador.contentEquals("jugador1")) {
-			System.out.println();
-			System.out.println("El jugador 1 ha ganado: Negro");
-			System.out.println();
-			ImprimirEstadoJuego();
-		}else if(ganador.contentEquals("jugador2")) {
-			System.out.println();
-			System.out.println("El jugador 2 ha ganado: Blanco");
-			System.out.println();
-			ImprimirEstadoJuego();
+			}
 		}
-		
+
 	}
 
 	public static void imprimirOpcionesJuego() {
@@ -200,7 +187,7 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 			break;
 
 		case "B":// Caballo
-			 checker = movimientoCaballo(coordenadaInicial, coordenadaFinal);
+			checker = movimientoCaballo(coordenadaInicial, coordenadaFinal);
 			break;
 
 		}
@@ -361,164 +348,166 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		boolean checker = false;
 		boolean found = false;
 
-		if(posicionInicial.contentEquals(posicionFinal)) {
+		if (posicionInicial.contentEquals(posicionFinal)) {
 			checker = false;
-		}else {
-			//Evaluar movimiento en diagonales.
+		} else {
+			// Evaluar movimiento en diagonales.
 			found = calcularPiezasEnMedioDiagonal(posicionInicial, posicionFinal);
-			
-			if(found == false) {
-				//Evaluar movimiento al frente y hacia atras.
+
+			if (found == false) {
+				// Evaluar movimiento al frente y hacia atras.
 				found = movimientoLineal(posicionInicial, posicionFinal);
 			}
-			
-			if(found == false) {
-				//Evaluar movimiento horizontal.
+
+			if (found == false) {
+				// Evaluar movimiento horizontal.
 				found = movimientoHorizontal(posicionInicial, posicionFinal);
 			}
 
-			//Ultima evaluacion.
-			if(found == false) {
+			// Ultima evaluacion.
+			if (found == false) {
 				checker = false;
-			}else {
+			} else {
 				checker = true;
 			}
 		}
-		
-		
+
 		return checker;
 	}
 
 	public static boolean movimientoCaballo(String posicionInicial, String posicionFinal) {
 		boolean checker = false;
 
-		String PosicionArribaDerechaUnaAlfrente = retornarSiguienteColumna(retornarSiguienteColumna(posicionInicial.charAt(0) + "")) + 
-				(Character.getNumericValue(posicionInicial.charAt(1))+1);
-		String PosicionArribaIzquierdaUnaAlfrente = retornarAnteriorColumna(retornarAnteriorColumna(posicionInicial.charAt(0) + "")) + 
-				(Character.getNumericValue(posicionInicial.charAt(1))+1);
-		String posicionAbajoDerechaUnaAtras = retornarSiguienteColumna(retornarSiguienteColumna(posicionInicial.charAt(0) + "")) + 
-				(Character.getNumericValue(posicionInicial.charAt(1))-1);
-		String posicionAbajoIzquierdaUnaAtras = retornarAnteriorColumna(retornarAnteriorColumna(posicionInicial.charAt(0) + "")) + 
-				(Character.getNumericValue(posicionInicial.charAt(1))-1);
-		String PosicionArribaDerechaTresAlfrente = retornarSiguienteColumna(posicionInicial.charAt(0) + "") + 
-				(Character.getNumericValue(posicionInicial.charAt(1))+2);
-		String PosicionArribaIzquierdaTresAlfrente = retornarAnteriorColumna(posicionInicial.charAt(0) + "") + 
-				(Character.getNumericValue(posicionInicial.charAt(1))+2);
-		String posicionAbajoDerechaTresAtras = retornarSiguienteColumna(posicionInicial.charAt(0) + "") + 
-				(Character.getNumericValue(posicionInicial.charAt(1))-2);
-		String posicionAbajoIzquierdaTresAtras = retornarAnteriorColumna(posicionInicial.charAt(0) + "") + 
-				(Character.getNumericValue(posicionInicial.charAt(1))-2);
-		
-		if(posicionFinal.contentEquals(PosicionArribaDerechaUnaAlfrente)) {
+		String PosicionArribaDerechaUnaAlfrente = retornarSiguienteColumna(
+				retornarSiguienteColumna(posicionInicial.charAt(0) + ""))
+				+ (Character.getNumericValue(posicionInicial.charAt(1)) + 1);
+		String PosicionArribaIzquierdaUnaAlfrente = retornarAnteriorColumna(
+				retornarAnteriorColumna(posicionInicial.charAt(0) + ""))
+				+ (Character.getNumericValue(posicionInicial.charAt(1)) + 1);
+		String posicionAbajoDerechaUnaAtras = retornarSiguienteColumna(
+				retornarSiguienteColumna(posicionInicial.charAt(0) + ""))
+				+ (Character.getNumericValue(posicionInicial.charAt(1)) - 1);
+		String posicionAbajoIzquierdaUnaAtras = retornarAnteriorColumna(
+				retornarAnteriorColumna(posicionInicial.charAt(0) + ""))
+				+ (Character.getNumericValue(posicionInicial.charAt(1)) - 1);
+		String PosicionArribaDerechaTresAlfrente = retornarSiguienteColumna(posicionInicial.charAt(0) + "")
+				+ (Character.getNumericValue(posicionInicial.charAt(1)) + 2);
+		String PosicionArribaIzquierdaTresAlfrente = retornarAnteriorColumna(posicionInicial.charAt(0) + "")
+				+ (Character.getNumericValue(posicionInicial.charAt(1)) + 2);
+		String posicionAbajoDerechaTresAtras = retornarSiguienteColumna(posicionInicial.charAt(0) + "")
+				+ (Character.getNumericValue(posicionInicial.charAt(1)) - 2);
+		String posicionAbajoIzquierdaTresAtras = retornarAnteriorColumna(posicionInicial.charAt(0) + "")
+				+ (Character.getNumericValue(posicionInicial.charAt(1)) - 2);
+
+		if (posicionFinal.contentEquals(PosicionArribaDerechaUnaAlfrente)) {
 			checker = true;
-		}else if(posicionFinal.contentEquals(PosicionArribaIzquierdaUnaAlfrente)) {
+		} else if (posicionFinal.contentEquals(PosicionArribaIzquierdaUnaAlfrente)) {
 			checker = true;
-		}else if(posicionFinal.contentEquals(posicionAbajoDerechaUnaAtras)) {
+		} else if (posicionFinal.contentEquals(posicionAbajoDerechaUnaAtras)) {
 			checker = true;
-		}else if(posicionFinal.contentEquals(posicionAbajoIzquierdaUnaAtras)) {
+		} else if (posicionFinal.contentEquals(posicionAbajoIzquierdaUnaAtras)) {
 			checker = true;
-		}else if(posicionFinal.contentEquals(PosicionArribaDerechaTresAlfrente)) {
+		} else if (posicionFinal.contentEquals(PosicionArribaDerechaTresAlfrente)) {
 			checker = true;
-		}else if(posicionFinal.contentEquals(PosicionArribaIzquierdaTresAlfrente)) {
+		} else if (posicionFinal.contentEquals(PosicionArribaIzquierdaTresAlfrente)) {
 			checker = true;
-		}else if(posicionFinal.contentEquals(posicionAbajoDerechaTresAtras)) {
+		} else if (posicionFinal.contentEquals(posicionAbajoDerechaTresAtras)) {
 			checker = true;
-		}else if(posicionFinal.contentEquals(posicionAbajoIzquierdaTresAtras)) {
+		} else if (posicionFinal.contentEquals(posicionAbajoIzquierdaTresAtras)) {
 			checker = true;
-		}else {
+		} else {
 			checker = false;
 		}
-		
+
 		return checker;
 	}
 
 	public static boolean movimientoTorre(String posicionInicial, String posicionFinal) {
-		
+
 		boolean checker = false;
 		boolean found = false;
 
-		if(posicionInicial.contentEquals(posicionFinal)) {
+		if (posicionInicial.contentEquals(posicionFinal)) {
 			checker = false;
-		}else {
-			//Evaluar movimiento en lineal.
+		} else {
+			// Evaluar movimiento en lineal.
 			found = movimientoLineal(posicionInicial, posicionFinal);
-			
-			if(found == false) {
-				//Evaluar movimiento horizontal.
+
+			if (found == false) {
+				// Evaluar movimiento horizontal.
 				found = movimientoHorizontal(posicionInicial, posicionFinal);
 			}
 
-			//Ultima evaluacion.
-			if(found == false) {
+			// Ultima evaluacion.
+			if (found == false) {
 				checker = false;
-			}else {
+			} else {
 				checker = true;
 			}
 		}
-		
-		
+
 		return checker;
 	}
 
 	public static boolean movimientoAlfil(String posicionInicial, String posicionFinal) {
 		boolean checker = calcularPiezasEnMedioDiagonal(posicionInicial, posicionFinal);
-		
+
 		return checker;
 	}
-	
+
 	public static boolean movimientoHorizontal(String inicial, String Final) {
 		boolean checker = true;
 		boolean piezasEnMedio = false;
 		String posicionActual = inicial;
 		PiezaAjedrez piezaTemp = null;
 		String lado = "";
-		
-		
-		if(Character.getNumericValue(inicial.charAt(1))==Character.getNumericValue(Final.charAt(1))) {
-			
-			lado = determinarDireccionHorizontal(inicial, Final);
-			
-			if(lado.contentEquals("izquierda")) {
-				Final = retornarAnteriorColumna(Character.toString(Final.charAt(0)))+Final.charAt(1);
-				while(!posicionActual.contentEquals(Final)) {
-					posicionActual = retornarSiguienteColumna(Character.toString(posicionActual.charAt(0))) + Character.toString(inicial.charAt(1));
-					piezaTemp = retornarPiezaPosicion(posicionActual);
-					if(piezaTemp.nombre.contentEquals("--")) {
-						
-					}else {
-						piezasEnMedio = true;
-					}
-				}
-				
-			}else if(lado.contentEquals("derecha")) {
-				Final = retornarSiguienteColumna(Character.toString(Final.charAt(0)))+Final.charAt(1);
-				while(!posicionActual.contentEquals(Final)) {
-					posicionActual = retornarAnteriorColumna(Character.toString(posicionActual.charAt(0))) + Character.toString(inicial.charAt(1));
-					piezaTemp = retornarPiezaPosicion(posicionActual);
-					if(piezaTemp.nombre.contentEquals("--")) {
-						
-					}else {
-						piezasEnMedio = true;
-					}
-				}
-				
-			}else {
-				checker = false;
-			}
-			
 
-			//Evaluacion Final.
-			if(piezasEnMedio == true) {
+		if (Character.getNumericValue(inicial.charAt(1)) == Character.getNumericValue(Final.charAt(1))) {
+
+			lado = determinarDireccionHorizontal(inicial, Final);
+
+			if (lado.contentEquals("izquierda")) {
+				Final = retornarAnteriorColumna(Character.toString(Final.charAt(0))) + Final.charAt(1);
+				while (!posicionActual.contentEquals(Final)) {
+					posicionActual = retornarSiguienteColumna(Character.toString(posicionActual.charAt(0)))
+							+ Character.toString(inicial.charAt(1));
+					piezaTemp = retornarPiezaPosicion(posicionActual);
+					if (piezaTemp.nombre.contentEquals("--")) {
+
+					} else {
+						piezasEnMedio = true;
+					}
+				}
+
+			} else if (lado.contentEquals("derecha")) {
+				Final = retornarSiguienteColumna(Character.toString(Final.charAt(0))) + Final.charAt(1);
+				while (!posicionActual.contentEquals(Final)) {
+					posicionActual = retornarAnteriorColumna(Character.toString(posicionActual.charAt(0)))
+							+ Character.toString(inicial.charAt(1));
+					piezaTemp = retornarPiezaPosicion(posicionActual);
+					if (piezaTemp.nombre.contentEquals("--")) {
+
+					} else {
+						piezasEnMedio = true;
+					}
+				}
+
+			} else {
 				checker = false;
 			}
-			
-		}else {
+
+			// Evaluacion Final.
+			if (piezasEnMedio == true) {
+				checker = false;
+			}
+
+		} else {
 			checker = false;
 		}
-		
+
 		return checker;
 	}
-	
+
 	public static boolean movimientoLineal(String inicial, String Final) {
 		boolean checker = true;
 		boolean piezasEnMedio = false;
@@ -527,54 +516,54 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		int contador = 0;
 		int posInicial = Character.getNumericValue(inicial.charAt(1));
 		int posFinal = Character.getNumericValue(Final.charAt(1));
-		
-		if(inicial.charAt(0) == Final.charAt(0)) {
-			
-			if(posInicial < posFinal) {
-				posInicial = posInicial+1;
-				for(int i=posInicial; i<posFinal; i++) {
-					
+
+		if (inicial.charAt(0) == Final.charAt(0)) {
+
+			if (posInicial < posFinal) {
+				posInicial = posInicial + 1;
+				for (int i = posInicial; i < posFinal; i++) {
+
 					piezaTemp = retornarPiezaPosicion(columna + i);
-					if(piezaTemp.nombre.contentEquals("--")) {
-						
-					}else {
+					if (piezaTemp.nombre.contentEquals("--")) {
+
+					} else {
 						piezasEnMedio = true;
 					}
-					
-					if(contador>9) {
-						i=posFinal;
+
+					if (contador > 9) {
+						i = posFinal;
 					}
 				}
-				
-			}else if (posInicial > posFinal){
-				posInicial = posInicial-1;
-				for(int i=posInicial; i>posFinal; i--) {
-					
+
+			} else if (posInicial > posFinal) {
+				posInicial = posInicial - 1;
+				for (int i = posInicial; i > posFinal; i--) {
+
 					piezaTemp = retornarPiezaPosicion(columna + i);
-					if(piezaTemp.nombre.contentEquals("--")) {
-						
-					}else {
+					if (piezaTemp.nombre.contentEquals("--")) {
+
+					} else {
 						piezasEnMedio = true;
 					}
-					
-					if(contador>9) {
-						i=posFinal;
+
+					if (contador > 9) {
+						i = posFinal;
 					}
 				}
-			}else {
+			} else {
 				checker = false;
 			}
-			
-		}else {
+
+		} else {
 			checker = false;
 		}
-		
-		if(piezasEnMedio == true) {
+
+		if (piezasEnMedio == true) {
 			checker = false;
 		}
-		
+
 		return checker;
-		
+
 	}
 
 	public static boolean calcularPiezasEnMedioDiagonal(String inicial, String Final) {
@@ -598,15 +587,14 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 					piezasEnMedio = false;
 				} else {
 					siguiente = Character.getNumericValue(posicionTemporal.charAt(1)) + 1;
-					posicionTemporal = retornarSiguienteColumna(posicionTemporal.charAt(0) + "")
-							+ siguiente;
+					posicionTemporal = retornarSiguienteColumna(posicionTemporal.charAt(0) + "") + siguiente;
 					piezaTemp = retornarPiezaPosicion(posicionTemporal);
 					if (piezaTemp.nombre.contentEquals("--")) {
-						
+
 					} else {
-						if(retornarPiezaPosicion(Final).nombre.contentEquals(piezaTemp.nombre)) {
-							
-						}else {
+						if (retornarPiezaPosicion(Final).nombre.contentEquals(piezaTemp.nombre)) {
+
+						} else {
 							piezasEnMedio = true;
 							breaker = true;
 						}
@@ -615,17 +603,15 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 			}
 		}
 
-		
-		
 		// Seccion de abajo derecha.
 		if (sideFound == false) {
-			
+
 			checker = false;
 			breaker = false;
 			piezasEnMedio = false;
 			sideFound = false;
 			posicionTemporal = inicial;
-			
+
 			while (breaker == false) {
 				if (posicionTemporal.contentEquals(Final)) {
 					breaker = true;
@@ -637,15 +623,14 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 						piezasEnMedio = false;
 					} else {
 						siguiente = Character.getNumericValue(posicionTemporal.charAt(1)) - 1;
-						posicionTemporal = retornarSiguienteColumna(posicionTemporal.charAt(0) + "")
-								+ siguiente;
+						posicionTemporal = retornarSiguienteColumna(posicionTemporal.charAt(0) + "") + siguiente;
 						piezaTemp = retornarPiezaPosicion(posicionTemporal);
 						if (piezaTemp.nombre.contentEquals("--")) {
 
 						} else {
-							if(retornarPiezaPosicion(Final).nombre.contentEquals(piezaTemp.nombre)) {
-								
-							}else {
+							if (retornarPiezaPosicion(Final).nombre.contentEquals(piezaTemp.nombre)) {
+
+							} else {
 								piezasEnMedio = true;
 								breaker = true;
 							}
@@ -655,18 +640,17 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 			}
 		}
 
-		
 		posicionTemporal = inicial;
-		
+
 		// Seccion de arriba izquierda
 		if (sideFound == false) {
-			
+
 			checker = false;
 			breaker = false;
 			piezasEnMedio = false;
 			sideFound = false;
 			posicionTemporal = inicial;
-			
+
 			while (breaker == false) {
 				if (posicionTemporal.contentEquals(Final)) {
 					breaker = true;
@@ -678,15 +662,14 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 						piezasEnMedio = false;
 					} else {
 						siguiente = Character.getNumericValue(posicionTemporal.charAt(1)) + 1;
-						posicionTemporal = retornarAnteriorColumna(posicionTemporal.charAt(0) + "")
-								+ siguiente;
+						posicionTemporal = retornarAnteriorColumna(posicionTemporal.charAt(0) + "") + siguiente;
 						piezaTemp = retornarPiezaPosicion(posicionTemporal);
 						if (piezaTemp.nombre.contentEquals("--")) {
 
 						} else {
-							if(retornarPiezaPosicion(Final).nombre.contentEquals(piezaTemp.nombre)) {
-								
-							}else {
+							if (retornarPiezaPosicion(Final).nombre.contentEquals(piezaTemp.nombre)) {
+
+							} else {
 								piezasEnMedio = true;
 								breaker = true;
 							}
@@ -695,18 +678,18 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 				}
 			}
 		}
-		
+
 		posicionTemporal = inicial;
 
 		// seccion de abajo izquierda.
 		if (sideFound == false) {
-			
+
 			checker = false;
 			breaker = false;
 			piezasEnMedio = false;
 			sideFound = false;
 			posicionTemporal = inicial;
-			
+
 			while (breaker == false) {
 				if (posicionTemporal.contentEquals(Final)) {
 					breaker = true;
@@ -718,15 +701,14 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 						piezasEnMedio = false;
 					} else {
 						siguiente = Character.getNumericValue(posicionTemporal.charAt(1)) - 1;
-						posicionTemporal = retornarAnteriorColumna(posicionTemporal.charAt(0) + "")
-								+ siguiente;
+						posicionTemporal = retornarAnteriorColumna(posicionTemporal.charAt(0) + "") + siguiente;
 						piezaTemp = retornarPiezaPosicion(posicionTemporal);
 						if (piezaTemp.nombre.contentEquals("--")) {
 
 						} else {
-							if(retornarPiezaPosicion(Final).nombre.contentEquals(piezaTemp.nombre)) {
-								
-							}else {
+							if (retornarPiezaPosicion(Final).nombre.contentEquals(piezaTemp.nombre)) {
+
+							} else {
 								piezasEnMedio = true;
 								breaker = true;
 							}
@@ -742,7 +724,7 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		} else {
 			checker = true;
 		}
-		
+
 		return checker;
 	}
 
@@ -802,18 +784,17 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 			}
 			System.out.println();
 		}
-		//Impresion de los Simbolos.
+		// Impresion de los Simbolos.
 		try {
 			imprimirTableroLogos();
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
-	
+
 	public static void imprimirTableroLogos() throws UnsupportedEncodingException {
-	    
+
 		System.out.println();
 		System.out.println("                  |-------------------------------|");
 		System.out.println("                  |             Juego             |");
@@ -823,48 +804,47 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		for (int i = 0; i < 8; i++) {
 			System.out.print("                                                                         ");
 			for (int e = 0; e < 8; e++) {
-				System.out.print(retornarLogo(partida.tableroPosiciones[i][e].nombre)+" ");
+				System.out.print(retornarLogo(partida.tableroPosiciones[i][e].nombre) + " ");
 			}
 			System.out.println();
 		}
-	     
-	  }
-	
-	public static String EvaluarGanador(){
-	    
+
+	}
+
+	public static String EvaluarGanador() {
+
 		String ganador = "Ninguno";
 		boolean checkerNegro = false;
 		boolean checkerBlanco = false;
 
 		for (int i = 0; i < 8; i++) {
 			for (int e = 0; e < 8; e++) {
-				if(partida.tableroPosiciones[i][e].nombre.contentEquals("KB")) {
+				if (partida.tableroPosiciones[i][e].nombre.contentEquals("KB")) {
 					checkerBlanco = true;
-				}else if(partida.tableroPosiciones[i][e].nombre.contentEquals("KN")) {
+				} else if (partida.tableroPosiciones[i][e].nombre.contentEquals("KN")) {
 					checkerNegro = true;
-				}else {
-					
+				} else {
+
 				}
 			}
 		}
-		
-		if(checkerBlanco == true && checkerNegro == true) {
-			
-		}else if(checkerBlanco == true && checkerNegro == false) {
+
+		if (checkerBlanco == true && checkerNegro == true) {
+
+		} else if (checkerBlanco == true && checkerNegro == false) {
 			ganador = "jugador2";
-		}else if(checkerBlanco == false && checkerNegro == true) {
+		} else if (checkerBlanco == false && checkerNegro == true) {
 			ganador = "jugador1";
 		}
-		
-	     return ganador;
-	  }
-	
-	
+
+		return ganador;
+	}
+
 	public static String retornarLogo(String pieza) {
-		
+
 		String unicodeMessage = pieza;
-		
-		switch(unicodeMessage) {
+
+		switch (unicodeMessage) {
 		case "GB":
 			unicodeMessage = "\u265F";
 			break;
@@ -904,13 +884,11 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		case "--":
 			unicodeMessage = "\u058E";
 			break;
-			
+
 		}
-	    return unicodeMessage;
-		
+		return unicodeMessage;
+
 	}
-	
-	
 
 	public static void guardarPartida() throws FileNotFoundException {
 
