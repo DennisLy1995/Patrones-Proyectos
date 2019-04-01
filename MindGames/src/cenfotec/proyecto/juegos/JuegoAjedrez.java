@@ -39,7 +39,6 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 						System.out.println("Mueven las piezas blancas.");
 						moverPieza("B");
 					}
-
 					breaker = false;
 					break;
 				case "2":
