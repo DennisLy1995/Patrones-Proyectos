@@ -259,11 +259,11 @@ public class JuegoAjedrez extends Juego {
 			break;
 
 		case "N":// alfil
-			checker = movimientoAlfil(coordenadaInicial, coordenadaFinal);
+			checker = movimientoCaballo(coordenadaInicial, coordenadaFinal);
 			break;
 
 		case "B":// Caballo
-			checker = movimientoCaballo(coordenadaInicial, coordenadaFinal);
+			checker = movimientoAlfil(coordenadaInicial, coordenadaFinal);
 			break;
 
 		}
@@ -928,10 +928,10 @@ public class JuegoAjedrez extends Juego {
 			unicodeMessage = "\u265C";
 			break;
 		case "NB":
-			unicodeMessage = "\u265D";
+			unicodeMessage = "\u265E";
 			break;
 		case "BB":
-			unicodeMessage = "\u265E";
+			unicodeMessage = "\u265D";
 			break;
 		case "KB":
 			unicodeMessage = "\u265A";

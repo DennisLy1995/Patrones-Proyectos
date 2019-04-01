@@ -15,7 +15,7 @@ public class Menu {
 	private static String[] menuPrincipal= { "Mindgames",
 			                                  "----------------------------------------------------",
 			                                  "          1. Ajedrez.", 
-			                                  "           2. Tablero.", 
+			                                  "           2. Damas Chinas.", 
 			                                  "            3. Go.", 
 			                                  "             4. Salir.",
 			                                  "",

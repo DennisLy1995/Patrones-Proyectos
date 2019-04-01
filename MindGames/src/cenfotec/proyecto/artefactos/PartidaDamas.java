@@ -57,9 +57,9 @@ public class PartidaDamas extends Tablero {
 	
 	public String devolverColorOpuesto(String color) {
 		if (color.equals("BL")) {
-			color = "NR";
+			color = "NR";//"\u26AB";
 		} else if (color.equals("NR")) {
-			color = "BL";
+			color = "BL";//"\u25EF";
 		}
 		return color;
 	}
