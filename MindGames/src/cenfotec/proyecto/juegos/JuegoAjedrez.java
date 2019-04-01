@@ -13,8 +13,8 @@ import cenfotec.proyecto.utiles.Serializer;
 
 public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 
-	private static int contador;
 	private static PartidaAjedrez partida = new PartidaAjedrez();
+	private static int contador = partida.getContador();
 	private static Scanner in = new Scanner(System.in);
 
 	public JuegoAjedrez(String jugador1, String jugador2, String ganador, String perdedor) {
@@ -190,6 +190,7 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 				}
 			}
 			contador++;
+			partida.sumarcontador();
 		} else if (checker == false) {
 			System.out.println("No puedes realizar ese movimiento, vuelvelo a intentar.");
 		}
@@ -972,6 +973,7 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		Tablero temp = PersistenciaTexto.compararJSONTipoSolicitado(partida, tipo);
 		if (temp != null){
 			partida = (PartidaAjedrez) temp;
+			contador = partida.getContador();
 			checker = true;
 		}else {
 			checker = false;

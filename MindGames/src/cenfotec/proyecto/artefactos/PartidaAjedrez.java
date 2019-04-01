@@ -1,6 +1,8 @@
 package cenfotec.proyecto.artefactos;
 
 public class PartidaAjedrez extends Tablero {
+	
+	private int contador = 2;
 
 	public PiezaAjedrez[][] tableroPosiciones;
 
@@ -138,4 +140,25 @@ public class PartidaAjedrez extends Tablero {
 		this.tableroPosiciones = tableroPosiciones;
 	}
 
+	
+	public int getContador() {
+		return contador;
+	}
+	
+
+	public void setContador(int contador) {
+		this.contador = contador;
+	}
+
+	public void resetearContador() {
+		contador = 2;
+	}
+
+	public void sumarcontador() {
+		contador++;
+	}
+	
+	public void restarcontador() {
+		contador--;
+	}
 }
