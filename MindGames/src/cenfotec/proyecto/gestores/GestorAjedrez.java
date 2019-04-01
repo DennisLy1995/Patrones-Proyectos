@@ -12,14 +12,7 @@ public class GestorAjedrez {
 	}
 
 	public static void iniciarPartida() {
-		String ganador = JuegoAjedrez.EvaluarGanador();
-		if(ganador.contentEquals("Ninguno")) {
-			JuegoAjedrez.iniciarPartida();
-		}else {
-			System.out.println("Juego terminado");
-			JuegoAjedrez.ImprimirEstadoJuego();
-		}
-		
+		JuegoAjedrez.iniciarPartida();
 	}
 	
 	public static void guardarPartida() throws FileNotFoundException {
