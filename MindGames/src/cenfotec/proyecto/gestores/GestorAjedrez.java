@@ -15,6 +15,10 @@ public class GestorAjedrez {
 		JuegoAjedrez.iniciarPartida();
 	}
 	
+	public static void continuarPartida() {
+		JuegoAjedrez.continuarPartida();
+	}
+	
 	public static void guardarPartida() throws FileNotFoundException {
 		JuegoAjedrez.guardarPartida();
 	}

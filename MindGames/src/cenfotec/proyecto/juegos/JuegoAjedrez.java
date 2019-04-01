@@ -65,6 +65,47 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 
 	}
 
+	public static void continuarPartida() {
+		System.out.println("Inician las piezas Negras.");
+		String ganador="";
+		boolean breaker = false;
+		
+		while (breaker == false) {
+			ganador = EvaluarGanador();
+			if(ganador.contentEquals("Ninguno")) {
+				switch (lecturaOpcionMenu()) {
+				case "1":
+					if (contador % 2 == 0) {
+						System.out.println("Mueven las piezas negras.");
+						moverPieza("N");
+					} else {
+						System.out.println("Mueven las piezas blancas.");
+						moverPieza("B");
+					}
+					breaker = false;
+					break;
+				case "2":
+					breaker = false;
+					break;
+				case "3":
+					breaker = true;
+					break;
+				default:
+					System.out.println("Opcion no valida.");
+					breaker = false;
+					break;
+
+				}
+				ImprimirEstadoJuego();
+			}else {
+				ImprimirEstadoJuego();
+				System.out.println("Gana el rey "+ ganador);
+				System.out.println("            GAME OVER");
+				breaker = true;
+			}
+		}
+	}
+	
 	public static void imprimirOpcionesJuego() {
 		System.out.println("");
 		System.out.println("1.Mover Pieza.");
@@ -80,7 +121,7 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		if (temp.equals("1") || temp.equals("2") || temp.equals("3")) {
 
 		} else {
-			temp = "repita";
+			temp = "Opcion invalida, repita.";
 		}
 		return temp;
 	}
