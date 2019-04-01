@@ -3,15 +3,12 @@ package cenfotec.proyecto.juegos;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
-
-import cenfotec.proyecto.artefactos.PartidaAjedrez;
 import cenfotec.proyecto.artefactos.PartidaGo;
 import cenfotec.proyecto.artefactos.Tablero;
-import cenfotec.proyecto.logica.MovimientosGo;
 import cenfotec.proyecto.utiles.PersistenciaTexto;
 import cenfotec.proyecto.utiles.Serializer;
 
-public class JuegoGo extends Juego implements MovimientosGo{
+public class JuegoGo extends Juego{
 
 	private static PartidaGo partida = new PartidaGo();
 	private static Scanner in = new Scanner(System.in);
