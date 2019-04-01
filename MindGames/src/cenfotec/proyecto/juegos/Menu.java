@@ -22,28 +22,31 @@ public class Menu {
 			                                  "INGRESAR LA OPCION: "};
 	private static String[] menuAjedrez= { "Ajedrez",
 			                                "---------------------------------------------------------------------",
-                                            "          1. Cargar partida.", 
-                                            "           2. Nueva partida.", 
-                                            "            3. Descargar partida actual en archivo de texto." , 
-                                            "             4. Salir.",
+                                            "          1. Nueva partida.", 
+                                            "           2. Cargar partida.", 
+                                            "            3. Continuar partida." , 
+                                            "             4. Descargar partida actual en archivo de texto." ,
+                                            "              5. Salir.",
                                             "", 
                                             "INGRESAR LA OPCION: " };
 	private static String[] menuDamas= { "Damas Chinas",
-                                          "---------------------------------------------------------------------",
-                                          "          1. Cargar partida.", 
-                                          "           2. Nueva partida.", 
-                                          "            3. Descargar partida actual en archivo de texto." , 
-                                          "             4. Salir.",
-                                          "", 
-                                          "INGRESAR LA OPCION: " };
+                                         "---------------------------------------------------------------------",
+                                         "          1. Nueva partida.", 
+                                         "           2. Cargar partida.", 
+                                         "            3. Continuar partida." , 
+                                         "             4. Descargar partida actual en archivo de texto." ,
+                                         "              5. Salir.",
+                                         "", 
+            							 "INGRESAR LA OPCION: " };
 	private static String[] menuGo= { "GO",
-                                       "---------------------------------------------------------------------",
-                                       "          1. Cargar partida.", 
-                                       "           2. Nueva partida.", 
-                                       "            3. Descargar partida actual en archivo de texto." , 
-                                       "             4. Salir.",
-                                       "", 
-                                       "INGRESAR LA OPCION: " };
+									  "---------------------------------------------------------------------",
+									  "          1. Nueva partida.", 
+									  "           2. Cargar partida.", 
+									  "            3. Continuar partida." , 
+									  "             4. Descargar partida actual en archivo de texto." ,
+									  "              5. Salir.",
+									  "", 
+            						  "INGRESAR LA OPCION: " };
 
 	public static void main(String[] args) throws IOException {
 
@@ -128,7 +131,6 @@ public class Menu {
 		}
 		System.out.println("\n");
 	}
-
 	
 	public static String opcionmenuJuego() throws IOException {
 		String opcion = in.readLine();
@@ -139,23 +141,26 @@ public class Menu {
 		int retorno = 0;
 		switch (opcionMenu) {
 		case "1":
+			Menu.iniciarJuegoNuevoAjedrez();
+			break;
+		case "2":
 			try {
 				Menu.cargarPartidaAjedrez();
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
 			break;
-		case "2":
-			Menu.iniciarJuegoNuevoAjedrez();
-			break;
 		case "3":
+			Menu.continuarPartidaAjedrez();
+			break;
+		case "4":
 			try {
 				Menu.guardarPartidaAjedrez();
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
 			break;
-		case "4":
+		case "5":
 			System.out.println("\nDe vuelta al menu de mindgames.\n");
 			retorno = 1;
 			break;
@@ -165,25 +170,27 @@ public class Menu {
 		}
 		return retorno;
 	}
-
 	
 	public static int redireccionadorGo(String opcionMenu) throws IOException {
 		int retorno = 0;
 		switch (opcionMenu) {
 		case "1":
-			cargarPartidaGo();
-			break;
-		case "2":
 			Menu.iniciarJuegoNuevoGo();
 			break;
+		case "2":
+			cargarPartidaGo();
+			break;
 		case "3":
+			Menu.continuarPartidaGo();
+			break;
+		case "4":
 			try {
 				Menu.guardarPartidaGo();
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
 			break;
-		case "4":
+		case "5":
 			System.out.println("\nDe vuelta al menu de mindgames.\n");
 			retorno = 1;
 			break;
@@ -197,19 +204,22 @@ public class Menu {
 		int retorno = 0;
 		switch (opcionMenu) {
 		case "1":
-			cargarPartidaDamas();
-			break;
-		case "2":
 			Menu.iniciarJuegoNuevoDamas();
 			break;
+		case "2":
+			cargarPartidaDamas();
+			break;
 		case "3":
+			Menu.continuarPartidaDamas();
+			break;
+		case "4":
 			try {
 				Menu.guardarPartidaDamas();
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
 			break;
-		case "4":
+		case "5":
 			System.out.println("\nDe vuelta al menu de mindgames.\n");
 			retorno = 1;
 			break;
@@ -234,8 +244,19 @@ public class Menu {
 	public static void iniciarJuegoNuevoGo() {
 		GestorGo.imprimirEstadoJuego();
 	}
-
 	
+	public static void continuarPartidaAjedrez() {
+		GestorAjedrez.continuarPartida();
+	}
+	
+	public static void continuarPartidaGo() {
+		GestorGo.continuarPartida();
+	}
+	
+	public static void continuarPartidaDamas() {
+		GestorDamas.continuarPartida();
+	}
+		
 	private static void guardarPartidaAjedrez() throws FileNotFoundException {
 		GestorAjedrez.guardarPartida();
 	}
@@ -247,15 +268,14 @@ public class Menu {
 	private static void guardarPartidaGo() throws FileNotFoundException {
 		GestorGo.guardarPartida();
 	}
-	
-	
-	
+		
 	private static void cargarPartidaAjedrez() throws IOException {
 		System.out.println("Ingrese un 1 para cargar partida de un archivo de texto.\n"
 				+ "Ingrese un 2 para cargar la partida de nuestra base de datos.");
 		String router=in.readLine();
 		switch(router) {
 		case "1":
+
 			GestorAjedrez.cargarPartidaArchivoTexto();
 			break;
 		case "2":

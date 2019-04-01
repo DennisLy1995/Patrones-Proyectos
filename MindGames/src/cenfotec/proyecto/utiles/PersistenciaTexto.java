@@ -62,23 +62,22 @@ public class PersistenciaTexto {
 		return lectura;
 	}
 	
-	public static boolean compararJSONTipoSolicitado(Tablero partida, String tipo) {
+	public static Tablero compararJSONTipoSolicitado(Tablero partida, String tipo) {
 		System.out.println("Ingrese el nombre de la partida:");
 		String nombreArchivo = in.nextLine();
 		try {
 			String temp = PersistenciaTexto.leerArchivoTexto(nombreArchivo);
 			partida = Serializer.convertirJSONPartidaAjedrez(temp);
 			if(partida.getTipoJuego().equals(tipo)) {
-				//ImprimirEstadoJuego();
-				return true;
+				return partida;
 			}else {
 				System.out.println("Verifique que el archivo pertenezca a una partida de " + tipo +".");
-				return false;
+				return null;
 			}
 			
 		}catch(Exception e) {
 			System.out.println("No se ha cargado el archivo, verifique que el archivo exista.");
-			return false;
+			return null;
 		}
 	}
 	

@@ -6,6 +6,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
 import cenfotec.proyecto.artefactos.PartidaAjedrez;
 import cenfotec.proyecto.artefactos.PiezaAjedrez;
+import cenfotec.proyecto.artefactos.Tablero;
 import cenfotec.proyecto.logica.MovimientosAjedrez;
 import cenfotec.proyecto.utiles.PersistenciaTexto;
 import cenfotec.proyecto.utiles.Serializer;
@@ -31,6 +32,7 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		while (breaker == false) {
 			ganador = EvaluarGanador();
 			if(ganador.contentEquals("Ninguno")) {
+				ImprimirEstadoJuego();
 				switch (lecturaOpcionMenu()) {
 				case "1":
 					if (contador % 2 == 0) {
@@ -43,6 +45,11 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 					breaker = false;
 					break;
 				case "2":
+					try {
+					guardarPartida();
+					}catch(Exception e) {
+						System.out.println("Ha ocurrido un problema al guardar la partida.");
+					}
 					breaker = false;
 					break;
 				case "3":
@@ -54,7 +61,6 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 					break;
 
 				}
-				ImprimirEstadoJuego();
 			}else {
 				ImprimirEstadoJuego();
 				System.out.println("Gana el rey "+ ganador);
@@ -65,14 +71,15 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 
 	}
 
-	public static void continuarPartida() {
-		System.out.println("Inician las piezas Negras.");
+	public static void continuarPartida(){
+		System.out.println("El contador esta en: "  + contador);
 		String ganador="";
 		boolean breaker = false;
 		
 		while (breaker == false) {
 			ganador = EvaluarGanador();
 			if(ganador.contentEquals("Ninguno")) {
+				ImprimirEstadoJuego();
 				switch (lecturaOpcionMenu()) {
 				case "1":
 					if (contador % 2 == 0) {
@@ -85,6 +92,11 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 					breaker = false;
 					break;
 				case "2":
+					try {
+					guardarPartida();
+					}catch(Exception e) {
+						System.out.println("Ha ocurrido un problema al guardar la partida.");
+					}
 					breaker = false;
 					break;
 				case "3":
@@ -94,9 +106,7 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 					System.out.println("Opcion no valida.");
 					breaker = false;
 					break;
-
 				}
-				ImprimirEstadoJuego();
 			}else {
 				ImprimirEstadoJuego();
 				System.out.println("Gana el rey "+ ganador);
@@ -958,15 +968,16 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 	public static boolean cargarPartidaArchivoTexto(String tipo) throws IOException {
 
 		boolean checker = false;
-		checker = PersistenciaTexto.compararJSONTipoSolicitado(partida, tipo);
-
-		if (checker) {
-			ImprimirEstadoJuego();
-			return true;
-		} else {
-			return false;
+		
+		Tablero temp = PersistenciaTexto.compararJSONTipoSolicitado(partida, tipo);
+		if (temp != null){
+			partida = (PartidaAjedrez) temp;
+			checker = true;
+		}else {
+			checker = false;
 		}
-
+		
+		return checker;
 	}
 
 	public static String retornarSiguienteColumna(String columnaActual) {

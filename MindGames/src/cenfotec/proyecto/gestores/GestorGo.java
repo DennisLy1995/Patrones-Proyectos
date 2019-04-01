@@ -2,10 +2,17 @@ package cenfotec.proyecto.gestores;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+
+import cenfotec.proyecto.juegos.JuegoAjedrez;
 import cenfotec.proyecto.juegos.JuegoGo;
 
 public class GestorGo {
 
+	
+	public static void continuarPartida() {
+		
+	}
+	
 	public static void imprimirEstadoJuego() {
 		JuegoGo.ImprimirEstadoJuego();
 	}

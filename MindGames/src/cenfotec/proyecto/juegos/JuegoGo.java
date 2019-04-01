@@ -4,7 +4,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
+import cenfotec.proyecto.artefactos.PartidaAjedrez;
 import cenfotec.proyecto.artefactos.PartidaGo;
+import cenfotec.proyecto.artefactos.Tablero;
 import cenfotec.proyecto.logica.MovimientosGo;
 import cenfotec.proyecto.utiles.PersistenciaTexto;
 import cenfotec.proyecto.utiles.Serializer;
@@ -47,7 +49,6 @@ public class JuegoGo extends Juego implements MovimientosGo{
 		}
 	}
 	
-
 	public static PartidaGo getPartida() {
 		return partida;
 	}
@@ -57,17 +58,18 @@ public class JuegoGo extends Juego implements MovimientosGo{
 	}
 
 	public static boolean cargarPartidaArchivoTexto(String tipo) throws IOException {
-		
+
 		boolean checker = false;
-		checker = PersistenciaTexto.compararJSONTipoSolicitado(partida, tipo);
 		
-		if(checker) {
-			ImprimirEstadoJuego();
-			return true;
+		Tablero temp = PersistenciaTexto.compararJSONTipoSolicitado(partida, tipo);
+		if (temp != null){
+			partida = (PartidaGo) temp;
+			checker = true;
 		}else {
-			return false;
+			checker = false;
 		}
 		
+		return checker;
 	}
 	
 }
