@@ -17,6 +17,8 @@ public class PiezaDamas extends Pieza{
 		this.color = color;
 	}
 	
-	
+	public void convertirEnReina() {
+		this.nombre = "R"+ color;
+	}
 
 }

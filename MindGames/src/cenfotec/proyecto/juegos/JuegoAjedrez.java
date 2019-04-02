@@ -121,7 +121,7 @@ public class JuegoAjedrez extends Juego {
 		System.out.println("");
 		System.out.println("1.Mover Pieza.");
 		System.out.println("2.Guardar partida.");
-		System.out.println("3.Terminar partida.");
+		System.out.println("3.Salir.");
 
 	}
 

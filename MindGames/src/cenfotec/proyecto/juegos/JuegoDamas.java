@@ -15,7 +15,6 @@ public class JuegoDamas extends Juego{
 	
 	public JuegoDamas(String jugador1, String jugador2, String ganador, String perdedor) {
 		super(jugador1, jugador2, ganador, perdedor);
-		// TODO Auto-generated constructor stub
 	}
 
 	public static void iniciarJuego() {
@@ -36,31 +35,53 @@ public class JuegoDamas extends Juego{
 				System.out.println("Ganan los peones Blancos.");
 			}else {
 				
-				ImprimirEstadoJuego();
-				
-				//Menu y juego.
-				switch(lector) {
-				case "1"://mover.
-					break;
-				case "2"://terminar turno
-					break;
-				case "3"://Guardar partida.
-					break;
-				case "4"://salir.
-					break;
-				default:
-					break;
+				if(cantNegras == 1 && cantBlancas ==1) {
+					breaker = true;
+					ImprimirEstadoJuego();
+					System.out.println("Empate, ninguno ha ganado.");
+				}else {
+					ImprimirEstadoJuego();
+					imprimirOpcionesJuego();
+					//Menu y juego.
+					switch(lector) {
+					case "1"://mover.
+						break;
+					case "2"://terminar turno
+						break;
+					case "3"://Guardar partida.
+						break;
+					case "4"://salir.
+						breaker = true;
+						break;
+					default:
+						break;
+					}
 				}
+				
+				
 			}
 		}
-		
-		
-		
+
+	}
+	
+	public static void imprimirOpcionesJuego() {
+		System.out.println("");
+		System.out.println("1.Mover Pieza.");
+		System.out.println("2.Terminar turno.");
+		System.out.println("3.Guardar partida.");
+		System.out.println("3.Salir.");
 	}
 	
 	public static int contadorPiezasNegras() {
 		int contador = 0;
 		
+		for(int i=0;i<10;i++) {
+			for(int e = 0; e<10; e++) {
+				if(partida.tableroPiezas[i][e].getColor().contentEquals("N")) {
+					contador++;
+				}
+			}
+		}
 		
 		return contador;
 	}
@@ -68,6 +89,13 @@ public class JuegoDamas extends Juego{
 	public static int contadorPiezasBlancas() {
 		int contador = 0;
 		
+		for(int i=0;i<10;i++) {
+			for(int e = 0; e<10; e++) {
+				if(partida.tableroPiezas[i][e].getColor().contentEquals("B")) {
+					contador++;
+				}
+			}
+		}
 		
 		return contador;
 	}
@@ -75,7 +103,6 @@ public class JuegoDamas extends Juego{
 	
 	
 	public static void ImprimirEstadoJuego() {
-		String logo = "";
 		System.out.println("|-------------------------------|          |-------------------------------|");
 		System.out.println("|          Coordenadas          |          |        Colores tablero        |");
 		System.out.println("|-------------------------------|          |-------------------------------|");

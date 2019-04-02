@@ -238,7 +238,7 @@ public class Menu {
 
 	public static void iniciarJuegoNuevoDamas() {
 
-		GestorDamas.imprimirEstadoJuego();
+		GestorDamas.iniciarPartida();
 	}
 
 	public static void iniciarJuegoNuevoGo() {
