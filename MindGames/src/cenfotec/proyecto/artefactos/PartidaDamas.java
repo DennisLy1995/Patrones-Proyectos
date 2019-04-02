@@ -4,6 +4,7 @@ public class PartidaDamas extends Tablero {
 
 	public String[][] tableroColores = new String[10][10];
 	public PiezaDamas[][] tableroPiezas = new PiezaDamas[10][10];
+	private int contador = 2;
 
 	public PartidaDamas() {
 
@@ -74,6 +75,42 @@ public class PartidaDamas extends Tablero {
 			temporal = new PiezaDamas("P","B","P","B");
 		}
 		return temporal;
+	}
+
+	public String[][] getTableroColores() {
+		return tableroColores;
+	}
+
+	public void setTableroColores(String[][] tableroColores) {
+		this.tableroColores = tableroColores;
+	}
+
+	public PiezaDamas[][] getTableroPiezas() {
+		return tableroPiezas;
+	}
+
+	public void setTableroPiezas(PiezaDamas[][] tableroPiezas) {
+		this.tableroPiezas = tableroPiezas;
+	}
+
+	public int getContador() {
+		return contador;
+	}
+
+	public void setContador(int contador) {
+		this.contador = contador;
+	}
+	
+	public void resetContador() {
+		this.contador = 2;
+	}
+	
+	public void sumarContador() {
+		this.contador++;
+	}
+	
+	public void restarContador() {
+		this.contador--;
 	}
 
 }

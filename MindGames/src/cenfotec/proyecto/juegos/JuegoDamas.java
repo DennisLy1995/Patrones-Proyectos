@@ -3,6 +3,9 @@ package cenfotec.proyecto.juegos;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import cenfotec.proyecto.artefactos.PartidaDamas;
 import cenfotec.proyecto.artefactos.Tablero;
 import cenfotec.proyecto.utiles.PersistenciaTexto;
@@ -43,8 +46,10 @@ public class JuegoDamas extends Juego{
 					ImprimirEstadoJuego();
 					imprimirOpcionesJuego();
 					//Menu y juego.
+					lector = in.nextLine();
 					switch(lector) {
 					case "1"://mover.
+						moverPieza();
 						break;
 					case "2"://terminar turno
 						break;
@@ -63,6 +68,30 @@ public class JuegoDamas extends Juego{
 		}
 
 	}
+
+	public static void moverPieza() {
+		
+		String coordenadaInicial;
+		String coordenadaFinal;
+		
+		System.out.println("Ingrese la coordenada de inicio.");
+		coordenadaInicial = in.nextLine();
+		System.out.println("Ingrese la coordenada final.");
+		coordenadaFinal = in.nextLine();
+		
+		if(verificarPosicionTablero(coordenadaInicial)== true && verificarPosicionTablero(coordenadaFinal) == true) {
+			System.out.println("Movimiento valido.");
+		}else {
+			System.out.println("Movimiento invalido.");
+		}
+	}
+	
+	public static boolean verificarPosicionTablero(String x) {
+		Pattern pattern = Pattern.compile("{2}^[123456789X][123456789X]$");
+		Matcher matcher = pattern.matcher(x);
+		return matcher.matches();		 
+	}
+	
 	
 	public static void imprimirOpcionesJuego() {
 		System.out.println("");
