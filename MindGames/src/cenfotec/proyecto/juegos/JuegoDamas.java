@@ -18,7 +18,64 @@ public class JuegoDamas extends Juego{
 		// TODO Auto-generated constructor stub
 	}
 
+	public static void iniciarJuego() {
+		boolean breaker = false;
+		String lector = "";
+		
+		while(breaker == false) {
+			int cantNegras = contadorPiezasNegras();
+			int cantBlancas = contadorPiezasBlancas();
+			
+			if(cantNegras <= 0) {
+				breaker = true;
+				ImprimirEstadoJuego();
+				System.out.println("Ganan los peones Blancos.");
+			}else if (cantBlancas <= 0) {
+				breaker = true;
+				ImprimirEstadoJuego();
+				System.out.println("Ganan los peones Blancos.");
+			}else {
+				
+				ImprimirEstadoJuego();
+				
+				//Menu y juego.
+				switch(lector) {
+				case "1"://mover.
+					break;
+				case "2"://terminar turno
+					break;
+				case "3"://Guardar partida.
+					break;
+				case "4"://salir.
+					break;
+				default:
+					break;
+				}
+			}
+		}
+		
+		
+		
+	}
+	
+	public static int contadorPiezasNegras() {
+		int contador = 0;
+		
+		
+		return contador;
+	}
+	
+	public static int contadorPiezasBlancas() {
+		int contador = 0;
+		
+		
+		return contador;
+	}
+	
+	
+	
 	public static void ImprimirEstadoJuego() {
+		String logo = "";
 		System.out.println("|-------------------------------|          |-------------------------------|");
 		System.out.println("|          Coordenadas          |          |        Colores tablero        |");
 		System.out.println("|-------------------------------|          |-------------------------------|");
@@ -41,12 +98,16 @@ public class JuegoDamas extends Juego{
 		System.out.println("|--------------------------------------------------------------------------|");
 		System.out.println();
 		for (int i = 0; i < 10; i++) {
-			System.out.print("                        ");
+			System.out.print("    ");
 			for (int e = 0; e < 10; e++) {
 				System.out.print(partida.tableroPiezas[i][e].nombre + partida.tableroPiezas[i][e].getColor() + " ");
 			}
+			System.out.print("             ");
+			for (int e = 0; e < 10; e++) {
+				System.out.print(retornarLogo(partida.tableroPiezas[i][e].nombre + partida.tableroPiezas[i][e].getColor()) + " ");
+			}
 			System.out.println();
-		}
+		}		
 	}
 
 	public static void guardarPartida() throws FileNotFoundException {
@@ -86,5 +147,26 @@ public class JuegoDamas extends Juego{
 		return checker;
 	}
 	
-	
+	public static String retornarLogo(String pieza) {
+
+		String unicodeMessage = pieza;
+
+		switch (unicodeMessage) {
+		case "PN":
+			unicodeMessage = "\u25C9";
+			break;
+		case "PB":
+			unicodeMessage = "\u25CE";
+			break;
+		case "--":
+			unicodeMessage = "\u25E9";
+			break;
+		default:
+			unicodeMessage = "\u25E9";
+			break;
+
+		}
+		return unicodeMessage;
+
+	}
 }

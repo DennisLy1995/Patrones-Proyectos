@@ -4,14 +4,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import cenfotec.proyecto.artefactos.PartidaAjedrez;
 import cenfotec.proyecto.artefactos.PiezaAjedrez;
 import cenfotec.proyecto.artefactos.Tablero;
-import cenfotec.proyecto.logica.MovimientosAjedrez;
 import cenfotec.proyecto.utiles.PersistenciaTexto;
 import cenfotec.proyecto.utiles.Serializer;
 
-public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
+public class JuegoAjedrez extends Juego {
 
 	private static PartidaAjedrez partida = new PartidaAjedrez();
 	private static int contador = partida.getContador();
@@ -145,8 +146,8 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 		coordenadaInicial = in.nextLine();
 		System.out.println("Ingrese la coordenada final:");
 		coordenadaFinal = in.nextLine();
-		if (MovimientosAjedrez.verificarPosicion(coordenadaInicial) == true
-				&& MovimientosAjedrez.verificarPosicion(coordenadaFinal) == true) {
+		if (verificarPosicion(coordenadaInicial) == true
+				&& verificarPosicion(coordenadaFinal) == true) {
 			piezaRetorno = retornarObjetoEnPosicion(coordenadaInicial);
 			if (color.charAt(0) == piezaRetorno.charAt(1)) {
 				colocarPieza(coordenadaInicial, coordenadaFinal, color);
@@ -160,6 +161,20 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 			System.out.println("Coordenadas incorrectas.");
 		}
 
+	}
+	
+	public static boolean verificarPosicion(String posicionInicial) {
+		boolean checker = verificarPosicionTablero(posicionInicial);
+		if(posicionInicial.equals("") || posicionInicial.length() > 2) {
+			checker = false;
+		}
+		return checker;
+	}
+	
+	public static boolean verificarPosicionTablero(String x) {
+		Pattern pattern = Pattern.compile("{2}^[abcdefgh][12345678]$");
+		Matcher matcher = pattern.matcher(x);
+		return matcher.matches();		 
 	}
 
 	private static void colocarPieza(String coordenadaInicial, String coordenadaFinal, String color) {
@@ -244,11 +259,11 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 			break;
 
 		case "N":// alfil
-			checker = movimientoAlfil(coordenadaInicial, coordenadaFinal);
+			checker = movimientoCaballo(coordenadaInicial, coordenadaFinal);
 			break;
 
 		case "B":// Caballo
-			checker = movimientoCaballo(coordenadaInicial, coordenadaFinal);
+			checker = movimientoAlfil(coordenadaInicial, coordenadaFinal);
 			break;
 
 		}
@@ -913,10 +928,10 @@ public class JuegoAjedrez extends Juego implements MovimientosAjedrez {
 			unicodeMessage = "\u265C";
 			break;
 		case "NB":
-			unicodeMessage = "\u265D";
+			unicodeMessage = "\u265E";
 			break;
 		case "BB":
-			unicodeMessage = "\u265E";
+			unicodeMessage = "\u265D";
 			break;
 		case "KB":
 			unicodeMessage = "\u265A";
