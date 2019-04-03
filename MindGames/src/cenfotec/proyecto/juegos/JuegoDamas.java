@@ -80,15 +80,49 @@ public class JuegoDamas extends Juego{
 		coordenadaFinal = in.nextLine();
 		
 		if(verificarPosicionTablero(coordenadaInicial)== true && verificarPosicionTablero(coordenadaFinal) == true) {
-			System.out.println("Movimiento valido.");
-			
 			//Aqui ingreso la validacion del movimiento segun el tipo de pieza y la pieza que mueva.
 			pieza = retornarObjetoEnPosicion(coordenadaInicial);
+			System.out.println("pieza");
+			
 			
 		}else {
 			System.out.println("Movimiento invalido.");
 		}
 	}
+	
+	public static boolean validarMovimientoSegunPieza(String pieza, String inicio, String Final){
+		boolean checker = false;
+		
+		switch(Character.toString(pieza.charAt(0))) {
+		
+		case "P":
+			checker = validarMovimientoPeon();
+			break;
+			
+		case "R":
+			checker = validarMovimientoReina();
+			break;
+
+		default:
+			checker = false;
+			break;
+		}
+		
+		return checker;
+	}
+	
+	public static boolean validarMovimientoPeon() {
+		boolean checker = false;
+		
+		return checker;
+	}
+	
+	public static boolean validarMovimientoReina() {
+		boolean checker = false;
+		
+		return checker;
+	}
+	
 	
 	
 	public static String retornarObjetoEnPosicion(String posicion) {

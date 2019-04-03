@@ -21,8 +21,9 @@ public class Menu {
 			                                  "",
 			                                  "INGRESAR LA OPCION: "};
 	private static String[] menuAjedrez= { "Ajedrez",
-			                                "---------------------------------------------------------------------",
-                                            "          1. Nueva partida.", 
+			                                "\u265F\u265C\u265E\u265D\u265A\u265B\u2659\u2656\u2658\u2657\u2655\u2654\u058E\u265F\u265C\u265E\u265D\u265A\u265B\u2659\u2656\u2658\u2657\u2655\u2654\u058E",
+			                                "----------------------------------------------------",
+			                                "          1. Nueva partida.", 
                                             "           2. Cargar partida.", 
                                             "            3. Continuar partida." , 
                                             "             4. Descargar partida actual en archivo de texto." ,
