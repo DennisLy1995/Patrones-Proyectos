@@ -258,11 +258,11 @@ public class JuegoAjedrez extends Juego {
 			checker = movimientoReina(coordenadaInicial, coordenadaFinal);
 			break;
 
-		case "N":// alfil
+		case "N":// Caballo
 			checker = movimientoCaballo(coordenadaInicial, coordenadaFinal);
 			break;
 
-		case "B":// Caballo
+		case "B":// ALfil
 			checker = movimientoAlfil(coordenadaInicial, coordenadaFinal);
 			break;
 

@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import cenfotec.proyecto.artefactos.PartidaDamas;
+import cenfotec.proyecto.artefactos.PiezaAjedrez;
 import cenfotec.proyecto.artefactos.PiezaDamas;
 import cenfotec.proyecto.artefactos.Tablero;
 import cenfotec.proyecto.utiles.PersistenciaTexto;
@@ -100,7 +101,7 @@ public class JuegoDamas extends Juego{
 			break;
 			
 		case "R":
-			checker = validarMovimientoReina();
+			checker = validarMovimientoReina(inicio, Final);
 			break;
 
 		default:
@@ -117,13 +118,246 @@ public class JuegoDamas extends Juego{
 		return checker;
 	}
 	
-	public static boolean validarMovimientoReina() {
+	public static boolean validarMovimientoReina(String inicial, String Final) {
 		boolean checker = false;
-		
+		checker = calcularPiezasEnMedioDiagonal(inicial, Final);
 		return checker;
 	}
 	
+	public static boolean calcularPiezasEnMedioDiagonal(String inicial, String Final) {
+		boolean checker = false;
+		boolean breaker = false;
+		boolean piezasEnMedio = false;
+		boolean sideFound = false;
+		int siguiente = 0;
+		String posicionTemporal = inicial;
+		PiezaDamas piezaTemp = null;
+
+		// Seccion de arriba derecha
+		while (breaker == false) {
+			if (posicionTemporal.contentEquals(Final)) {
+				breaker = true;
+				sideFound = true;
+			} else {
+				if (retornarSiguienteColumna(posicionTemporal.charAt(0) + "").contentEquals("NO")) {
+					checker = false;
+					breaker = true;
+					piezasEnMedio = false;
+				} else {
+					siguiente = Character.getNumericValue(posicionTemporal.charAt(1)) + 1;
+					posicionTemporal = retornarSiguienteColumna(posicionTemporal.charAt(0) + "") + siguiente;
+					piezaTemp = retornarPiezaPosicion(posicionTemporal);
+					if (piezaTemp.nombre.contentEquals("--")) {
+
+					} else {
+						if (retornarPiezaPosicion(Final).nombre.contentEquals(piezaTemp.nombre)) {
+
+						} else {
+							piezasEnMedio = true;
+							breaker = true;
+						}
+					}
+				}
+			}
+		}
+
+		// Seccion de abajo derecha.
+		if (sideFound == false) {
+
+			checker = false;
+			breaker = false;
+			piezasEnMedio = false;
+			sideFound = false;
+			posicionTemporal = inicial;
+
+			while (breaker == false) {
+				if (posicionTemporal.contentEquals(Final)) {
+					breaker = true;
+					sideFound = true;
+				} else {
+					if (retornarSiguienteColumna(posicionTemporal.charAt(0) + "").contentEquals("NO")) {
+						checker = false;
+						breaker = true;
+						piezasEnMedio = false;
+					} else {
+						siguiente = Character.getNumericValue(posicionTemporal.charAt(1)) - 1;
+						posicionTemporal = retornarSiguienteColumna(posicionTemporal.charAt(0) + "") + siguiente;
+						piezaTemp = retornarPiezaPosicion(posicionTemporal);
+						if (piezaTemp.nombre.contentEquals("--")) {
+
+						} else {
+							if (retornarPiezaPosicion(Final).nombre.contentEquals(piezaTemp.nombre)) {
+
+							} else {
+								piezasEnMedio = true;
+								breaker = true;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		posicionTemporal = inicial;
+
+		// Seccion de arriba izquierda
+		if (sideFound == false) {
+
+			checker = false;
+			breaker = false;
+			piezasEnMedio = false;
+			sideFound = false;
+			posicionTemporal = inicial;
+
+			while (breaker == false) {
+				if (posicionTemporal.contentEquals(Final)) {
+					breaker = true;
+					sideFound = true;
+				} else {
+					if (retornarAnteriorColumna(posicionTemporal.charAt(0) + "").contentEquals("NO")) {
+						checker = false;
+						breaker = true;
+						piezasEnMedio = false;
+					} else {
+						siguiente = Character.getNumericValue(posicionTemporal.charAt(1)) + 1;
+						posicionTemporal = retornarAnteriorColumna(posicionTemporal.charAt(0) + "") + siguiente;
+						piezaTemp = retornarPiezaPosicion(posicionTemporal);
+						if (piezaTemp.nombre.contentEquals("--")) {
+
+						} else {
+							if (retornarPiezaPosicion(Final).nombre.contentEquals(piezaTemp.nombre)) {
+
+							} else {
+								piezasEnMedio = true;
+								breaker = true;
+							}
+						}
+					}
+				}
+			}
+		}
+
+		posicionTemporal = inicial;
+
+		// seccion de abajo izquierda.
+		if (sideFound == false) {
+
+			checker = false;
+			breaker = false;
+			piezasEnMedio = false;
+			sideFound = false;
+			posicionTemporal = inicial;
+
+			while (breaker == false) {
+				if (posicionTemporal.contentEquals(Final)) {
+					breaker = true;
+					sideFound = true;
+				} else {
+					if (retornarAnteriorColumna(posicionTemporal.charAt(0) + "").contentEquals("NO")) {
+						checker = false;
+						breaker = true;
+						piezasEnMedio = false;
+					} else {
+						siguiente = Character.getNumericValue(posicionTemporal.charAt(1)) - 1;
+						posicionTemporal = retornarAnteriorColumna(posicionTemporal.charAt(0) + "") + siguiente;
+						piezaTemp = retornarPiezaPosicion(posicionTemporal);
+						if (piezaTemp.nombre.contentEquals("--")) {
+
+						} else {
+							if (retornarPiezaPosicion(Final).nombre.contentEquals(piezaTemp.nombre)) {
+
+							} else {
+								piezasEnMedio = true;
+								breaker = true;
+							}
+						}
+					}
+				}
+			}
+		}
+		
+
+		// evaluacion final.
+		if (piezasEnMedio == true || sideFound == false) {
+			checker = false;
+		} else {
+			checker = true;
+		}
+
+		return checker;
+	}
 	
+	public static String retornarSiguienteColumna(String columnaActual) {
+
+		switch (columnaActual) {
+		case "1":
+			return "2";
+		case "2":
+			return "3";
+		case "3":
+			return "4";
+		case "4":
+			return "5";
+		case "5":
+			return "6";
+		case "6":
+			return "7";
+		case "7":
+			return "8";
+		case "8":
+			return "9";
+		case "9":
+			return "X";
+		case "X":
+			return "NO";
+		default:
+			return "NO";
+		}
+	}
+
+	public static String retornarAnteriorColumna(String columnaActual) {
+
+		switch (columnaActual) {
+		case "1":
+			return "NO";
+		case "2":
+			return "1";
+		case "3":
+			return "2";
+		case "4":
+			return "3";
+		case "5":
+			return "4";
+		case "6":
+			return "5";
+		case "7":
+			return "6";
+		case "8":
+			return "7";
+		case "9":
+			return "8";
+		case "X":
+			return "9";
+		default:
+			return "NO";
+		}
+	}
+	
+	public static PiezaDamas retornarPiezaPosicion(String posicionInicial) {
+
+		PiezaDamas piezaTemp = new PiezaDamas("-","-","-","-");
+
+		for (int i = 0; i < 8; i++) {
+			for (int e = 0; e < 8; e++) {
+				if (posicionInicial.equals(partida.tablero[i][e])) {
+					piezaTemp = partida.tableroPiezas[i][e];
+				}
+			}
+		}
+
+		return piezaTemp;
+
+	}
 	
 	public static String retornarObjetoEnPosicion(String posicion) {
 		String retorno = "";
