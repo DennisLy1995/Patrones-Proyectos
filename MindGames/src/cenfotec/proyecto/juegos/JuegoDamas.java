@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import cenfotec.proyecto.artefactos.PartidaDamas;
+import cenfotec.proyecto.artefactos.PiezaDamas;
 import cenfotec.proyecto.artefactos.Tablero;
 import cenfotec.proyecto.utiles.PersistenciaTexto;
 import cenfotec.proyecto.utiles.Serializer;
@@ -62,8 +63,6 @@ public class JuegoDamas extends Juego{
 						break;
 					}
 				}
-				
-				
 			}
 		}
 
@@ -73,6 +72,7 @@ public class JuegoDamas extends Juego{
 		
 		String coordenadaInicial;
 		String coordenadaFinal;
+		String pieza = "";
 		
 		System.out.println("Ingrese la coordenada de inicio.");
 		coordenadaInicial = in.nextLine();
@@ -81,9 +81,26 @@ public class JuegoDamas extends Juego{
 		
 		if(verificarPosicionTablero(coordenadaInicial)== true && verificarPosicionTablero(coordenadaFinal) == true) {
 			System.out.println("Movimiento valido.");
+			
+			//Aqui ingreso la validacion del movimiento segun el tipo de pieza y la pieza que mueva.
+			pieza = retornarObjetoEnPosicion(coordenadaInicial);
+			
 		}else {
 			System.out.println("Movimiento invalido.");
 		}
+	}
+	
+	
+	public static String retornarObjetoEnPosicion(String posicion) {
+		String retorno = "";
+		for (int i = 0; i < 8; i++) {
+			for (int e = 0; e < 8; e++) {
+				if (posicion.equals(partida.tablero[i][e])) {
+					retorno = partida.tableroPiezas[i][e].nombre;
+				}
+			}
+		}
+		return retorno;
 	}
 	
 	public static boolean verificarPosicionTablero(String x) {
