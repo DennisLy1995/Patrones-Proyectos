@@ -165,13 +165,14 @@ public class JuegoDamas extends Juego {
 		String movimiento = "";
 		PiezaDamas piezaTemp = null;
 
-		// piezas Blancas.
+		// piezas Negras.
 
 		if (partida.getContador() % 2 == 0) {
-
+			
+			//Movimiento derecho frontal de una posicion
 			movimiento = retornarSiguienteColumna(Character.toString(inicial.charAt(0)))
 					+ retornarSiguienteColumna(Character.toString(inicial.charAt(1)));
-
+			
 			if (Final.contentEquals(movimiento)) {
 
 				piezaTemp = retornarPiezaPosicion(Final);
@@ -180,7 +181,7 @@ public class JuegoDamas extends Juego {
 				}
 
 			} else {
-
+				//Movimiento izquierdo frontal de una posicion
 				movimiento = retornarAnteriorColumna(Character.toString(inicial.charAt(0)))
 						+ retornarSiguienteColumna(Character.toString(inicial.charAt(1)));
 				if (Final.contentEquals(movimiento)) {
@@ -190,6 +191,7 @@ public class JuegoDamas extends Juego {
 					}
 				} else {
 
+					//Movimiento derecho frontal de 3 posiciones
 					movimiento = retornarSiguienteColumna(Character.toString(inicial.charAt(0)))
 							+ retornarSiguienteColumna(retornarSiguienteColumna(Character.toString(inicial.charAt(1))));
 					if (Final.contentEquals(movimiento)) {
@@ -207,8 +209,7 @@ public class JuegoDamas extends Juego {
 						}
 					} else {
 
-						// Validar que el movimiento sea comiendo a la izquierda.
-
+						//Movimiento izquierdo frontal de una posicion
 						movimiento = retornarAnteriorColumna(Character.toString(inicial.charAt(0)))
 								+ retornarSiguienteColumna(
 										retornarSiguienteColumna(Character.toString(inicial.charAt(1))));
@@ -234,7 +235,71 @@ public class JuegoDamas extends Juego {
 			}
 
 		} else {
-			// piezas Negras.
+			// piezas Blancas.
+			//Movimiento derecho frontal de una posicion
+			movimiento = retornarSiguienteColumna(Character.toString(inicial.charAt(0)))
+					+ retornarAnteriorColumna(Character.toString(inicial.charAt(1)));
+			
+			if (Final.contentEquals(movimiento)) {
+
+				piezaTemp = retornarPiezaPosicion(Final);
+				if (piezaTemp.nombre.contentEquals("-")) {
+					checker = true;
+				}
+
+			} else {
+				//Movimiento izquierdo frontal de una posicion
+				movimiento = retornarAnteriorColumna(Character.toString(inicial.charAt(0)))
+						+ retornarAnteriorColumna(Character.toString(inicial.charAt(1)));
+				if (Final.contentEquals(movimiento)) {
+					piezaTemp = retornarPiezaPosicion(Final);
+					if (piezaTemp.nombre.contentEquals("-")) {
+						checker = true;
+					}
+				} else {
+
+					//Movimiento derecho frontal de 3 posiciones
+					movimiento = retornarSiguienteColumna(Character.toString(inicial.charAt(0)))
+							+ retornarSiguienteColumna(retornarSiguienteColumna(Character.toString(inicial.charAt(1))));
+					if (Final.contentEquals(movimiento)) {
+						piezaTemp = retornarPiezaPosicion(Final);
+						if (piezaTemp.nombre.contentEquals("-")) {
+							movimiento = retornarSiguienteColumna(Character.toString(inicial.charAt(0)))
+									+ (retornarSiguienteColumna(Character.toString(inicial.charAt(1))));
+							piezaTemp = retornarPiezaPosicion(movimiento);
+							if (!piezaTemp.nombre.contentEquals("-")) {
+								checker = true;
+							} else {
+								checker = false;
+							}
+
+						}
+					} else {
+
+						//Movimiento izquierdo frontal de una posicion
+						movimiento = retornarAnteriorColumna(Character.toString(inicial.charAt(0)))
+								+ retornarSiguienteColumna(
+										retornarSiguienteColumna(Character.toString(inicial.charAt(1))));
+						if (Final.contentEquals(movimiento)) {
+							piezaTemp = retornarPiezaPosicion(Final);
+							if (piezaTemp.nombre.contentEquals("-")) {
+								movimiento = retornarSiguienteColumna(Character.toString(inicial.charAt(0)))
+										+ (retornarSiguienteColumna(Character.toString(inicial.charAt(1))));
+								piezaTemp = retornarPiezaPosicion(movimiento);
+								if (!piezaTemp.nombre.contentEquals("-")) {
+									checker = true;
+								} else {
+									checker = false;
+								}
+
+							}
+
+						}
+					}
+
+				}
+
+			}
 
 		}
 
@@ -307,8 +372,8 @@ public class JuegoDamas extends Juego {
 
 		PiezaDamas piezaTemp = new PiezaDamas("-", "-", "-", "-");
 
-		for (int i = 0; i < 8; i++) {
-			for (int e = 0; e < 8; e++) {
+		for (int i = 0; i < 10; i++) {
+			for (int e = 0; e < 10; e++) {
 				if (posicionInicial.equals(partida.tablero[i][e])) {
 					piezaTemp = partida.tableroPiezas[i][e];
 				}
