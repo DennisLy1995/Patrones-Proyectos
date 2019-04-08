@@ -223,13 +223,14 @@ public class JuegoDamas extends Juego {
 					} else {
 
 						//Movimiento izquierdo frontal de una posicion
-						movimiento = retornarAnteriorColumna(Character.toString(inicial.charAt(0)))
+						movimiento = retornarAnteriorColumna(retornarAnteriorColumna(Character.toString(inicial.charAt(0))))
 								+ retornarSiguienteColumna(
-										retornarSiguienteColumna(Character.toString(inicial.charAt(1))));
+										retornarSiguienteColumna(retornarSiguienteColumna(Character.toString(inicial.charAt(1)))));
 						if (Final.contentEquals(movimiento)) {
+							//33 15 medio = 24
 							piezaTemp = retornarPiezaPosicion(Final);
 							if (piezaTemp.nombre.contentEquals("-")) {
-								movimiento = retornarSiguienteColumna(Character.toString(inicial.charAt(0)))
+								movimiento = retornarAnteriorColumna(Character.toString(inicial.charAt(0)))
 										+ (retornarSiguienteColumna(Character.toString(inicial.charAt(1))));
 								piezaTemp = retornarPiezaPosicion(movimiento);
 								if (!piezaTemp.nombre.contentEquals("-")) {
@@ -272,13 +273,14 @@ public class JuegoDamas extends Juego {
 				} else {
 
 					//Movimiento derecho frontal de 3 posiciones
-					movimiento = retornarSiguienteColumna(Character.toString(inicial.charAt(0)))
-							+ retornarSiguienteColumna(retornarSiguienteColumna(Character.toString(inicial.charAt(1))));
+					movimiento = retornarSiguienteColumna(retornarSiguienteColumna(Character.toString(inicial.charAt(0))))
+							+ retornarAnteriorColumna(retornarAnteriorColumna(Character.toString(inicial.charAt(1))));
 					if (Final.contentEquals(movimiento)) {
 						piezaTemp = retornarPiezaPosicion(Final);
+						// 47 65  medio = 56
 						if (piezaTemp.nombre.contentEquals("-")) {
 							movimiento = retornarSiguienteColumna(Character.toString(inicial.charAt(0)))
-									+ (retornarSiguienteColumna(Character.toString(inicial.charAt(1))));
+									+ (retornarAnteriorColumna(Character.toString(inicial.charAt(1))));
 							piezaTemp = retornarPiezaPosicion(movimiento);
 							if (!piezaTemp.nombre.contentEquals("-")) {
 								checker = true;
@@ -290,14 +292,15 @@ public class JuegoDamas extends Juego {
 					} else {
 
 						//Movimiento izquierdo frontal de una posicion
-						movimiento = retornarAnteriorColumna(Character.toString(inicial.charAt(0)))
-								+ retornarSiguienteColumna(
-										retornarSiguienteColumna(Character.toString(inicial.charAt(1))));
+						movimiento = retornarAnteriorColumna(retornarAnteriorColumna(Character.toString(inicial.charAt(0))))
+								+ retornarAnteriorColumna(
+										retornarAnteriorColumna(Character.toString(inicial.charAt(1))));
+						//24  46  38
 						if (Final.contentEquals(movimiento)) {
 							piezaTemp = retornarPiezaPosicion(Final);
 							if (piezaTemp.nombre.contentEquals("-")) {
-								movimiento = retornarSiguienteColumna(Character.toString(inicial.charAt(0)))
-										+ (retornarSiguienteColumna(Character.toString(inicial.charAt(1))));
+								movimiento = retornarAnteriorColumna(Character.toString(inicial.charAt(0)))
+										+ (retornarAnteriorColumna(Character.toString(inicial.charAt(1))));
 								piezaTemp = retornarPiezaPosicion(movimiento);
 								if (!piezaTemp.nombre.contentEquals("-")) {
 									checker = true;
