@@ -173,7 +173,7 @@ public class JuegoDamas extends Juego {
 
 		if (color.contentEquals("N")) {
 			checker = validarMovimientoSimple(inicial, Final);
-		} else if (color.contentEquals("N")) {
+		} else if (color.contentEquals("B")) {
 			checker = validarMovimientoSimpleTrasero(inicial, Final);
 		}
 
