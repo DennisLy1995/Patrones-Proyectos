@@ -13,11 +13,11 @@ import cenfotec.proyecto.artefactos.Tablero;
 import cenfotec.proyecto.utiles.PersistenciaTexto;
 import cenfotec.proyecto.utiles.Serializer;
 
-public class JuegoDamas extends Juego{
+public class JuegoDamas extends Juego {
 
 	private static PartidaDamas partida = new PartidaDamas();
 	private static Scanner in = new Scanner(System.in);
-	
+
 	public JuegoDamas(String jugador1, String jugador2, String ganador, String perdedor) {
 		super(jugador1, jugador2, ganador, perdedor);
 	}
@@ -25,39 +25,39 @@ public class JuegoDamas extends Juego{
 	public static void iniciarJuego() {
 		boolean breaker = false;
 		String lector = "";
-		
-		while(breaker == false) {
+
+		while (breaker == false) {
 			int cantNegras = contadorPiezasNegras();
 			int cantBlancas = contadorPiezasBlancas();
-			
-			if(cantNegras <= 0) {
+
+			if (cantNegras <= 0) {
 				breaker = true;
 				ImprimirEstadoJuego();
 				System.out.println("Ganan los peones Blancos.");
-			}else if (cantBlancas <= 0) {
+			} else if (cantBlancas <= 0) {
 				breaker = true;
 				ImprimirEstadoJuego();
 				System.out.println("Ganan los peones Blancos.");
-			}else {
-				
-				if(cantNegras == 1 && cantBlancas ==1) {
+			} else {
+
+				if (cantNegras == 1 && cantBlancas == 1) {
 					breaker = true;
 					ImprimirEstadoJuego();
 					System.out.println("Empate, ninguno ha ganado.");
-				}else {
+				} else {
 					ImprimirEstadoJuego();
 					imprimirOpcionesJuego();
-					//Menu y juego.
+					// Menu y juego.
 					lector = in.nextLine();
-					switch(lector) {
-					case "1"://mover.
+					switch (lector) {
+					case "1":// mover.
 						moverPieza();
 						break;
-					case "2"://terminar turno
+					case "2":// terminar turno
 						break;
-					case "3"://Guardar partida.
+					case "3":// Guardar partida.
 						break;
-					case "4"://salir.
+					case "4":// salir.
 						breaker = true;
 						break;
 					default:
@@ -70,36 +70,84 @@ public class JuegoDamas extends Juego{
 	}
 
 	public static void moverPieza() {
-		
+
 		String coordenadaInicial;
 		String coordenadaFinal;
-		String pieza = "";
-		
+		PiezaDamas pieza = null;
+		boolean checker = false;
+		boolean checkerColor = false;
+
 		System.out.println("Ingrese la coordenada de inicio.");
 		coordenadaInicial = in.nextLine();
 		System.out.println("Ingrese la coordenada final.");
 		coordenadaFinal = in.nextLine();
-		
-		if(verificarPosicionTablero(coordenadaInicial)== true && verificarPosicionTablero(coordenadaFinal) == true) {
-			//Aqui ingreso la validacion del movimiento segun el tipo de pieza y la pieza que mueva.
-			pieza = retornarObjetoEnPosicion(coordenadaInicial);
-			System.out.println("pieza");
-			
-			
-		}else {
+
+		if (verificarPosicionTablero(coordenadaInicial) == true && verificarPosicionTablero(coordenadaFinal) == true) {
+			// Aqui ingreso la validacion del movimiento segun el tipo de pieza y la pieza
+			// que mueva.
+			pieza = retornarPiezaPosicion(coordenadaInicial);
+
+			if (partida.getContador() % 2 == 0) {
+				// Mueven piezas negras.
+				if (pieza.getColor().contentEquals("N")) {
+					checkerColor = true;
+				}
+			} else {
+				// Mueven piezas blancas.
+				if (pieza.getColor().contentEquals("B")) {
+					checkerColor = true;
+				}
+			}
+
+			if (checkerColor == true) {
+				checker = validarMovimientoSegunPieza(pieza.nombre, coordenadaInicial, coordenadaFinal);
+				if (checker == true) {
+					partida.sumarContador();
+					intercambiarPiezas(coordenadaInicial, coordenadaFinal);
+				}
+				
+			} else {
+				System.out.println("La pieza no te pertenece.");
+			}
+
+		} else {
 			System.out.println("Movimiento invalido.");
 		}
 	}
-	
-	public static boolean validarMovimientoSegunPieza(String pieza, String inicio, String Final){
+
+	private static void intercambiarPiezas(String coordenadaInicial, String coordenadaFinal) {
+		PiezaDamas temp = null;
+
+		// Remover pieza de posicion inicial.
+		for (int i = 0; i < 10; i++) {
+			for (int e = 0; e < 10; e++) {
+				if (coordenadaInicial.equals(partida.tablero[i][e])) {
+					temp = partida.tableroPiezas[i][e];
+					partida.tableroPiezas[i][e] = new PiezaDamas("-", "-", "-", "-");
+				}
+			}
+		}
+
+		// Recolocacion de la pieza.
+		for (int i = 0; i < 10; i++) {
+			for (int e = 0; e < 10; e++) {
+				if (coordenadaFinal.equals(partida.tablero[i][e])) {
+					partida.tableroPiezas[i][e] = temp;
+				}
+			}
+		}
+
+	}
+
+	public static boolean validarMovimientoSegunPieza(String pieza, String inicio, String Final) {
 		boolean checker = false;
-		
-		switch(Character.toString(pieza.charAt(0))) {
-		
+
+		switch (Character.toString(pieza.charAt(0))) {
+
 		case "P":
-			checker = validarMovimientoPeon();
+			checker = validarMovimientoPeon(inicio, Final);
 			break;
-			
+
 		case "R":
 			checker = validarMovimientoReina(inicio, Final);
 			break;
@@ -108,26 +156,97 @@ public class JuegoDamas extends Juego{
 			checker = false;
 			break;
 		}
-		
+
 		return checker;
 	}
-	
-	public static boolean validarMovimientoPeon() {
+
+	public static boolean validarMovimientoPeon(String inicial, String Final) {
 		boolean checker = false;
-		
-		
-		
+		String movimiento = "";
+		PiezaDamas piezaTemp = null;
+
+		// piezas Blancas.
+
+		if (partida.getContador() % 2 == 0) {
+
+			movimiento = retornarSiguienteColumna(Character.toString(inicial.charAt(0)))
+					+ retornarSiguienteColumna(Character.toString(inicial.charAt(1)));
+
+			if (Final.contentEquals(movimiento)) {
+
+				piezaTemp = retornarPiezaPosicion(Final);
+				if (piezaTemp.nombre.contentEquals("-")) {
+					checker = true;
+				}
+
+			} else {
+
+				movimiento = retornarAnteriorColumna(Character.toString(inicial.charAt(0)))
+						+ retornarSiguienteColumna(Character.toString(inicial.charAt(1)));
+				if (Final.contentEquals(movimiento)) {
+					piezaTemp = retornarPiezaPosicion(Final);
+					if (piezaTemp.nombre.contentEquals("-")) {
+						checker = true;
+					}
+				} else {
+
+					movimiento = retornarSiguienteColumna(Character.toString(inicial.charAt(0)))
+							+ retornarSiguienteColumna(retornarSiguienteColumna(Character.toString(inicial.charAt(1))));
+					if (Final.contentEquals(movimiento)) {
+						piezaTemp = retornarPiezaPosicion(Final);
+						if (piezaTemp.nombre.contentEquals("-")) {
+							movimiento = retornarSiguienteColumna(Character.toString(inicial.charAt(0)))
+									+ (retornarSiguienteColumna(Character.toString(inicial.charAt(1))));
+							piezaTemp = retornarPiezaPosicion(movimiento);
+							if (!piezaTemp.nombre.contentEquals("-")) {
+								checker = true;
+							} else {
+								checker = false;
+							}
+
+						}
+					} else {
+
+						// Validar que el movimiento sea comiendo a la izquierda.
+
+						movimiento = retornarAnteriorColumna(Character.toString(inicial.charAt(0)))
+								+ retornarSiguienteColumna(
+										retornarSiguienteColumna(Character.toString(inicial.charAt(1))));
+						if (Final.contentEquals(movimiento)) {
+							piezaTemp = retornarPiezaPosicion(Final);
+							if (piezaTemp.nombre.contentEquals("-")) {
+								movimiento = retornarSiguienteColumna(Character.toString(inicial.charAt(0)))
+										+ (retornarSiguienteColumna(Character.toString(inicial.charAt(1))));
+								piezaTemp = retornarPiezaPosicion(movimiento);
+								if (!piezaTemp.nombre.contentEquals("-")) {
+									checker = true;
+								} else {
+									checker = false;
+								}
+
+							}
+
+						}
+					}
+
+				}
+
+			}
+
+		} else {
+			// piezas Negras.
+
+		}
+
 		return checker;
 	}
-	
+
 	public static boolean validarMovimientoReina(String inicial, String Final) {
 		boolean checker = false;
-		
-		
-		
+
 		return checker;
 	}
-	
+
 	public static String retornarSiguienteColumna(String columnaActual) {
 
 		switch (columnaActual) {
@@ -183,10 +302,10 @@ public class JuegoDamas extends Juego{
 			return "NO";
 		}
 	}
-	
+
 	public static PiezaDamas retornarPiezaPosicion(String posicionInicial) {
 
-		PiezaDamas piezaTemp = new PiezaDamas("-","-","-","-");
+		PiezaDamas piezaTemp = new PiezaDamas("-", "-", "-", "-");
 
 		for (int i = 0; i < 8; i++) {
 			for (int e = 0; e < 8; e++) {
@@ -199,7 +318,7 @@ public class JuegoDamas extends Juego{
 		return piezaTemp;
 
 	}
-	
+
 	public static String retornarObjetoEnPosicion(String posicion) {
 		String retorno = "";
 		for (int i = 0; i < 8; i++) {
@@ -211,14 +330,13 @@ public class JuegoDamas extends Juego{
 		}
 		return retorno;
 	}
-	
+
 	public static boolean verificarPosicionTablero(String x) {
 		Pattern pattern = Pattern.compile("{2}^[123456789X][123456789X]$");
 		Matcher matcher = pattern.matcher(x);
-		return matcher.matches();		 
+		return matcher.matches();
 	}
-	
-	
+
 	public static void imprimirOpcionesJuego() {
 		System.out.println("");
 		System.out.println("1.Mover Pieza.");
@@ -226,37 +344,35 @@ public class JuegoDamas extends Juego{
 		System.out.println("3.Guardar partida.");
 		System.out.println("3.Salir.");
 	}
-	
+
 	public static int contadorPiezasNegras() {
 		int contador = 0;
-		
-		for(int i=0;i<10;i++) {
-			for(int e = 0; e<10; e++) {
-				if(partida.tableroPiezas[i][e].getColor().contentEquals("N")) {
+
+		for (int i = 0; i < 10; i++) {
+			for (int e = 0; e < 10; e++) {
+				if (partida.tableroPiezas[i][e].getColor().contentEquals("N")) {
 					contador++;
 				}
 			}
 		}
-		
+
 		return contador;
 	}
-	
+
 	public static int contadorPiezasBlancas() {
 		int contador = 0;
-		
-		for(int i=0;i<10;i++) {
-			for(int e = 0; e<10; e++) {
-				if(partida.tableroPiezas[i][e].getColor().contentEquals("B")) {
+
+		for (int i = 0; i < 10; i++) {
+			for (int e = 0; e < 10; e++) {
+				if (partida.tableroPiezas[i][e].getColor().contentEquals("B")) {
 					contador++;
 				}
 			}
 		}
-		
+
 		return contador;
 	}
-	
-	
-	
+
 	public static void ImprimirEstadoJuego() {
 		System.out.println("|-------------------------------|          |-------------------------------|");
 		System.out.println("|          Coordenadas          |          |        Colores tablero        |");
@@ -286,26 +402,29 @@ public class JuegoDamas extends Juego{
 			}
 			System.out.print("             ");
 			for (int e = 0; e < 10; e++) {
-				System.out.print(retornarLogo(partida.tableroPiezas[i][e].nombre + partida.tableroPiezas[i][e].getColor()) + " ");
+				System.out
+						.print(retornarLogo(partida.tableroPiezas[i][e].nombre + partida.tableroPiezas[i][e].getColor())
+								+ " ");
 			}
 			System.out.println();
-		}		
+		}
 	}
 
 	public static void guardarPartida() throws FileNotFoundException {
-		
+
 		String json = Serializer.convertirPartidaJSON(2);
 		String nombrePartida = "";
-		if(json.equals("Default")) {
+		if (json.equals("Default")) {
 			System.out.println("Upps, no se ha logrado convertir la partida en formato JSON.");
-		}else {
+		} else {
 			System.out.println("Ingrese el nombre de la partida:");
 			nombrePartida = in.nextLine();
 			PersistenciaTexto.guardarArchivo(nombrePartida, json);
-			System.out.println("Partida guardada en la siguiente direccion: C:\\Users\\Public\\Documents\\"+nombrePartida+".txt");
+			System.out.println("Partida guardada en la siguiente direccion: C:\\Users\\Public\\Documents\\"
+					+ nombrePartida + ".txt");
 		}
 	}
-	
+
 	public static PartidaDamas getPartida() {
 		return partida;
 	}
@@ -317,18 +436,18 @@ public class JuegoDamas extends Juego{
 	public static boolean cargarPartidaArchivoTexto(String tipo) throws IOException {
 
 		boolean checker = false;
-		
+
 		Tablero temp = PersistenciaTexto.compararJSONTipoSolicitado(partida, tipo);
-		if (temp != null){
+		if (temp != null) {
 			partida = (PartidaDamas) temp;
 			checker = true;
-		}else {
+		} else {
 			checker = false;
 		}
-		
+
 		return checker;
 	}
-	
+
 	public static String retornarLogo(String pieza) {
 
 		String unicodeMessage = pieza;
