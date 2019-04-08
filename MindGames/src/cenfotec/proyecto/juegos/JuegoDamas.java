@@ -77,6 +77,15 @@ public class JuegoDamas extends Juego {
 		boolean checker = false;
 		boolean checkerColor = false;
 
+		if (partida.getContador() % 2 != 0) {
+			// Mueven piezas negras.
+			System.out.println("Mueven las piezas Negras");
+		} else {
+			// Mueven piezas blancas.
+			System.out.println("Mueven las piezas Blancas");
+		}
+		
+		
 		System.out.println("Ingrese la coordenada de inicio.");
 		coordenadaInicial = in.nextLine();
 		System.out.println("Ingrese la coordenada final.");
@@ -87,7 +96,7 @@ public class JuegoDamas extends Juego {
 			// que mueva.
 			pieza = retornarPiezaPosicion(coordenadaInicial);
 
-			if (partida.getContador() % 2 == 0) {
+			if (partida.getContador() % 2 != 0) {
 				// Mueven piezas negras.
 				if (pieza.getColor().contentEquals("N")) {
 					checkerColor = true;
@@ -161,13 +170,17 @@ public class JuegoDamas extends Juego {
 	}
 
 	public static boolean validarMovimientoPeon(String inicial, String Final) {
+		return validarMovimientoSimple(inicial, Final);
+	}
+	
+	public static boolean validarMovimientoSimple(String inicial, String Final) {
 		boolean checker = false;
 		String movimiento = "";
 		PiezaDamas piezaTemp = null;
 
 		// piezas Negras.
 
-		if (partida.getContador() % 2 == 0) {
+		if (partida.getContador() % 2 != 0) {
 			
 			//Movimiento derecho frontal de una posicion
 			movimiento = retornarSiguienteColumna(Character.toString(inicial.charAt(0)))
@@ -305,10 +318,20 @@ public class JuegoDamas extends Juego {
 
 		return checker;
 	}
+	
+	public static boolean validarMovimientoSimpleTrasero(String inicial, String Final) {
+		return false;
+	}
 
 	public static boolean validarMovimientoReina(String inicial, String Final) {
 		boolean checker = false;
 
+		checker = validarMovimientoSimple(inicial, Final);
+		
+		if(checker == false) {
+			checker = validarMovimientoSimpleTrasero(inicial, Final);
+		}
+		
 		return checker;
 	}
 
