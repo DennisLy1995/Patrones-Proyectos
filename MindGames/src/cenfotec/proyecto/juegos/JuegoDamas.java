@@ -84,8 +84,7 @@ public class JuegoDamas extends Juego {
 			// Mueven piezas blancas.
 			System.out.println("Mueven las piezas Blancas");
 		}
-		
-		
+
 		System.out.println("Ingrese la coordenada de inicio.");
 		coordenadaInicial = in.nextLine();
 		System.out.println("Ingrese la coordenada final.");
@@ -109,12 +108,12 @@ public class JuegoDamas extends Juego {
 			}
 
 			if (checkerColor == true) {
-				checker = validarMovimientoSegunPieza(pieza.nombre, coordenadaInicial, coordenadaFinal);
+				checker = validarMovimientoSegunPieza(pieza, coordenadaInicial, coordenadaFinal);
 				if (checker == true) {
 					partida.sumarContador();
 					intercambiarPiezas(coordenadaInicial, coordenadaFinal);
 				}
-				
+
 			} else {
 				System.out.println("La pieza no te pertenece.");
 			}
@@ -148,13 +147,13 @@ public class JuegoDamas extends Juego {
 
 	}
 
-	public static boolean validarMovimientoSegunPieza(String pieza, String inicio, String Final) {
+	public static boolean validarMovimientoSegunPieza(PiezaDamas pieza, String inicio, String Final) {
 		boolean checker = false;
 
-		switch (Character.toString(pieza.charAt(0))) {
+		switch (Character.toString(pieza.nombre.charAt(0))) {
 
 		case "P":
-			checker = validarMovimientoPeon(inicio, Final);
+			checker = validarMovimientoPeon(pieza.getColor(), inicio, Final);
 			break;
 
 		case "R":
@@ -169,10 +168,18 @@ public class JuegoDamas extends Juego {
 		return checker;
 	}
 
-	public static boolean validarMovimientoPeon(String inicial, String Final) {
-		return validarMovimientoSimple(inicial, Final);
+	public static boolean validarMovimientoPeon(String color, String inicial, String Final) {
+		boolean checker = false;
+
+		if (color.contentEquals("N")) {
+			checker = validarMovimientoSimple(inicial, Final);
+		} else if (color.contentEquals("N")) {
+			checker = validarMovimientoSimpleTrasero(inicial, Final);
+		}
+
+		return checker;
 	}
-	
+
 	public static boolean validarMovimientoSimple(String inicial, String Final) {
 		boolean checker = false;
 		String movimiento = "";
@@ -180,37 +187,55 @@ public class JuegoDamas extends Juego {
 
 		// piezas Negras.
 
-		if (partida.getContador() % 2 != 0) {
-			
-			//Movimiento derecho frontal de una posicion
-			movimiento = retornarSiguienteColumna(Character.toString(inicial.charAt(0)))
-					+ retornarSiguienteColumna(Character.toString(inicial.charAt(1)));
-			
-			if (Final.contentEquals(movimiento)) {
+		// Movimiento derecho frontal de una posicion
+		movimiento = retornarSiguienteColumna(Character.toString(inicial.charAt(0)))
+				+ retornarSiguienteColumna(Character.toString(inicial.charAt(1)));
 
+		if (Final.contentEquals(movimiento)) {
+
+			piezaTemp = retornarPiezaPosicion(Final);
+			if (piezaTemp.nombre.contentEquals("-")) {
+				checker = true;
+			}
+
+		} else {
+			// Movimiento izquierdo frontal de una posicion
+			movimiento = retornarAnteriorColumna(Character.toString(inicial.charAt(0)))
+					+ retornarSiguienteColumna(Character.toString(inicial.charAt(1)));
+			if (Final.contentEquals(movimiento)) {
 				piezaTemp = retornarPiezaPosicion(Final);
 				if (piezaTemp.nombre.contentEquals("-")) {
 					checker = true;
 				}
-
 			} else {
-				//Movimiento izquierdo frontal de una posicion
-				movimiento = retornarAnteriorColumna(Character.toString(inicial.charAt(0)))
-						+ retornarSiguienteColumna(Character.toString(inicial.charAt(1)));
+
+				// Movimiento derecho frontal de 3 posiciones
+				movimiento = retornarSiguienteColumna(Character.toString(inicial.charAt(0)))
+						+ retornarSiguienteColumna(retornarSiguienteColumna(Character.toString(inicial.charAt(1))));
 				if (Final.contentEquals(movimiento)) {
 					piezaTemp = retornarPiezaPosicion(Final);
 					if (piezaTemp.nombre.contentEquals("-")) {
-						checker = true;
+						movimiento = retornarSiguienteColumna(Character.toString(inicial.charAt(0)))
+								+ (retornarSiguienteColumna(Character.toString(inicial.charAt(1))));
+						piezaTemp = retornarPiezaPosicion(movimiento);
+						if (!piezaTemp.nombre.contentEquals("-")) {
+							checker = true;
+						} else {
+							checker = false;
+						}
+
 					}
 				} else {
 
-					//Movimiento derecho frontal de 3 posiciones
-					movimiento = retornarSiguienteColumna(Character.toString(inicial.charAt(0)))
-							+ retornarSiguienteColumna(retornarSiguienteColumna(Character.toString(inicial.charAt(1))));
+					// Movimiento izquierdo frontal de una posicion
+					movimiento = retornarAnteriorColumna(retornarAnteriorColumna(Character.toString(inicial.charAt(0))))
+							+ retornarSiguienteColumna(retornarSiguienteColumna(
+									retornarSiguienteColumna(Character.toString(inicial.charAt(1)))));
 					if (Final.contentEquals(movimiento)) {
+						// 33 15 medio = 24
 						piezaTemp = retornarPiezaPosicion(Final);
 						if (piezaTemp.nombre.contentEquals("-")) {
-							movimiento = retornarSiguienteColumna(Character.toString(inicial.charAt(0)))
+							movimiento = retornarAnteriorColumna(Character.toString(inicial.charAt(0)))
 									+ (retornarSiguienteColumna(Character.toString(inicial.charAt(1))));
 							piezaTemp = retornarPiezaPosicion(movimiento);
 							if (!piezaTemp.nombre.contentEquals("-")) {
@@ -218,68 +243,70 @@ public class JuegoDamas extends Juego {
 							} else {
 								checker = false;
 							}
-
-						}
-					} else {
-
-						//Movimiento izquierdo frontal de una posicion
-						movimiento = retornarAnteriorColumna(retornarAnteriorColumna(Character.toString(inicial.charAt(0))))
-								+ retornarSiguienteColumna(
-										retornarSiguienteColumna(retornarSiguienteColumna(Character.toString(inicial.charAt(1)))));
-						if (Final.contentEquals(movimiento)) {
-							//33 15 medio = 24
-							piezaTemp = retornarPiezaPosicion(Final);
-							if (piezaTemp.nombre.contentEquals("-")) {
-								movimiento = retornarAnteriorColumna(Character.toString(inicial.charAt(0)))
-										+ (retornarSiguienteColumna(Character.toString(inicial.charAt(1))));
-								piezaTemp = retornarPiezaPosicion(movimiento);
-								if (!piezaTemp.nombre.contentEquals("-")) {
-									checker = true;
-								} else {
-									checker = false;
-								}
-
-							}
-
 						}
 					}
-
 				}
+			}
+		}
 
+		return checker;
+	}
+
+	public static boolean validarMovimientoSimpleTrasero(String inicial, String Final) {
+		boolean checker = false;
+		String movimiento = "";
+		PiezaDamas piezaTemp = null;
+
+		// piezas Blancas.
+		// Movimiento derecho frontal de una posicion
+		movimiento = retornarSiguienteColumna(Character.toString(inicial.charAt(0)))
+				+ retornarAnteriorColumna(Character.toString(inicial.charAt(1)));
+
+		if (Final.contentEquals(movimiento)) {
+
+			piezaTemp = retornarPiezaPosicion(Final);
+			if (piezaTemp.nombre.contentEquals("-")) {
+				checker = true;
 			}
 
 		} else {
-			// piezas Blancas.
-			//Movimiento derecho frontal de una posicion
-			movimiento = retornarSiguienteColumna(Character.toString(inicial.charAt(0)))
+			// Movimiento izquierdo frontal de una posicion
+			movimiento = retornarAnteriorColumna(Character.toString(inicial.charAt(0)))
 					+ retornarAnteriorColumna(Character.toString(inicial.charAt(1)));
-			
 			if (Final.contentEquals(movimiento)) {
-
 				piezaTemp = retornarPiezaPosicion(Final);
 				if (piezaTemp.nombre.contentEquals("-")) {
 					checker = true;
 				}
-
 			} else {
-				//Movimiento izquierdo frontal de una posicion
-				movimiento = retornarAnteriorColumna(Character.toString(inicial.charAt(0)))
-						+ retornarAnteriorColumna(Character.toString(inicial.charAt(1)));
+
+				// Movimiento derecho frontal de 3 posiciones
+				movimiento = retornarSiguienteColumna(retornarSiguienteColumna(Character.toString(inicial.charAt(0))))
+						+ retornarAnteriorColumna(retornarAnteriorColumna(Character.toString(inicial.charAt(1))));
 				if (Final.contentEquals(movimiento)) {
 					piezaTemp = retornarPiezaPosicion(Final);
+					// 47 65 medio = 56
 					if (piezaTemp.nombre.contentEquals("-")) {
-						checker = true;
+						movimiento = retornarSiguienteColumna(Character.toString(inicial.charAt(0)))
+								+ (retornarAnteriorColumna(Character.toString(inicial.charAt(1))));
+						piezaTemp = retornarPiezaPosicion(movimiento);
+						if (!piezaTemp.nombre.contentEquals("-")) {
+							checker = true;
+						} else {
+							checker = false;
+						}
+
 					}
 				} else {
 
-					//Movimiento derecho frontal de 3 posiciones
-					movimiento = retornarSiguienteColumna(retornarSiguienteColumna(Character.toString(inicial.charAt(0))))
+					// Movimiento izquierdo frontal de una posicion
+					movimiento = retornarAnteriorColumna(retornarAnteriorColumna(Character.toString(inicial.charAt(0))))
 							+ retornarAnteriorColumna(retornarAnteriorColumna(Character.toString(inicial.charAt(1))));
+					// 24 46 38
 					if (Final.contentEquals(movimiento)) {
 						piezaTemp = retornarPiezaPosicion(Final);
-						// 47 65  medio = 56
 						if (piezaTemp.nombre.contentEquals("-")) {
-							movimiento = retornarSiguienteColumna(Character.toString(inicial.charAt(0)))
+							movimiento = retornarAnteriorColumna(Character.toString(inicial.charAt(0)))
 									+ (retornarAnteriorColumna(Character.toString(inicial.charAt(1))));
 							piezaTemp = retornarPiezaPosicion(movimiento);
 							if (!piezaTemp.nombre.contentEquals("-")) {
@@ -287,54 +314,24 @@ public class JuegoDamas extends Juego {
 							} else {
 								checker = false;
 							}
-
-						}
-					} else {
-
-						//Movimiento izquierdo frontal de una posicion
-						movimiento = retornarAnteriorColumna(retornarAnteriorColumna(Character.toString(inicial.charAt(0))))
-								+ retornarAnteriorColumna(
-										retornarAnteriorColumna(Character.toString(inicial.charAt(1))));
-						//24  46  38
-						if (Final.contentEquals(movimiento)) {
-							piezaTemp = retornarPiezaPosicion(Final);
-							if (piezaTemp.nombre.contentEquals("-")) {
-								movimiento = retornarAnteriorColumna(Character.toString(inicial.charAt(0)))
-										+ (retornarAnteriorColumna(Character.toString(inicial.charAt(1))));
-								piezaTemp = retornarPiezaPosicion(movimiento);
-								if (!piezaTemp.nombre.contentEquals("-")) {
-									checker = true;
-								} else {
-									checker = false;
-								}
-
-							}
-
 						}
 					}
-
 				}
-
 			}
-
 		}
 
 		return checker;
-	}
-	
-	public static boolean validarMovimientoSimpleTrasero(String inicial, String Final) {
-		return false;
 	}
 
 	public static boolean validarMovimientoReina(String inicial, String Final) {
 		boolean checker = false;
 
 		checker = validarMovimientoSimple(inicial, Final);
-		
-		if(checker == false) {
+
+		if (checker == false) {
 			checker = validarMovimientoSimpleTrasero(inicial, Final);
 		}
-		
+
 		return checker;
 	}
 
