@@ -310,7 +310,13 @@ public class JuegoDamas extends Juego {
 									+ (retornarAnteriorColumna(Character.toString(inicial.charAt(1))));
 							piezaTemp = retornarPiezaPosicion(movimiento);
 							if (!piezaTemp.nombre.contentEquals("-")) {
-								checker = true;
+								
+								//Aqui remuevo la pieza que este en movimiento, en caso de que la pieza tenga diferente color
+								if(!piezaTemp.getColor().contentEquals(retornarPiezaPosicion(inicial).getColor())) {
+									removerPieza(movimiento);
+									checker = true;
+								}
+								
 							} else {
 								checker = false;
 							}
@@ -321,6 +327,19 @@ public class JuegoDamas extends Juego {
 		}
 
 		return checker;
+	}
+
+	private static void removerPieza(String posicion) {
+		
+		PiezaDamas temp = new PiezaDamas("-","-","-","-");
+		
+		for(int i = 0;i<10;i++) {
+			for(int e = 0; e < 10; e++) {
+				if(partida.tablero[i][e].contentEquals(posicion)) {
+					partida.tableroPiezas[i][e] = temp;
+				}
+			}
+		}	
 	}
 
 	public static boolean validarMovimientoReina(String inicial, String Final) {
