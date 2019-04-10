@@ -210,7 +210,7 @@ public class JuegoDamas extends Juego {
 			} else {
 
 				// Movimiento derecho frontal de 3 posiciones
-				movimiento = retornarSiguienteColumna(Character.toString(inicial.charAt(0)))
+				movimiento = retornarSiguienteColumna(retornarSiguienteColumna(Character.toString(inicial.charAt(0))))
 						+ retornarSiguienteColumna(retornarSiguienteColumna(Character.toString(inicial.charAt(1))));
 				if (Final.contentEquals(movimiento)) {
 					piezaTemp = retornarPiezaPosicion(Final);
@@ -219,7 +219,11 @@ public class JuegoDamas extends Juego {
 								+ (retornarSiguienteColumna(Character.toString(inicial.charAt(1))));
 						piezaTemp = retornarPiezaPosicion(movimiento);
 						if (!piezaTemp.nombre.contentEquals("-")) {
-							checker = true;
+							//Aqui meto la validacion del color para comer las piezas.
+							if(!piezaTemp.getColor().contentEquals(retornarPiezaPosicion(inicial).getColor())) {
+								removerPieza(movimiento);
+								checker = true;
+							}
 						} else {
 							checker = false;
 						}
@@ -229,8 +233,8 @@ public class JuegoDamas extends Juego {
 
 					// Movimiento izquierdo frontal de una posicion
 					movimiento = retornarAnteriorColumna(retornarAnteriorColumna(Character.toString(inicial.charAt(0))))
-							+ retornarSiguienteColumna(retornarSiguienteColumna(
-									retornarSiguienteColumna(Character.toString(inicial.charAt(1)))));
+							+ retornarSiguienteColumna(
+									retornarSiguienteColumna(Character.toString(inicial.charAt(1))));
 					if (Final.contentEquals(movimiento)) {
 						// 33 15 medio = 24
 						piezaTemp = retornarPiezaPosicion(Final);
@@ -238,8 +242,12 @@ public class JuegoDamas extends Juego {
 							movimiento = retornarAnteriorColumna(Character.toString(inicial.charAt(0)))
 									+ (retornarSiguienteColumna(Character.toString(inicial.charAt(1))));
 							piezaTemp = retornarPiezaPosicion(movimiento);
-							if (!piezaTemp.nombre.contentEquals("-")) {
-								checker = true;
+							if (!piezaTemp.nombre.contentEquals("-")) {				
+								//Introducir aqui la validacion, para comer la pieza.
+								if(!piezaTemp.getColor().contentEquals(retornarPiezaPosicion(inicial).getColor())) {
+									removerPieza(movimiento);
+									checker = true;
+								}
 							} else {
 								checker = false;
 							}
