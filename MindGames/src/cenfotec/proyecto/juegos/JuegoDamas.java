@@ -142,6 +142,12 @@ public class JuegoDamas extends Juego {
 				if (coordenadaFinal.equals(partida.tablero[i][e])) {
 					partida.tableroPiezas[i][e] = temp;
 				}
+				//Convertir pieza en reina si la posicion Final esta en 1 o en X
+				if(Character.toString(coordenadaFinal.charAt(1)).contentEquals("1")) {
+					partida.tableroPiezas[i][e].convertirEnReina();
+				}else if(Character.toString(coordenadaFinal.charAt(1)).contentEquals("X")) {
+					partida.tableroPiezas[i][e].convertirEnReina();
+				}
 			}
 		}
 
