@@ -56,6 +56,11 @@ public class JuegoDamas extends Juego {
 					case "2":// terminar turno
 						break;
 					case "3":// Guardar partida.
+						try {
+							guardarPartida();
+						} catch (FileNotFoundException e) {
+							System.out.println("La partida no se ha podido guardar.");
+						}
 						break;
 					case "4":// salir.
 						breaker = true;
@@ -150,7 +155,6 @@ public class JuegoDamas extends Juego {
 				}
 			}
 		}
-
 	}
 
 	public static boolean validarMovimientoSegunPieza(PiezaDamas pieza, String inicio, String Final) {
@@ -305,7 +309,11 @@ public class JuegoDamas extends Juego {
 								+ (retornarAnteriorColumna(Character.toString(inicial.charAt(1))));
 						piezaTemp = retornarPiezaPosicion(movimiento);
 						if (!piezaTemp.nombre.contentEquals("-")) {
-							checker = true;
+							//Validacion para cambiar la pieza.
+							if(!piezaTemp.getColor().contentEquals(retornarPiezaPosicion(inicial).getColor())) {
+								removerPieza(movimiento);
+								checker = true;
+							}
 						} else {
 							checker = false;
 						}
