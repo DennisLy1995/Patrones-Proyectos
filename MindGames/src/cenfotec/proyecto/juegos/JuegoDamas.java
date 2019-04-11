@@ -567,7 +567,7 @@ public class JuegoDamas extends Juego {
 
 		boolean checker = false;
 
-		Tablero temp = PersistenciaTexto.compararJSONTipoSolicitado(partida, tipo);
+		Tablero temp = PersistenciaTexto.compararJSONDamas(partida, tipo);
 		if (temp != null) {
 			partida = (PartidaDamas) temp;
 			checker = true;

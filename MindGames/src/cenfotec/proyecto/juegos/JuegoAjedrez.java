@@ -985,7 +985,7 @@ public class JuegoAjedrez extends Juego {
 
 		boolean checker = false;
 		
-		Tablero temp = PersistenciaTexto.compararJSONTipoSolicitado(partida, tipo);
+		Tablero temp = PersistenciaTexto.compararJSONAjedrez(partida, tipo);
 		if (temp != null){
 			partida = (PartidaAjedrez) temp;
 			contador = partida.getContador();

@@ -58,7 +58,7 @@ public class JuegoGo extends Juego{
 
 		boolean checker = false;
 		
-		Tablero temp = PersistenciaTexto.compararJSONTipoSolicitado(partida, tipo);
+		Tablero temp = PersistenciaTexto.compararJSONAjedrez(partida, tipo);
 		if (temp != null){
 			partida = (PartidaGo) temp;
 			checker = true;

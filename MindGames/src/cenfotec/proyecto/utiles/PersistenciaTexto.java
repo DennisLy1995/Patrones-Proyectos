@@ -8,6 +8,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
 
+import cenfotec.proyecto.artefactos.PartidaDamas;
+import cenfotec.proyecto.artefactos.PartidaGo;
 import cenfotec.proyecto.artefactos.Tablero;
 
 
@@ -62,7 +64,7 @@ public class PersistenciaTexto {
 		return lectura;
 	}
 	
-	public static Tablero compararJSONTipoSolicitado(Tablero partida, String tipo) {
+	public static Tablero compararJSONAjedrez(Tablero partida, String tipo) {
 		System.out.println("Ingrese el nombre de la partida:");
 		String nombreArchivo = in.nextLine();
 		try {
@@ -80,6 +82,47 @@ public class PersistenciaTexto {
 			return null;
 		}
 	}
+	
+	
+	public static PartidaDamas compararJSONDamas(PartidaDamas partida, String tipo) {
+		System.out.println("Ingrese el nombre de la partida:");
+		String nombreArchivo = in.nextLine();
+		try {
+			String temp = PersistenciaTexto.leerArchivoTexto(nombreArchivo);
+			partida = Serializer.convertirJSONPartidaDamas(temp);
+			if(partida.getTipoJuego().equals(tipo)) {
+				return partida;
+			}else {
+				System.out.println("Verifique que el archivo pertenezca a una partida de " + tipo +".");
+				return null;
+			}
+			
+		}catch(Exception e) {
+			System.out.println("No se ha cargado el archivo, verifique que el archivo exista.");
+			return null;
+		}
+	}
+	
+	
+	public static PartidaGo compararJSONGo(PartidaGo partida, String tipo) {
+		System.out.println("Ingrese el nombre de la partida:");
+		String nombreArchivo = in.nextLine();
+		try {
+			String temp = PersistenciaTexto.leerArchivoTexto(nombreArchivo);
+			partida = Serializer.convertirJSONPartidaGo(temp);
+			if(partida.getTipoJuego().equals(tipo)) {
+				return partida;
+			}else {
+				System.out.println("Verifique que el archivo pertenezca a una partida de " + tipo +".");
+				return null;
+			}
+			
+		}catch(Exception e) {
+			System.out.println("No se ha cargado el archivo, verifique que el archivo exista.");
+			return null;
+		}
+	}
+	
 	
 	
 }

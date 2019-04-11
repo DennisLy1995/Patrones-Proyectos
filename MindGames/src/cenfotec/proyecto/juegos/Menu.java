@@ -99,15 +99,8 @@ public class Menu {
 
 			}
 			breakerLogin = 1;
-			
-
 		}
 
-	}
-
-	private static boolean validacionCredenciales(String nombreUsuario, String contrasena) {
-		
-		return true;
 	}
 
 	public static void imprimirMenu(String[] opcionesMenu) {
