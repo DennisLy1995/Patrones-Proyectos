@@ -5,9 +5,7 @@ import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import cenfotec.proyecto.artefactos.PartidaDamas;
-import cenfotec.proyecto.artefactos.PiezaAjedrez;
 import cenfotec.proyecto.artefactos.PiezaDamas;
 import cenfotec.proyecto.artefactos.Tablero;
 import cenfotec.proyecto.utiles.PersistenciaTexto;
@@ -71,7 +69,10 @@ public class JuegoDamas extends Juego {
 				}
 			}
 		}
-
+	}
+	
+	public static void continuarPartida() {
+		iniciarJuego();
 	}
 
 	public static void moverPieza() {
@@ -450,8 +451,8 @@ public class JuegoDamas extends Juego {
 
 	public static String retornarObjetoEnPosicion(String posicion) {
 		String retorno = "";
-		for (int i = 0; i < 8; i++) {
-			for (int e = 0; e < 8; e++) {
+		for (int i = 0; i < 10; i++) {
+			for (int e = 0; e < 10; e++) {
 				if (posicion.equals(partida.tablero[i][e])) {
 					retorno = partida.tableroPiezas[i][e].nombre;
 				}
@@ -588,8 +589,14 @@ public class JuegoDamas extends Juego {
 		case "PB":
 			unicodeMessage = "\u25CE";
 			break;
+		case "RN":
+			unicodeMessage = "\u25D5";
+			break;
+		case "RB":
+			unicodeMessage = "\u25CD";
+			break;
 		case "--":
-			unicodeMessage = "\u25E9";
+			unicodeMessage = "\u25EB";
 			break;
 		default:
 			unicodeMessage = "\u25E9";
@@ -599,4 +606,5 @@ public class JuegoDamas extends Juego {
 		return unicodeMessage;
 
 	}
+
 }

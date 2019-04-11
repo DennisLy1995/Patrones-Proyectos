@@ -53,68 +53,53 @@ public class Menu {
 
 		int breakerLogin = 0;
 		int breakerMenu = 0;
-		boolean validarUsuario=false;
 
 		//Testing para imprimir unicode.
 		
 		while (breakerLogin == 0) {
 
-			System.out.println("Bienvenido a Mind Games\nIngrese su nombre de usuario\n");
-			String nombreUsuario = in.readLine();
-			System.out.println("Ingrese su contraseña\n");
-			String contrasena = in.readLine();
+			while (breakerMenu == 0) {
 
-			validarUsuario = validacionCredenciales(nombreUsuario, contrasena);
-			
-			// Se valida que la contraseña y el nombre de usuario sean los correctos.
-			if (validarUsuario == true) {
-
-				while (breakerMenu == 0) {
-
-					// Despliegue del menu principal
-					int breakerSubMenu = 0;
-					imprimirMenu(menuPrincipal);
-					String opcionMenu = in.readLine();
-					String opcionMenuJuego = "";
-					switch (opcionMenu) {
-					case "1":
-						while (breakerSubMenu == 0) {
-							imprimirMenu(menuAjedrez);
-							opcionMenuJuego = Menu.opcionmenuJuego();
-							breakerSubMenu = Menu.redireccionadorAjedrez(opcionMenuJuego);
-						}
-
-						break;
-					case "2":
-						while (breakerSubMenu == 0) {
-							imprimirMenu(menuDamas);
-							opcionMenuJuego = Menu.opcionmenuJuego();
-							breakerSubMenu = Menu.redireccionadorDamas(opcionMenuJuego);
-						}
-
-						break;
-					case "3":
-						while (breakerSubMenu == 0) {
-							imprimirMenu(menuGo);
-							opcionMenuJuego = Menu.opcionmenuJuego();
-							breakerSubMenu = Menu.redireccionadorGo(opcionMenuJuego);
-						}
-						break;
-					case "4":
-						breakerMenu = 1;
-						System.out.println("\nHasta luego!!!\n");
-						break;
-					default:
-						break;
+				// Despliegue del menu principal
+				int breakerSubMenu = 0;
+				imprimirMenu(menuPrincipal);
+				String opcionMenu = in.readLine();
+				String opcionMenuJuego = "";
+				switch (opcionMenu) {
+				case "1":
+					while (breakerSubMenu == 0) {
+						imprimirMenu(menuAjedrez);
+						opcionMenuJuego = Menu.opcionmenuJuego();
+						breakerSubMenu = Menu.redireccionadorAjedrez(opcionMenuJuego);
 					}
 
+					break;
+				case "2":
+					while (breakerSubMenu == 0) {
+						imprimirMenu(menuDamas);
+						opcionMenuJuego = Menu.opcionmenuJuego();
+						breakerSubMenu = Menu.redireccionadorDamas(opcionMenuJuego);
+					}
+
+					break;
+				case "3":
+					while (breakerSubMenu == 0) {
+						imprimirMenu(menuGo);
+						opcionMenuJuego = Menu.opcionmenuJuego();
+						breakerSubMenu = Menu.redireccionadorGo(opcionMenuJuego);
+					}
+					break;
+				case "4":
+					breakerMenu = 1;
+					System.out.println("\nHasta luego!!!\n");
+					break;
+				default:
+					break;
 				}
-				breakerLogin = 1;
-			} else {
-				breakerLogin = 0;
-				System.out.println(
-						"\nEl usuario no se encuentra en el sistema\n Por mientras use el siguiente \n usuario:Dennis; contraseña:1234");
+
 			}
+			breakerLogin = 1;
+			
 
 		}
 
@@ -126,7 +111,6 @@ public class Menu {
 	}
 
 	public static void imprimirMenu(String[] opcionesMenu) {
-		System.out.println("\n");
 		for (int i = 0; i < opcionesMenu.length; i++) {
 			System.out.println(opcionesMenu[i]);
 		}
@@ -290,7 +274,8 @@ public class Menu {
 		String router=in.readLine();
 		switch(router) {
 		case "1":
-			GestorDamas.cargarPartida();
+			
+			GestorDamas.cargarPartidaArchivoTexto();
 			break;
 		case "2":
 			break;

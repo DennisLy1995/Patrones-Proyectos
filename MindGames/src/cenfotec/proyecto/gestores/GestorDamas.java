@@ -11,7 +11,7 @@ public class GestorDamas {
 	}
 	
 	public static void continuarPartida() {
-		
+		JuegoDamas.continuarPartida();
 	}
 	
 	public static void imprimirEstadoJuego() {
@@ -22,7 +22,7 @@ public class GestorDamas {
 		JuegoDamas.guardarPartida();
 	}
 	
-	public static void cargarPartida() throws IOException {
+	public static void cargarPartidaArchivoTexto() throws IOException {
 		JuegoDamas.cargarPartidaArchivoTexto("Damas");
 		
 	}
