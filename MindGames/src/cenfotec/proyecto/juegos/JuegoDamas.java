@@ -149,10 +149,11 @@ public class JuegoDamas extends Juego {
 					partida.tableroPiezas[i][e] = temp;
 				}
 				//Convertir pieza en reina si la posicion Final esta en 1 o en X
-				if(Character.toString(coordenadaFinal.charAt(1)).contentEquals("1")) {
-					partida.tableroPiezas[i][e].convertirEnReina();
-				}else if(Character.toString(coordenadaFinal.charAt(1)).contentEquals("X")) {
-					partida.tableroPiezas[i][e].convertirEnReina();
+				if(partida.tablero[i][e].contentEquals(coordenadaFinal)) {
+					if(Character.toString(coordenadaFinal.charAt(1)).contentEquals("1") || Character.toString(coordenadaFinal.charAt(1)).contentEquals("X")) {
+						partida.tableroPiezas[i][e].convertirEnReina();
+
+					}
 				}
 			}
 		}
@@ -516,7 +517,7 @@ public class JuegoDamas extends Juego {
 			}
 			System.out.print("             ");
 			for (int e = 0; e < 10; e++) {
-				System.out.print(partida.tableroColores[i][e] + " ");
+				System.out.print(retornarLogoColor(partida.tableroColores[i][e]) + " ");
 			}
 			System.out.println();
 		}
@@ -593,13 +594,31 @@ public class JuegoDamas extends Juego {
 			unicodeMessage = "\u25D5";
 			break;
 		case "RB":
-			unicodeMessage = "\u25CD";
+			unicodeMessage = "\u25D4";
 			break;
 		case "--":
-			unicodeMessage = "\u25EB";
+			unicodeMessage = "\u25A2";
 			break;
 		default:
-			unicodeMessage = "\u25E9";
+			unicodeMessage = "\u25EB";
+			break;
+
+		}
+		return unicodeMessage;
+	}
+	
+	
+	
+	public static String retornarLogoColor(String color) {
+
+		String unicodeMessage = color;
+
+		switch (unicodeMessage) {
+		case "NR":
+			unicodeMessage = "\u25A1";
+			break;
+		case "BL":
+			unicodeMessage = "\u25A0";
 			break;
 
 		}
