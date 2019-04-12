@@ -131,6 +131,7 @@ public class JuegoDamas extends Juego {
 
 	private static void intercambiarPiezas(String coordenadaInicial, String coordenadaFinal) {
 		PiezaDamas temp = null;
+		boolean movExtra = false;
 
 		// Remover pieza de posicion inicial.
 		for (int i = 0; i < 10; i++) {
@@ -157,6 +158,44 @@ public class JuegoDamas extends Juego {
 				}
 			}
 		}
+		while(movExtra == true) {
+			movExtra = movimientoExtra(coordenadaFinal);
+		}
+		
+		
+	}
+	
+	public static boolean movimientoExtra(String Final) {
+		boolean checker = false;
+		
+		
+		
+		
+		
+		
+		return checker;
+	}
+	
+	public static boolean movimientoExtraAdelante() {
+		boolean checker = false;
+		
+		
+		
+		
+		
+		
+		return checker;
+	}
+	
+	public static boolean movimientoExtraAtras() {
+		boolean checker = false;
+		
+		
+		
+		
+		
+		
+		return checker;
 	}
 
 	public static boolean validarMovimientoSegunPieza(PiezaDamas pieza, String inicio, String Final) {
