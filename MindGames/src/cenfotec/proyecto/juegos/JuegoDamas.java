@@ -171,25 +171,27 @@ public class JuegoDamas extends Juego {
 		String valorIzquierdoFrente = "";
 		String valorDerechoAtras = "";
 		String valorIzquierdoAtras = "";
-		
+
 		PiezaDamas temp = retornarPiezaPosicion(Final);
 		if (temp.getColor().contentEquals("N") && temp.nombre.contentEquals("P")) {
 
 			valorDerechoFrente = validarMovimientoExtraDelanteroDerecha(Final);
 			valorIzquierdoFrente = validarMovimientoExtraDelanteroIzquierda(Final);
-			
+			realizarMovimientoExtraPeon(Final, valorDerechoFrente, valorIzquierdoFrente, "Frente");
+
 		} else if (temp.getColor().contentEquals("B") && temp.nombre.contentEquals("P")) {
 
 			valorDerechoAtras = validarMovimientoExtraTraseroDerecha(Final);
 			valorIzquierdoAtras = validarMovimientoExtraTraseroIzquierda(Final);
-			
+			realizarMovimientoExtraPeon(Final, valorDerechoAtras, valorIzquierdoAtras, "Atras");
+
 		} else if (temp.nombre.contentEquals("R")) {
 
 			valorDerechoFrente = validarMovimientoExtraDelanteroDerecha(Final);
 			valorIzquierdoFrente = validarMovimientoExtraDelanteroIzquierda(Final);
 			valorDerechoAtras = validarMovimientoExtraTraseroDerecha(Final);
 			valorIzquierdoAtras = validarMovimientoExtraTraseroIzquierda(Final);
-			
+
 		}
 
 		return checker;
@@ -197,9 +199,8 @@ public class JuegoDamas extends Juego {
 
 	public static String validarMovimientoExtraDelanteroDerecha(String Final) {
 		String posicion = retornarSiguienteColumna(retornarSiguienteColumna(Character.toString(Final.charAt(0))))
-		+ retornarSiguienteColumna(retornarSiguienteColumna(Character.toString(Final.charAt(1))));
-		
-		
+				+ retornarSiguienteColumna(retornarSiguienteColumna(Character.toString(Final.charAt(1))));
+
 		return posicion;
 	}
 
@@ -220,27 +221,70 @@ public class JuegoDamas extends Juego {
 	public static String validarMovimientoExtraTraseroIzquierda(String Final) {
 		String posicion = retornarAnteriorColumna(retornarAnteriorColumna(Character.toString(Final.charAt(0))))
 				+ retornarAnteriorColumna(retornarAnteriorColumna(Character.toString(Final.charAt(1))));
-		
+
 		return posicion;
 	}
-	
-	public static boolean realizarMovimientoExtraPeon(String Final, String derecha, String izquierda, String direccion) {
+
+	public static boolean realizarMovimientoExtraPeon(String Final, String derecha, String izquierda,
+			String direccion) {
 		boolean checker = false;
-		
-		if(direccion.contentEquals("Frente")) {
-			
-		}else if(direccion.contentEquals("Atras")) {
-			
+		String consultaDireccion = "";
+
+		if (derecha.length() < 2 && izquierda.length() < 2) {
+
+		} else {
+			if (direccion.contentEquals("Frente")) {
+				if (derecha.length() == 2 && izquierda.length() == 2) {
+					while (consultaDireccion != "1" || consultaDireccion != "2") {
+						System.out.println("Tienes dos opciones para comer una pieza de tu enemigo:\n"
+								+ "1.Derecha.\n2.Izquierda.");
+						consultaDireccion = in.nextLine();
+					}
+					if (consultaDireccion.contentEquals("1")) {
+						intercambiarPiezas(Final, derecha);
+					} else if (consultaDireccion.contentEquals("2")) {
+						intercambiarPiezas(Final, izquierda);
+					}
+					checker = true;
+				} else if (derecha.length() == 2 && izquierda.length() != 2) {
+					intercambiarPiezas(Final, derecha);
+					checker = true;
+				} else if (izquierda.length() == 2 && derecha.length() != 2) {
+					intercambiarPiezas(Final, izquierda);
+					checker = true;
+				}
+			} else if (direccion.contentEquals("Atras")) {
+				if (derecha.length() == 2 && izquierda.length() == 2) {
+					if (derecha.length() == 2 && izquierda.length() == 2) {
+						while (consultaDireccion != "1" || consultaDireccion != "2") {
+							System.out.println("Tienes dos opciones para comer una pieza de tu enemigo:\n"
+									+ "1.Derecha.\n2.Izquierda.");
+							consultaDireccion = in.nextLine();
+						}
+						if (consultaDireccion.contentEquals("1")) {
+							intercambiarPiezas(Final, derecha);
+						} else if (consultaDireccion.contentEquals("2")) {
+							intercambiarPiezas(Final, izquierda);
+						}
+						checker = true;
+					} else if (derecha.length() == 2 && izquierda.length() != 2) {
+						intercambiarPiezas(Final, derecha);
+						checker = true;
+					} else if (izquierda.length() == 2 && derecha.length() != 2) {
+						intercambiarPiezas(Final, izquierda);
+						checker = true;
+					}
+				}
+			}
 		}
-		
+
 		return checker;
 	}
-	
-	public static boolean realizarMovimientoExtraReina(String Final, String derechaF, String izquierdaF, String derechaA, String izquierdaA) {
+
+	public static boolean realizarMovimientoExtraReina(String Final, String derechaF, String izquierdaF,
+			String derechaA, String izquierdaA) {
 		boolean checker = false;
-		
-		
-		
+
 		return checker;
 	}
 
