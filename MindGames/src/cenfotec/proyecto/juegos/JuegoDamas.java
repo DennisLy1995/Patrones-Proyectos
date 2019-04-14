@@ -76,7 +76,7 @@ public class JuegoDamas extends Juego {
 	}
 
 	public static void moverPieza() {
-
+		boolean movExtra = false;
 		String coordenadaInicial;
 		String coordenadaFinal;
 		PiezaDamas pieza = null;
@@ -118,6 +118,12 @@ public class JuegoDamas extends Juego {
 				if (checker == true) {
 					partida.sumarContador();
 					intercambiarPiezas(coordenadaInicial, coordenadaFinal);
+					if(retornarSiguienteColumna(retornarSiguienteColumna(Character.toString(coordenadaInicial.charAt(0)))).contentEquals(Character.toString(coordenadaFinal.charAt(0))) ||
+							retornarAnteriorColumna(retornarAnteriorColumna(Character.toString(coordenadaInicial.charAt(0)))).contentEquals(Character.toString(coordenadaFinal.charAt(0)))) {
+						while (movExtra == false) {
+						movExtra = movimientoExtra(coordenadaFinal);
+					}
+					}
 				}
 
 			} else {
@@ -131,7 +137,6 @@ public class JuegoDamas extends Juego {
 
 	private static void intercambiarPiezas(String coordenadaInicial, String coordenadaFinal) {
 		PiezaDamas temp = null;
-		boolean movExtra = true;
 
 		// Remover pieza de posicion inicial.
 		for (int i = 0; i < 10; i++) {
@@ -159,9 +164,7 @@ public class JuegoDamas extends Juego {
 				}
 			}
 		}
-		while (movExtra == true) {
-			movExtra = movimientoExtra(coordenadaFinal);
-		}
+	
 
 	}
 
@@ -177,13 +180,13 @@ public class JuegoDamas extends Juego {
 
 			valorDerechoFrente = validarMovimientoExtraDelanteroDerecha(Final);
 			valorIzquierdoFrente = validarMovimientoExtraDelanteroIzquierda(Final);
-			realizarMovimientoExtraPeon(Final, valorDerechoFrente, valorIzquierdoFrente, "Frente");
+			checker = realizarMovimientoExtraPeon(Final, valorDerechoFrente, valorIzquierdoFrente, "Frente");
 
 		} else if (temp.getColor().contentEquals("B") && temp.nombre.contentEquals("P")) {
 
 			valorDerechoAtras = validarMovimientoExtraTraseroDerecha(Final);
 			valorIzquierdoAtras = validarMovimientoExtraTraseroIzquierda(Final);
-			realizarMovimientoExtraPeon(Final, valorDerechoAtras, valorIzquierdoAtras, "Atras");
+			checker = realizarMovimientoExtraPeon(Final, valorDerechoAtras, valorIzquierdoAtras, "Atras");
 
 		} else if (temp.nombre.contentEquals("R")) {
 
@@ -602,7 +605,7 @@ public class JuegoDamas extends Juego {
 		System.out.println("1.Mover Pieza.");
 		System.out.println("2.Terminar turno.");
 		System.out.println("3.Guardar partida.");
-		System.out.println("3.Salir.");
+		System.out.println("4.Salir.");
 	}
 
 	public static int contadorPiezasNegras() {
