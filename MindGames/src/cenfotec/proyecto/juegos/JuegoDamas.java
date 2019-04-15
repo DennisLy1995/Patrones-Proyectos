@@ -231,14 +231,13 @@ public class JuegoDamas extends Juego {
 	public static boolean realizarMovimientoExtraPeon(String Final, String derecha, String izquierda,
 			String direccion) {
 		boolean checker = false;
-		String consultaDireccion = "";
 
 		if (derecha.length() < 2 && izquierda.length() < 2) {
 
 		} else {
 			if (direccion.contentEquals("Frente")) {
 				if (derecha.length() == 2 && izquierda.length() == 2) {
-					comprobarMovimientosMultipleFrente(Final, derecha, izquierda);
+					comprobarMovimientosMultiple(Final, derecha, izquierda, true);
 					checker = true;
 				} else if (derecha.length() == 2 && izquierda.length() != 2) {
 					PiezaDamas tempD = retornarPiezaPosicion(retornarAnteriorColumna(Character.toString(derecha.charAt(0)))+Character.toString(derecha.charAt(1)));
@@ -256,25 +255,21 @@ public class JuegoDamas extends Juego {
 				}
 			} else if (direccion.contentEquals("Atras")) {
 				if (derecha.length() == 2 && izquierda.length() == 2) {
-					if (derecha.length() == 2 && izquierda.length() == 2) {
-						while (consultaDireccion != "1" || consultaDireccion != "2") {
-							System.out.println("Tienes dos opciones para comer una pieza de tu enemigo:\n"
-									+ "1.Derecha.\n2.Izquierda.");
-							consultaDireccion = in.nextLine();
-						}
-						if (consultaDireccion.contentEquals("1")) {
-							intercambiarPiezas(Final, derecha);
-						} else if (consultaDireccion.contentEquals("2")) {
-							intercambiarPiezas(Final, izquierda);
-						}
-						checker = true;
-					} else if (derecha.length() == 2 && izquierda.length() != 2) {
+					comprobarMovimientosMultiple(Final, derecha, izquierda, false);
+					checker = true;
+				} else if (derecha.length() == 2 && izquierda.length() != 2) {
+					PiezaDamas tempD = retornarPiezaPosicion(retornarAnteriorColumna(Character.toString(derecha.charAt(0)))+Character.toString(derecha.charAt(1)));
+					if(!tempD.nombre.contentEquals("-") && retornarPiezaPosicion(Final).getColor() != tempD.getColor()) {
 						intercambiarPiezas(Final, derecha);
-						checker = true;
-					} else if (izquierda.length() == 2 && derecha.length() != 2) {
-						intercambiarPiezas(Final, izquierda);
-						checker = true;
 					}
+				} else if (izquierda.length() == 2 && derecha.length() != 2) {
+					PiezaDamas tempD = retornarPiezaPosicion(retornarSiguienteColumna(Character.toString(izquierda.charAt(0)))+Character.toString(izquierda.charAt(1)));
+					if(!tempD.nombre.contentEquals("-") && retornarPiezaPosicion(Final).getColor() != tempD.getColor()) {
+						intercambiarPiezas(Final, izquierda);
+					}
+					
+				}else {
+					checker = true;
 				}
 			}
 		}
@@ -289,10 +284,19 @@ public class JuegoDamas extends Juego {
 		return checker;
 	}
 	
-	public static void comprobarMovimientosMultipleFrente(String Final,String derecha, String izquierda) {
+	public static void comprobarMovimientosMultiple(String Final,String derecha, String izquierda, boolean direccion) {
 		String consultaDireccion = "";
-		int valorDerecho = Character.getNumericValue(derecha.charAt(1))-1;
-		int valorIzquierdo = Character.getNumericValue(izquierda.charAt(1))-1;
+		int valorDerecho = 0;
+		int valorIzquierdo = 0;
+
+		if(direccion == true) {
+			valorDerecho = Character.getNumericValue(derecha.charAt(1))-1;
+			valorIzquierdo = Character.getNumericValue(izquierda.charAt(1))-1;
+		}else if(direccion == false) {
+			valorDerecho = Character.getNumericValue(derecha.charAt(1))+1;
+			valorIzquierdo = Character.getNumericValue(izquierda.charAt(1))+1;
+		}
+		
 		String DerechaTemp = retornarAnteriorColumna(Character.toString(derecha.charAt(0)))  + valorDerecho;
 		String izquierdaTemp = retornarSiguienteColumna(Character.toString(izquierda.charAt(0))) + valorIzquierdo;
 		PiezaDamas comidaDerecha = retornarPiezaPosicion(DerechaTemp);
@@ -319,14 +323,31 @@ public class JuegoDamas extends Juego {
 			
 			if (consultaDireccion.contentEquals("1")) {
 				intercambiarPiezas(Final, derecha);
+				IntercambiarPiezaEnPosicion(DerechaTemp, new PiezaDamas("-","-","-","-"));
+				
 			} else if (consultaDireccion.contentEquals("2")) {
 				intercambiarPiezas(Final, izquierda);
+				IntercambiarPiezaEnPosicion(izquierdaTemp, new PiezaDamas("-","-","-","-"));
 			}
 			
 		}else if(derechaChecker == true) {
 			intercambiarPiezas(Final, derecha);
+			IntercambiarPiezaEnPosicion(DerechaTemp, new PiezaDamas("-","-","-","-"));
 		}else if(izquierdaChecker == true) {
 			intercambiarPiezas(Final, izquierda);
+			IntercambiarPiezaEnPosicion(izquierdaTemp, new PiezaDamas("-","-","-","-"));
+		}
+		
+	}
+	
+	public static void IntercambiarPiezaEnPosicion(String posicion, PiezaDamas reemplazo) {
+		
+		for (int i = 0; i < 10; i++) {
+			for (int e = 0; e < 10; e++) {
+				if (posicion.equals(partida.tablero[i][e])) {
+					partida.tableroPiezas[i][e] = reemplazo;
+				}
+			}
 		}
 		
 	}
