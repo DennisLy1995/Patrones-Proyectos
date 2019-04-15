@@ -169,6 +169,7 @@ public class JuegoDamas extends Juego {
 	}
 
 	public static boolean movimientoExtra(String Final) {
+		
 		boolean checker = false;
 		String valorDerechoFrente = "";
 		String valorIzquierdoFrente = "";
@@ -181,7 +182,8 @@ public class JuegoDamas extends Juego {
 			valorDerechoFrente = validarMovimientoExtraDelanteroDerecha(Final);
 			valorIzquierdoFrente = validarMovimientoExtraDelanteroIzquierda(Final);
 			checker = realizarMovimientoExtraPeon(Final, valorDerechoFrente, valorIzquierdoFrente, "Frente");
-
+			
+			
 		} else if (temp.getColor().contentEquals("B") && temp.nombre.contentEquals("P")) {
 
 			valorDerechoAtras = validarMovimientoExtraTraseroDerecha(Final);
@@ -195,6 +197,8 @@ public class JuegoDamas extends Juego {
 			valorDerechoAtras = validarMovimientoExtraTraseroDerecha(Final);
 			valorIzquierdoAtras = validarMovimientoExtraTraseroIzquierda(Final);
 
+		}else {
+			checker = true;
 		}
 
 		return checker;
@@ -240,14 +244,37 @@ public class JuegoDamas extends Juego {
 					comprobarMovimientosMultiple(Final, derecha, izquierda, true);
 					checker = true;
 				} else if (derecha.length() == 2 && izquierda.length() != 2) {
-					PiezaDamas tempD = retornarPiezaPosicion(retornarAnteriorColumna(Character.toString(derecha.charAt(0)))+Character.toString(derecha.charAt(1)));
-					if(!tempD.nombre.contentEquals("-") && retornarPiezaPosicion(Final).getColor() != tempD.getColor()) {
-						intercambiarPiezas(Final, derecha);
+					String posicionTempComida = derecha;
+					PiezaDamas tempD = retornarPiezaPosicion(derecha);
+					if(tempD.nombre.contentEquals("-")) {
+						posicionTempComida = retornarAnteriorColumna(Character.toString(derecha.charAt(0)))+Integer.toString(Character.getNumericValue(derecha.charAt(1))-1);
+						tempD = retornarPiezaPosicion(posicionTempComida);
+						if(!tempD.getColor().contentEquals(retornarPiezaPosicion(Final).getColor()) && !tempD.nombre.contentEquals("-")) {
+							if(checker == false) {
+								checker = movimientoExtra(Final);
+							}
+						}else {
+							checker = true;
+						}
+						
 					}
 				} else if (izquierda.length() == 2 && derecha.length() != 2) {
-					PiezaDamas tempD = retornarPiezaPosicion(retornarSiguienteColumna(Character.toString(izquierda.charAt(0)))+Character.toString(izquierda.charAt(1)));
-					if(!tempD.nombre.contentEquals("-") && retornarPiezaPosicion(Final).getColor() != tempD.getColor()) {
-						intercambiarPiezas(Final, izquierda);
+					String posicionTempComida = izquierda;
+					PiezaDamas tempD = retornarPiezaPosicion(izquierda);
+					if(tempD.nombre.contentEquals("-")) {
+						posicionTempComida = retornarSiguienteColumna(Character.toString(izquierda.charAt(0)))+Integer.toString(Character.getNumericValue(izquierda.charAt(1))-1);
+						tempD = retornarPiezaPosicion(posicionTempComida);
+						if(!tempD.getColor().contentEquals(retornarPiezaPosicion(Final).getColor()) && !tempD.nombre.contentEquals("-")) {
+							intercambiarPiezas(Final, izquierda);
+							if(checker == false) {
+								checker = movimientoExtra(Final);
+							}
+						}else {
+							checker = true;
+						}
+						
+					}else {
+						checker = true;
 					}
 					
 				}else {
@@ -261,11 +288,17 @@ public class JuegoDamas extends Juego {
 					PiezaDamas tempD = retornarPiezaPosicion(retornarAnteriorColumna(Character.toString(derecha.charAt(0)))+Character.toString(derecha.charAt(1)));
 					if(!tempD.nombre.contentEquals("-") && retornarPiezaPosicion(Final).getColor() != tempD.getColor()) {
 						intercambiarPiezas(Final, derecha);
+						if(checker == false) {
+							checker = movimientoExtra(derecha);
+						}
 					}
 				} else if (izquierda.length() == 2 && derecha.length() != 2) {
 					PiezaDamas tempD = retornarPiezaPosicion(retornarSiguienteColumna(Character.toString(izquierda.charAt(0)))+Character.toString(izquierda.charAt(1)));
 					if(!tempD.nombre.contentEquals("-") && retornarPiezaPosicion(Final).getColor() != tempD.getColor()) {
 						intercambiarPiezas(Final, izquierda);
+						if(checker == false) {
+							checker = movimientoExtra(izquierda);
+						}
 					}
 					
 				}else {
@@ -305,20 +338,30 @@ public class JuegoDamas extends Juego {
 		boolean derechaChecker = false;
 		boolean izquierdaChecker = false;
 		
-		if(!colorActual.contentEquals(comidaDerecha.getColor()) && !comidaDerecha.nombre.contentEquals("-")
-				&& !comidaDerecha.getColor().contentEquals("-")) {
-			derechaChecker = true;
-		}
-		if(!colorActual.contentEquals(comidaIzquierda.getColor()) && !comidaIzquierda.nombre.contentEquals("-")
-				&& !comidaIzquierda.getColor().contentEquals("-")) {
-			izquierdaChecker = true;
+		if(retornarPiezaPosicion(derecha).nombre.contentEquals("-")) {
+			if(!colorActual.contentEquals(comidaDerecha.getColor()) && !comidaDerecha.nombre.contentEquals("-")
+					&& !comidaDerecha.getColor().contentEquals("-")) {
+				derechaChecker = true;
+			}
 		}
 		
+		if(retornarPiezaPosicion(izquierda).nombre.contentEquals("-")) {
+			if(!colorActual.contentEquals(comidaIzquierda.getColor()) && !comidaIzquierda.nombre.contentEquals("-")
+					&& !comidaIzquierda.getColor().contentEquals("-")) {
+				izquierdaChecker = true;
+			}
+		}
+		
+		
 		if(derechaChecker == true && izquierdaChecker == true) {
-			while (consultaDireccion != "1" || consultaDireccion != "2") {
+			boolean breakerConsulta = false;
+			while (breakerConsulta == false) {
 				System.out.println("Tienes dos opciones para comer una pieza de tu enemigo:\n"
 						+ "1.Derecha.\n2.Izquierda.");
 				consultaDireccion = in.nextLine();
+				if(consultaDireccion.contentEquals("1") || consultaDireccion.contentEquals("2")) {
+					breakerConsulta = true;
+				}
 			}
 			
 			if (consultaDireccion.contentEquals("1")) {
