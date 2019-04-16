@@ -198,7 +198,8 @@ public class JuegoDamas extends Juego {
 			valorIzquierdoFrente = validarMovimientoExtraDelanteroIzquierda(Final);
 			valorDerechoAtras = validarMovimientoExtraTraseroDerecha(Final);
 			valorIzquierdoAtras = validarMovimientoExtraTraseroIzquierda(Final);
-			realizarMovimientoExtraReina(Final,valorDerechoFrente,valorIzquierdoFrente,valorDerechoAtras,valorIzquierdoAtras );
+			checker = realizarMovimientoExtraReina(Final, valorDerechoFrente, valorIzquierdoFrente, valorDerechoAtras,
+					valorIzquierdoAtras);
 
 		} else {
 			checker = true;
@@ -238,6 +239,7 @@ public class JuegoDamas extends Juego {
 	public static boolean realizarMovimientoExtraPeon(String Final, String derecha, String izquierda,
 			String direccion) {
 		boolean checker = false;
+		String posicionEnMedio = "";
 
 		if (derecha.length() < 2 && izquierda.length() < 2) {
 
@@ -292,28 +294,51 @@ public class JuegoDamas extends Juego {
 					comprobarMovimientosMultiple(Final, derecha, izquierda, false);
 					checker = true;
 				} else if (derecha.length() == 2 && izquierda.length() != 2) {
-					PiezaDamas tempD = retornarPiezaPosicion(
-							retornarAnteriorColumna(Character.toString(derecha.charAt(0)))
-									+ Character.toString(derecha.charAt(1)));
-					if (!tempD.nombre.contentEquals("-")
-							&& retornarPiezaPosicion(Final).getColor() != tempD.getColor()) {
-						intercambiarPiezas(Final, derecha);
+					
+					PiezaDamas tempD = retornarPiezaPosicion(derecha);
+					
+					if (tempD.nombre.contentEquals("-")) {
+						
+						posicionEnMedio = retornarAnteriorColumna(Character.toString(derecha.charAt(0)))
+								+ retornarSiguienteColumna(Character.toString(derecha.charAt(1)));
+						
+						tempD = retornarPiezaPosicion(posicionEnMedio);
+						
+						if(!tempD.nombre.contentEquals("-")
+								&& retornarPiezaPosicion(Final).getColor() != tempD.getColor()) {
+							intercambiarPiezas(Final, derecha);
+							IntercambiarPiezaEnPosicion(posicionEnMedio, new PiezaDamas("-", "-", "-", "-"));
 						if (checker == false) {
 							checker = movimientoExtra(derecha);
 						}
+						}else {
+							checker = true;
+						}
+						
 					}
 				} else if (izquierda.length() == 2 && derecha.length() != 2) {
-					PiezaDamas tempD = retornarPiezaPosicion(
-							retornarSiguienteColumna(Character.toString(izquierda.charAt(0)))
-									+ Character.toString(izquierda.charAt(1)));
-					if (!tempD.nombre.contentEquals("-")
-							&& retornarPiezaPosicion(Final).getColor() != tempD.getColor()) {
-						intercambiarPiezas(Final, izquierda);
-						if (checker == false) {
-							checker = movimientoExtra(izquierda);
+					
+					PiezaDamas tempD = retornarPiezaPosicion(izquierda);
+					
+					if(tempD.nombre.contentEquals("-")) {
+						
+						posicionEnMedio = retornarSiguienteColumna(Character.toString(izquierda.charAt(0)))
+								+ retornarSiguienteColumna(Character.toString(izquierda.charAt(1)));
+						
+						tempD = retornarPiezaPosicion(posicionEnMedio);
+						
+						if (!tempD.nombre.contentEquals("-")
+								&& retornarPiezaPosicion(Final).getColor() != tempD.getColor()) {
+							intercambiarPiezas(Final, izquierda);
+							IntercambiarPiezaEnPosicion(posicionEnMedio, new PiezaDamas("-", "-", "-", "-"));
+							if (checker == false) {
+								checker = movimientoExtra(izquierda);
+							}
 						}
+					}else {
+						checker = true;
 					}
-
+					
 				} else {
 					checker = true;
 				}
@@ -325,10 +350,24 @@ public class JuegoDamas extends Juego {
 
 	public static boolean realizarMovimientoExtraReina(String Final, String derechaF, String izquierdaF,
 			String derechaA, String izquierdaA) {
-		boolean checker = false;
+		boolean checker = true;
+		
+		if(derechaF.length() == 2 && izquierdaF.length() == 2 && derechaA.length() == 2 && izquierdaA.length() == 2) {
+			//hay posibilidad de moverse a cualquier direccion.
+		}else if(derechaF.length() <2 && izquierdaF.length() < 2 && derechaA.length() <2 && izquierdaA.length() < 2) {
+			//No hay ni un solo movimiento que hacer.
+		}else if(derechaF.length() == 2 && izquierdaF.length() < 2 && derechaA.length() <2 && izquierdaA.length() < 2) {
+			//Solo hay movimiento a la derecha al frente
+		}else if(derechaF.length() < 2 && izquierdaF.length() == 2 && derechaA.length() <2 && izquierdaA.length() < 2) {
+			//Solo hay movimiento a la izquierda al frente
+		}else if(derechaF.length() < 2 && izquierdaF.length() < 2 && derechaA.length() == 2 && izquierdaA.length() < 2) {
+			//Solo hay movimiento a la derecha atras.
+		}else if(derechaF.length() < 2 && izquierdaF.length() < 2 && derechaA.length() <2 && izquierdaA.length() == 2) {
+			//Solo hay movimiento a la izquierda atras.
+		}
+		
+		
 
-		
-		
 		return checker;
 	}
 
