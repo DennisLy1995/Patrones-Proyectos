@@ -1,6 +1,8 @@
 package cenfotec.proyecto.artefactos;
 
-import cenfotec.proyecto.artefactos.Fabricas.FabricaPiezasAjedrez;
+import cenfotec.proyecto.artefactos.Fabricas.Fabrica;
+import cenfotec.proyecto.artefactos.Fabricas.FabricaPiezas;
+import cenfotec.proyecto.artefactos.Fabricas.FabricasTypes;
 import cenfotec.proyecto.artefactos.Piezas.Pieza;
 import cenfotec.proyecto.artefactos.Piezas.PiezasTypes;
 
@@ -11,14 +13,14 @@ public class PartidaAjedrez extends Tablero {
     private int contador = 2;
 
     public Pieza[][] tableroPosiciones;
-    public FabricaPiezasAjedrez fabricaPiezas;
+    private Fabrica fabricaPiezas;
 
     public PartidaAjedrez() {
 
         this.tipoJuego = "Ajedrez";
         this.tablero = new String[8][8];
         tableroPosiciones = new Pieza[8][8];
-        fabricaPiezas = new FabricaPiezasAjedrez();
+        fabricaPiezas = new FabricaPiezas().getFabrica(FabricasTypes.TYPE_AJEDREZ);
         String letra;
         //Se agregan las coordenadas del tablero.
         for (int i = 0; i < 8; i++) {
@@ -37,12 +39,14 @@ public class PartidaAjedrez extends Tablero {
         }
         //Ciclos for para agregar los peones
         for (int i = 0; i < 8; i++) {
-            Pieza peon = fabricaPiezas.getPieza(TYPE_PEON, "Jugador1", "GN", "Negro");
+            Pieza peon = fabricaPiezas.getPieza(TYPE_PEON);
+            peon.setAtributos( "Jugador1", "GN", "Negro");
            // PiezaAjedrez peon = new PiezaAjedrez("GN", "Jugador1", "peon", "Negro");
             tableroPosiciones[1][i] = peon;
         }
         for (int i = 0; i < 8; i++) {
-            Pieza peon = fabricaPiezas.getPieza(TYPE_PEON, "Jugador2", "GB", "Blanco");
+            Pieza peon = fabricaPiezas.getPieza(TYPE_PEON);
+            peon.setAtributos("Jugador2", "GB", "Blanco");
             //PiezaAjedrez peon = new PiezaAjedrez("GB", "Jugador2", "peon", "Blanco");
             tableroPosiciones[6][i] = peon;
         }
@@ -140,7 +144,9 @@ public class PartidaAjedrez extends Tablero {
         }
 
         //PiezaAjedrez piezaRetorno = new PiezaAjedrez(nombre, jugador, pieza, color);
-        return fabricaPiezas.getPieza(tipoPieza, nombre, jugador, color);
+        Pieza tempPieza = fabricaPiezas.getPieza(tipoPieza);
+        tempPieza.setAtributos(nombre, jugador, color);
+        return tempPieza;
     }
 
     public Pieza[][] getTableroPosiciones() {

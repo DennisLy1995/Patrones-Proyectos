@@ -12,11 +12,10 @@ public abstract class Pieza {
         this.color = "";
         cantidadMovimientos = 0;
     }
-    public Pieza(String jugador, String nombre, String color) {
-        this.jugador = jugador;
-        this.nombre = nombre;
-        this.color = color;
-        cantidadMovimientos = 0;
+    public void setAtributos(String NOMBRE_JUGADOR, String NOMBRE_PIEZA, String NOMBRE_COLOR){
+        this.jugador = NOMBRE_JUGADOR;
+        this.nombre = NOMBRE_PIEZA;
+        this.color = NOMBRE_COLOR;
     }
 
     public String getColor() {
@@ -26,6 +25,9 @@ public abstract class Pieza {
     public abstract String retornarMovimiento();
 
     public String getNombre() {
+        if(this.nombre == null){
+            this.nombre = "";
+        }
         return this.nombre;
     }
 

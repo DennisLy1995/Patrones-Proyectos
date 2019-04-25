@@ -1,14 +1,21 @@
 package cenfotec.proyecto.artefactos;
 
+import cenfotec.proyecto.artefactos.Fabricas.Fabrica;
+import cenfotec.proyecto.artefactos.Fabricas.FabricaPiezas;
+import cenfotec.proyecto.artefactos.Fabricas.FabricasTypes;
+import cenfotec.proyecto.artefactos.Piezas.Peon;
 import cenfotec.proyecto.artefactos.Piezas.Pieza;
+import cenfotec.proyecto.artefactos.Piezas.PiezasTypes;
 
 public class PartidaDamas extends Tablero {
 
 	public String[][] tableroColores;
 	public Pieza[][] tableroPiezas;
 	private int contador = 2;
+	private Fabrica fabricaPiezas;
 
 	public PartidaDamas() {
+		fabricaPiezas = new FabricaPiezas().getFabrica(FabricasTypes.TYPE_DAMAS);
 		tableroColores= new String[10][10];
 		tableroPiezas= new Pieza[10][10];
 		this.tipoJuego = "Damas";
@@ -72,11 +79,15 @@ public class PartidaDamas extends Tablero {
 		Pieza temporal=null;
 		if(fila>=0 && fila <=3) {
 
-			temporal = new Pieza("P","N","P","N");
+			//temporal = new Pieza("P","N","P","N"); REVISAR
+			temporal = fabricaPiezas.getPieza(PiezasTypes.TYPE_PEON);
+			temporal.setAtributos("N", "P", "N");
 		}else if(fila>=4 && fila <=5) {
-			temporal = new Pieza("-","-","-","-");
+			//temporal =  null;
 		}else if(fila>=6) {
-			temporal = new Pieza("P","B","P","B");
+			//temporal = new Pieza("P","B","P","B"); REVISAR
+			temporal = fabricaPiezas.getPieza(PiezasTypes.TYPE_PEON);
+			temporal.setAtributos("B","P","B");
 		}
 		return temporal;
 	}

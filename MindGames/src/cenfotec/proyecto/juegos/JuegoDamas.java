@@ -6,7 +6,6 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import cenfotec.proyecto.artefactos.PartidaDamas;
-import cenfotec.proyecto.artefactos.Pieza;
 import cenfotec.proyecto.artefactos.Piezas.Pieza;
 import cenfotec.proyecto.artefactos.Tablero;
 import cenfotec.proyecto.utiles.PersistenciaTexto;
@@ -148,7 +147,8 @@ public class JuegoDamas extends Juego {
 			for (int e = 0; e < 10; e++) {
 				if (coordenadaInicial.equals(partida.tablero[i][e])) {
 					temp = partida.tableroPiezas[i][e];
-					partida.tableroPiezas[i][e] = new Pieza("-", "-", "-", "-");
+					//partida.tableroPiezas[i][e] = new Pieza("-", "-", "-", "-"); //REVISAR
+					partida.tableroPiezas[i][e] = null;
 				}
 			}
 		}
@@ -163,7 +163,7 @@ public class JuegoDamas extends Juego {
 				if (partida.tablero[i][e].contentEquals(coordenadaFinal)) {
 					if (Character.toString(coordenadaFinal.charAt(1)).contentEquals("1")
 							|| Character.toString(coordenadaFinal.charAt(1)).contentEquals("X")) {
-						partida.tableroPiezas[i][e].convertirEnReina();
+						//partida.tableroPiezas[i][e].convertirEnReina(); REVISAR
 
 					}
 				}
@@ -308,7 +308,8 @@ public class JuegoDamas extends Juego {
 						if(!tempD.getNombre().contentEquals("-")
 								&& retornarPiezaPosicion(Final).getColor() != tempD.getColor()) {
 							intercambiarPiezas(Final, derecha);
-							IntercambiarPiezaEnPosicion(posicionEnMedio, new Pieza("-", "-", "-", "-"));
+							//IntercambiarPiezaEnPosicion(posicionEnMedio, new Pieza("-", "-", "-", "-")); //REVISAR
+							intercambiarPiezas(posicionEnMedio, null);
 						if (checker == false) {
 							checker = movimientoExtra(derecha);
 						}
@@ -331,8 +332,9 @@ public class JuegoDamas extends Juego {
 						if (!tempD.getNombre().contentEquals("-")
 								&& retornarPiezaPosicion(Final).getColor() != tempD.getColor()) {
 							intercambiarPiezas(Final, izquierda);
-							IntercambiarPiezaEnPosicion(posicionEnMedio, new Pieza("-", "-", "-", "-"));
-							if (checker == false) {
+							//IntercambiarPiezaEnPosicion(posicionEnMedio, new Pieza("-", "-", "-", "-")); REVISAR
+							IntercambiarPiezaEnPosicion(posicionEnMedio, null);
+							if (!checker) {
 								checker = movimientoExtra(izquierda);
 							}
 						}
@@ -645,7 +647,7 @@ public class JuegoDamas extends Juego {
 
 	private static void removerPieza(String posicion) {
 
-		Pieza temp = new Pieza("-", "-", "-", "-");
+		Pieza temp = null;//new Pieza("-", "-", "-", "-") REVISAR;
 
 		for (int i = 0; i < 10; i++) {
 			for (int e = 0; e < 10; e++) {
@@ -726,7 +728,7 @@ public class JuegoDamas extends Juego {
 
 	public static Pieza retornarPiezaPosicion(String posicionInicial) {
 
-		Pieza piezaTemp = new Pieza("-", "-", "-", "-");
+		Pieza piezaTemp = null;//new Pieza("-", "-", "-", "-") REVISAR;
 
 		for (int i = 0; i < 10; i++) {
 			for (int e = 0; e < 10; e++) {
