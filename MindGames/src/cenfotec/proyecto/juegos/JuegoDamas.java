@@ -6,7 +6,8 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import cenfotec.proyecto.artefactos.PartidaDamas;
-import cenfotec.proyecto.artefactos.PiezaDamas;
+import cenfotec.proyecto.artefactos.Pieza;
+import cenfotec.proyecto.artefactos.Piezas.Pieza;
 import cenfotec.proyecto.artefactos.Tablero;
 import cenfotec.proyecto.utiles.PersistenciaTexto;
 import cenfotec.proyecto.utiles.Serializer;
@@ -79,7 +80,7 @@ public class JuegoDamas extends Juego {
 		boolean movExtra = false;
 		String coordenadaInicial;
 		String coordenadaFinal;
-		PiezaDamas pieza = null;
+		Pieza pieza = null;
 		boolean checker = false;
 		boolean checkerColor = false;
 
@@ -140,14 +141,14 @@ public class JuegoDamas extends Juego {
 	}
 
 	private static void intercambiarPiezas(String coordenadaInicial, String coordenadaFinal) {
-		PiezaDamas temp = null;
+		Pieza temp = null;
 
 		// Remover pieza de posicion inicial.
 		for (int i = 0; i < 10; i++) {
 			for (int e = 0; e < 10; e++) {
 				if (coordenadaInicial.equals(partida.tablero[i][e])) {
 					temp = partida.tableroPiezas[i][e];
-					partida.tableroPiezas[i][e] = new PiezaDamas("-", "-", "-", "-");
+					partida.tableroPiezas[i][e] = new Pieza("-", "-", "-", "-");
 				}
 			}
 		}
@@ -179,20 +180,20 @@ public class JuegoDamas extends Juego {
 		String valorDerechoAtras = "";
 		String valorIzquierdoAtras = "";
 
-		PiezaDamas temp = retornarPiezaPosicion(Final);
-		if (temp.getColor().contentEquals("N") && temp.nombre.contentEquals("P")) {
+		Pieza temp = retornarPiezaPosicion(Final);
+		if (temp.getColor().contentEquals("N") && temp.getNombre().contentEquals("P")) {
 
 			valorDerechoFrente = validarMovimientoExtraDelanteroDerecha(Final);
 			valorIzquierdoFrente = validarMovimientoExtraDelanteroIzquierda(Final);
 			checker = realizarMovimientoExtraPeon(Final, valorDerechoFrente, valorIzquierdoFrente, "Frente");
 
-		} else if (temp.getColor().contentEquals("B") && temp.nombre.contentEquals("P")) {
+		} else if (temp.getColor().contentEquals("B") && temp.getNombre().contentEquals("P")) {
 
 			valorDerechoAtras = validarMovimientoExtraTraseroDerecha(Final);
 			valorIzquierdoAtras = validarMovimientoExtraTraseroIzquierda(Final);
 			checker = realizarMovimientoExtraPeon(Final, valorDerechoAtras, valorIzquierdoAtras, "Atras");
 
-		} else if (temp.nombre.contentEquals("R")) {
+		} else if (temp.getNombre().contentEquals("R")) {
 
 			valorDerechoFrente = validarMovimientoExtraDelanteroDerecha(Final);
 			valorIzquierdoFrente = validarMovimientoExtraDelanteroIzquierda(Final);
@@ -250,13 +251,13 @@ public class JuegoDamas extends Juego {
 					checker = true;
 				} else if (derecha.length() == 2 && izquierda.length() != 2) {
 					String posicionTempComida = derecha;
-					PiezaDamas tempD = retornarPiezaPosicion(derecha);
-					if (tempD.nombre.contentEquals("-")) {
+					Pieza tempD = retornarPiezaPosicion(derecha);
+					if (tempD.getNombre().contentEquals("-")) {
 						posicionTempComida = retornarAnteriorColumna(Character.toString(derecha.charAt(0)))
 								+ Integer.toString(Character.getNumericValue(derecha.charAt(1)) - 1);
 						tempD = retornarPiezaPosicion(posicionTempComida);
 						if (!tempD.getColor().contentEquals(retornarPiezaPosicion(Final).getColor())
-								&& !tempD.nombre.contentEquals("-")) {
+								&& !tempD.getNombre().contentEquals("-")) {
 							if (checker == false) {
 								checker = movimientoExtra(Final);
 							}
@@ -267,13 +268,13 @@ public class JuegoDamas extends Juego {
 					}
 				} else if (izquierda.length() == 2 && derecha.length() != 2) {
 					String posicionTempComida = izquierda;
-					PiezaDamas tempD = retornarPiezaPosicion(izquierda);
-					if (tempD.nombre.contentEquals("-")) {
+					Pieza tempD = retornarPiezaPosicion(izquierda);
+					if (tempD.getNombre().contentEquals("-")) {
 						posicionTempComida = retornarSiguienteColumna(Character.toString(izquierda.charAt(0)))
 								+ Integer.toString(Character.getNumericValue(izquierda.charAt(1)) - 1);
 						tempD = retornarPiezaPosicion(posicionTempComida);
 						if (!tempD.getColor().contentEquals(retornarPiezaPosicion(Final).getColor())
-								&& !tempD.nombre.contentEquals("-")) {
+								&& !tempD.getNombre().contentEquals("-")) {
 							intercambiarPiezas(Final, izquierda);
 							if (checker == false) {
 								checker = movimientoExtra(Final);
@@ -295,19 +296,19 @@ public class JuegoDamas extends Juego {
 					checker = true;
 				} else if (derecha.length() == 2 && izquierda.length() != 2) {
 					
-					PiezaDamas tempD = retornarPiezaPosicion(derecha);
+					Pieza tempD = retornarPiezaPosicion(derecha);
 					
-					if (tempD.nombre.contentEquals("-")) {
+					if (tempD.getNombre().contentEquals("-")) {
 						
 						posicionEnMedio = retornarAnteriorColumna(Character.toString(derecha.charAt(0)))
 								+ retornarSiguienteColumna(Character.toString(derecha.charAt(1)));
 						
 						tempD = retornarPiezaPosicion(posicionEnMedio);
 						
-						if(!tempD.nombre.contentEquals("-")
+						if(!tempD.getNombre().contentEquals("-")
 								&& retornarPiezaPosicion(Final).getColor() != tempD.getColor()) {
 							intercambiarPiezas(Final, derecha);
-							IntercambiarPiezaEnPosicion(posicionEnMedio, new PiezaDamas("-", "-", "-", "-"));
+							IntercambiarPiezaEnPosicion(posicionEnMedio, new Pieza("-", "-", "-", "-"));
 						if (checker == false) {
 							checker = movimientoExtra(derecha);
 						}
@@ -318,19 +319,19 @@ public class JuegoDamas extends Juego {
 					}
 				} else if (izquierda.length() == 2 && derecha.length() != 2) {
 					
-					PiezaDamas tempD = retornarPiezaPosicion(izquierda);
+					Pieza tempD = retornarPiezaPosicion(izquierda);
 					
-					if(tempD.nombre.contentEquals("-")) {
+					if(tempD.getNombre().contentEquals("-")) {
 						
 						posicionEnMedio = retornarSiguienteColumna(Character.toString(izquierda.charAt(0)))
 								+ retornarSiguienteColumna(Character.toString(izquierda.charAt(1)));
 						
 						tempD = retornarPiezaPosicion(posicionEnMedio);
 						
-						if (!tempD.nombre.contentEquals("-")
+						if (!tempD.getNombre().contentEquals("-")
 								&& retornarPiezaPosicion(Final).getColor() != tempD.getColor()) {
 							intercambiarPiezas(Final, izquierda);
-							IntercambiarPiezaEnPosicion(posicionEnMedio, new PiezaDamas("-", "-", "-", "-"));
+							IntercambiarPiezaEnPosicion(posicionEnMedio, new Pieza("-", "-", "-", "-"));
 							if (checker == false) {
 								checker = movimientoExtra(izquierda);
 							}
@@ -386,21 +387,21 @@ public class JuegoDamas extends Juego {
 
 		String DerechaTemp = retornarAnteriorColumna(Character.toString(derecha.charAt(0))) + valorDerecho;
 		String izquierdaTemp = retornarSiguienteColumna(Character.toString(izquierda.charAt(0))) + valorIzquierdo;
-		PiezaDamas comidaDerecha = retornarPiezaPosicion(DerechaTemp);
-		PiezaDamas comidaIzquierda = retornarPiezaPosicion(izquierdaTemp);
+		Pieza comidaDerecha = retornarPiezaPosicion(DerechaTemp);
+		Pieza comidaIzquierda = retornarPiezaPosicion(izquierdaTemp);
 		String colorActual = retornarPiezaPosicion(Final).getColor();
 		boolean derechaChecker = false;
 		boolean izquierdaChecker = false;
 
-		if (retornarPiezaPosicion(derecha).nombre.contentEquals("-")) {
-			if (!colorActual.contentEquals(comidaDerecha.getColor()) && !comidaDerecha.nombre.contentEquals("-")
+		if (retornarPiezaPosicion(derecha).getNombre().contentEquals("-")) {
+			if (!colorActual.contentEquals(comidaDerecha.getColor()) && !comidaDerecha.getNombre().contentEquals("-")
 					&& !comidaDerecha.getColor().contentEquals("-")) {
 				derechaChecker = true;
 			}
 		}
 
-		if (retornarPiezaPosicion(izquierda).nombre.contentEquals("-")) {
-			if (!colorActual.contentEquals(comidaIzquierda.getColor()) && !comidaIzquierda.nombre.contentEquals("-")
+		if (retornarPiezaPosicion(izquierda).getNombre().contentEquals("-")) {
+			if (!colorActual.contentEquals(comidaIzquierda.getColor()) && !comidaIzquierda.getNombre().contentEquals("-")
 					&& !comidaIzquierda.getColor().contentEquals("-")) {
 				izquierdaChecker = true;
 			}
@@ -419,24 +420,24 @@ public class JuegoDamas extends Juego {
 
 			if (consultaDireccion.contentEquals("1")) {
 				intercambiarPiezas(Final, derecha);
-				IntercambiarPiezaEnPosicion(DerechaTemp, new PiezaDamas("-", "-", "-", "-"));
+				IntercambiarPiezaEnPosicion(DerechaTemp, null);
 
 			} else if (consultaDireccion.contentEquals("2")) {
 				intercambiarPiezas(Final, izquierda);
-				IntercambiarPiezaEnPosicion(izquierdaTemp, new PiezaDamas("-", "-", "-", "-"));
+				IntercambiarPiezaEnPosicion(izquierdaTemp, null);
 			}
 
 		} else if (derechaChecker == true) {
 			intercambiarPiezas(Final, derecha);
-			IntercambiarPiezaEnPosicion(DerechaTemp, new PiezaDamas("-", "-", "-", "-"));
+			IntercambiarPiezaEnPosicion(DerechaTemp, null);
 		} else if (izquierdaChecker == true) {
 			intercambiarPiezas(Final, izquierda);
-			IntercambiarPiezaEnPosicion(izquierdaTemp, new PiezaDamas("-", "-", "-", "-"));
+			IntercambiarPiezaEnPosicion(izquierdaTemp,null);
 		}
 
 	}
 
-	public static void IntercambiarPiezaEnPosicion(String posicion, PiezaDamas reemplazo) {
+	public static void IntercambiarPiezaEnPosicion(String posicion, Pieza reemplazo) {
 
 		for (int i = 0; i < 10; i++) {
 			for (int e = 0; e < 10; e++) {
@@ -448,10 +449,10 @@ public class JuegoDamas extends Juego {
 
 	}
 
-	public static boolean validarMovimientoSegunPieza(PiezaDamas pieza, String inicio, String Final) {
+	public static boolean validarMovimientoSegunPieza(Pieza pieza, String inicio, String Final) {
 		boolean checker = false;
 
-		switch (Character.toString(pieza.nombre.charAt(0))) {
+		switch (Character.toString(pieza.getNombre().charAt(0))) {
 
 		case "P":
 			checker = validarMovimientoPeon(pieza.getColor(), inicio, Final);
@@ -484,7 +485,7 @@ public class JuegoDamas extends Juego {
 	public static boolean validarMovimientoSimple(String inicial, String Final) {
 		boolean checker = false;
 		String movimiento = "";
-		PiezaDamas piezaTemp = null;
+		Pieza piezaTemp = null;
 
 		// piezas Negras.
 
@@ -495,7 +496,7 @@ public class JuegoDamas extends Juego {
 		if (Final.contentEquals(movimiento)) {
 
 			piezaTemp = retornarPiezaPosicion(Final);
-			if (piezaTemp.nombre.contentEquals("-")) {
+			if (piezaTemp.getNombre().contentEquals("-")) {
 				checker = true;
 			}
 
@@ -505,7 +506,7 @@ public class JuegoDamas extends Juego {
 					+ retornarSiguienteColumna(Character.toString(inicial.charAt(1)));
 			if (Final.contentEquals(movimiento)) {
 				piezaTemp = retornarPiezaPosicion(Final);
-				if (piezaTemp.nombre.contentEquals("-")) {
+				if (piezaTemp.getNombre().contentEquals("-")) {
 					checker = true;
 				}
 			} else {
@@ -515,11 +516,11 @@ public class JuegoDamas extends Juego {
 						+ retornarSiguienteColumna(retornarSiguienteColumna(Character.toString(inicial.charAt(1))));
 				if (Final.contentEquals(movimiento)) {
 					piezaTemp = retornarPiezaPosicion(Final);
-					if (piezaTemp.nombre.contentEquals("-")) {
+					if (piezaTemp.getNombre().contentEquals("-")) {
 						movimiento = retornarSiguienteColumna(Character.toString(inicial.charAt(0)))
 								+ (retornarSiguienteColumna(Character.toString(inicial.charAt(1))));
 						piezaTemp = retornarPiezaPosicion(movimiento);
-						if (!piezaTemp.nombre.contentEquals("-")) {
+						if (!piezaTemp.getNombre().contentEquals("-")) {
 							// Aqui meto la validacion del color para comer las piezas.
 							if (!piezaTemp.getColor().contentEquals(retornarPiezaPosicion(inicial).getColor())) {
 								removerPieza(movimiento);
@@ -538,11 +539,11 @@ public class JuegoDamas extends Juego {
 					if (Final.contentEquals(movimiento)) {
 						// 33 15 medio = 24
 						piezaTemp = retornarPiezaPosicion(Final);
-						if (piezaTemp.nombre.contentEquals("-")) {
+						if (piezaTemp.getNombre().contentEquals("-")) {
 							movimiento = retornarAnteriorColumna(Character.toString(inicial.charAt(0)))
 									+ (retornarSiguienteColumna(Character.toString(inicial.charAt(1))));
 							piezaTemp = retornarPiezaPosicion(movimiento);
-							if (!piezaTemp.nombre.contentEquals("-")) {
+							if (!piezaTemp.getNombre().contentEquals("-")) {
 								// Introducir aqui la validacion, para comer la pieza.
 								if (!piezaTemp.getColor().contentEquals(retornarPiezaPosicion(inicial).getColor())) {
 									removerPieza(movimiento);
@@ -563,7 +564,7 @@ public class JuegoDamas extends Juego {
 	public static boolean validarMovimientoSimpleTrasero(String inicial, String Final) {
 		boolean checker = false;
 		String movimiento = "";
-		PiezaDamas piezaTemp = null;
+		Pieza piezaTemp = null;
 
 		// piezas Blancas.
 		// Movimiento derecho frontal de una posicion
@@ -573,7 +574,7 @@ public class JuegoDamas extends Juego {
 		if (Final.contentEquals(movimiento)) {
 
 			piezaTemp = retornarPiezaPosicion(Final);
-			if (piezaTemp.nombre.contentEquals("-")) {
+			if (piezaTemp.getNombre().contentEquals("-")) {
 				checker = true;
 			}
 
@@ -583,7 +584,7 @@ public class JuegoDamas extends Juego {
 					+ retornarAnteriorColumna(Character.toString(inicial.charAt(1)));
 			if (Final.contentEquals(movimiento)) {
 				piezaTemp = retornarPiezaPosicion(Final);
-				if (piezaTemp.nombre.contentEquals("-")) {
+				if (piezaTemp.getNombre().contentEquals("-")) {
 					checker = true;
 				}
 			} else {
@@ -594,11 +595,11 @@ public class JuegoDamas extends Juego {
 				if (Final.contentEquals(movimiento)) {
 					piezaTemp = retornarPiezaPosicion(Final);
 					// 47 65 medio = 56
-					if (piezaTemp.nombre.contentEquals("-")) {
+					if (piezaTemp.getNombre().contentEquals("-")) {
 						movimiento = retornarSiguienteColumna(Character.toString(inicial.charAt(0)))
 								+ (retornarAnteriorColumna(Character.toString(inicial.charAt(1))));
 						piezaTemp = retornarPiezaPosicion(movimiento);
-						if (!piezaTemp.nombre.contentEquals("-")) {
+						if (!piezaTemp.getNombre().contentEquals("-")) {
 							// Validacion para cambiar la pieza.
 							if (!piezaTemp.getColor().contentEquals(retornarPiezaPosicion(inicial).getColor())) {
 								removerPieza(movimiento);
@@ -617,11 +618,11 @@ public class JuegoDamas extends Juego {
 					// 24 46 38
 					if (Final.contentEquals(movimiento)) {
 						piezaTemp = retornarPiezaPosicion(Final);
-						if (piezaTemp.nombre.contentEquals("-")) {
+						if (piezaTemp.getNombre().contentEquals("-")) {
 							movimiento = retornarAnteriorColumna(Character.toString(inicial.charAt(0)))
 									+ (retornarAnteriorColumna(Character.toString(inicial.charAt(1))));
 							piezaTemp = retornarPiezaPosicion(movimiento);
-							if (!piezaTemp.nombre.contentEquals("-")) {
+							if (!piezaTemp.getNombre().contentEquals("-")) {
 
 								// Aqui remuevo la pieza que este en movimiento, en caso de que la pieza tenga
 								// diferente color
@@ -644,7 +645,7 @@ public class JuegoDamas extends Juego {
 
 	private static void removerPieza(String posicion) {
 
-		PiezaDamas temp = new PiezaDamas("-", "-", "-", "-");
+		Pieza temp = new Pieza("-", "-", "-", "-");
 
 		for (int i = 0; i < 10; i++) {
 			for (int e = 0; e < 10; e++) {
@@ -723,9 +724,9 @@ public class JuegoDamas extends Juego {
 		}
 	}
 
-	public static PiezaDamas retornarPiezaPosicion(String posicionInicial) {
+	public static Pieza retornarPiezaPosicion(String posicionInicial) {
 
-		PiezaDamas piezaTemp = new PiezaDamas("-", "-", "-", "-");
+		Pieza piezaTemp = new Pieza("-", "-", "-", "-");
 
 		for (int i = 0; i < 10; i++) {
 			for (int e = 0; e < 10; e++) {
@@ -744,7 +745,7 @@ public class JuegoDamas extends Juego {
 		for (int i = 0; i < 10; i++) {
 			for (int e = 0; e < 10; e++) {
 				if (posicion.equals(partida.tablero[i][e])) {
-					retorno = partida.tableroPiezas[i][e].nombre;
+					retorno = partida.tableroPiezas[i][e].getNombre();
 				}
 			}
 		}
@@ -818,12 +819,12 @@ public class JuegoDamas extends Juego {
 		for (int i = 0; i < 10; i++) {
 			System.out.print("    ");
 			for (int e = 0; e < 10; e++) {
-				System.out.print(partida.tableroPiezas[i][e].nombre + partida.tableroPiezas[i][e].getColor() + " ");
+				System.out.print(partida.tableroPiezas[i][e].getNombre() + partida.tableroPiezas[i][e].getColor() + " ");
 			}
 			System.out.print("             ");
 			for (int e = 0; e < 10; e++) {
 				System.out
-						.print(retornarLogo(partida.tableroPiezas[i][e].nombre + partida.tableroPiezas[i][e].getColor())
+						.print(retornarLogo(partida.tableroPiezas[i][e].getNombre() + partida.tableroPiezas[i][e].getColor())
 								+ " ");
 			}
 			System.out.println();

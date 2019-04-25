@@ -1,8 +1,8 @@
 package cenfotec.proyecto.artefactos.Piezas;
 
 public class Rey extends Pieza{
-    public Rey(String jugador) {
-        super(jugador);
+    public Rey() {
+        super();
     }
 
     @Override

@@ -2,12 +2,12 @@ package cenfotec.proyecto.artefactos;
 
 import cenfotec.proyecto.artefactos.Piezas.Pieza;
 
-public class PiezaDamas extends Pieza {
+public class PiezaDamas  {
 
 	private String color;
 	
 	public PiezaDamas(String nombre, String jugador, String movimiento, String color) {
-		super(nombre, jugador, movimiento);
+	//	super(nombre, jugador, movimiento);
 		this.color = color;
 	}
 
@@ -19,8 +19,8 @@ public class PiezaDamas extends Pieza {
 		this.color = color;
 	}
 	
-	public void convertirEnReina() {
+	/*public void convertirEnReina() {
 		this.nombre = "R";
-	}
+	} */
 
 }

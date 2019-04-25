@@ -1,8 +1,8 @@
 package cenfotec.proyecto.artefactos.Piezas;
 
 public class Caballo extends Pieza {
-    public Caballo(String jugador) {
-        super(jugador);
+    public Caballo() {
+        super();
     }
 
     @Override

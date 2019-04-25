@@ -1,8 +1,8 @@
 package cenfotec.proyecto.artefactos.Piezas;
 
 public class Torre extends Pieza{
-    public Torre(String jugador) {
-        super(jugador);
+    public Torre() {
+        super();
     }
 
     @Override

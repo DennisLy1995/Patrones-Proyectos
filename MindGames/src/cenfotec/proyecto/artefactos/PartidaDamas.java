@@ -1,13 +1,16 @@
 package cenfotec.proyecto.artefactos;
 
+import cenfotec.proyecto.artefactos.Piezas.Pieza;
+
 public class PartidaDamas extends Tablero {
 
-	public String[][] tableroColores = new String[10][10];
-	public PiezaDamas[][] tableroPiezas = new PiezaDamas[10][10];
+	public String[][] tableroColores;
+	public Pieza[][] tableroPiezas;
 	private int contador = 2;
 
 	public PartidaDamas() {
-
+		tableroColores= new String[10][10];
+		tableroPiezas= new Pieza[10][10];
 		this.tipoJuego = "Damas";
 		this.tablero = new String[10][10];
 
@@ -40,7 +43,7 @@ public class PartidaDamas extends Tablero {
 		
 		
 		//Ciclo for para colocar las piezas blancas.
-		PiezaDamas temporal = null;
+		Pieza temporal = null;
 		for (int i = 0; i < 10; i++) {
 			for (int e = 0; e < 10; e++) {
 				//String nombre, String jugador, String movimiento, String color
@@ -65,14 +68,15 @@ public class PartidaDamas extends Tablero {
 		return color;
 	}
 	
-	public PiezaDamas devolverPieza(int fila) {
-		PiezaDamas temporal=null;
+	public Pieza devolverPieza(int fila) {
+		Pieza temporal=null;
 		if(fila>=0 && fila <=3) {
-			temporal = new PiezaDamas("P","N","P","N");
+
+			temporal = new Pieza("P","N","P","N");
 		}else if(fila>=4 && fila <=5) {
-			temporal = new PiezaDamas("-","-","-","-");
+			temporal = new Pieza("-","-","-","-");
 		}else if(fila>=6) {
-			temporal = new PiezaDamas("P","B","P","B");
+			temporal = new Pieza("P","B","P","B");
 		}
 		return temporal;
 	}
@@ -85,11 +89,11 @@ public class PartidaDamas extends Tablero {
 		this.tableroColores = tableroColores;
 	}
 
-	public PiezaDamas[][] getTableroPiezas() {
+	public Pieza[][] getTableroPiezas() {
 		return tableroPiezas;
 	}
 
-	public void setTableroPiezas(PiezaDamas[][] tableroPiezas) {
+	public void setTableroPiezas(Pieza[][] tableroPiezas) {
 		this.tableroPiezas = tableroPiezas;
 	}
 

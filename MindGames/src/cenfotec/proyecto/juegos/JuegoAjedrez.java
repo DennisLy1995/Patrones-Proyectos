@@ -8,6 +8,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import cenfotec.proyecto.artefactos.PartidaAjedrez;
 import cenfotec.proyecto.artefactos.PiezaAjedrez;
+import cenfotec.proyecto.artefactos.Piezas.Pieza;
 import cenfotec.proyecto.artefactos.Tablero;
 import cenfotec.proyecto.utiles.PersistenciaTexto;
 import cenfotec.proyecto.utiles.Serializer;
@@ -178,19 +179,20 @@ public class JuegoAjedrez extends Juego {
 	}
 
 	private static void colocarPieza(String coordenadaInicial, String coordenadaFinal, String color) {
-		PiezaAjedrez temp = null;
+		Pieza temp = null;
 		// Validar que el movimiento sea valido segun la pieza.
 
-		PiezaAjedrez piezaTemp = retornarPiezaPosicion(coordenadaInicial);
+		Pieza piezaTemp = retornarPiezaPosicion(coordenadaInicial);
 		boolean checker = validarMovimiento(piezaTemp, coordenadaInicial, coordenadaFinal);
 
-		if (checker == true && verificarPiezasDiferenteEquipo(coordenadaInicial, coordenadaFinal) == false) {
+		if (checker  && !verificarPiezasDiferenteEquipo(coordenadaInicial, coordenadaFinal)) {
 			// Remover pieza de posicion inicial.
 			for (int i = 0; i < 8; i++) {
 				for (int e = 0; e < 8; e++) {
 					if (coordenadaInicial.equals(partida.tablero[i][e])) {
 						temp = partida.tableroPosiciones[i][e];
-						partida.tableroPosiciones[i][e] = new PiezaAjedrez("--", "*", "*", "*");
+						partida.tableroPosiciones[i][e] = null;
+						//partida.tableroPosiciones[i][e] = new PiezaAjedrez("--", "*", "*", "*");
 					}
 				}
 			}
@@ -200,7 +202,7 @@ public class JuegoAjedrez extends Juego {
 				for (int e = 0; e < 8; e++) {
 					if (coordenadaFinal.equals(partida.tablero[i][e])) {
 						partida.tableroPosiciones[i][e] = temp;
-						partida.tableroPosiciones[i][e].sumarMovimiento();
+						//partida.tableroPosiciones[i][e].sumarMovimiento();
 					}
 				}
 			}
@@ -220,10 +222,10 @@ public class JuegoAjedrez extends Juego {
 		for (int i = 0; i < 8; i++) {
 			for (int e = 0; e < 8; e++) {
 				if (inicial.equals(partida.tablero[i][e])) {
-					valorDeInicial = partida.tableroPosiciones[i][e].nombre;
+					valorDeInicial = partida.tableroPosiciones[i][e].getNombre();
 				}
 				if (ultimo.equals(partida.tablero[i][e])) {
-					valorDeUltimo = partida.tableroPosiciones[i][e].nombre;
+					valorDeUltimo = partida.tableroPosiciones[i][e].getNombre();
 				}
 			}
 		}
@@ -238,8 +240,8 @@ public class JuegoAjedrez extends Juego {
 
 	}
 
-	public static boolean validarMovimiento(PiezaAjedrez pieza, String coordenadaInicial, String coordenadaFinal) {
-		String codigo = pieza.nombre.charAt(0) + "";
+	public static boolean validarMovimiento(Pieza pieza, String coordenadaInicial, String coordenadaFinal) {
+		String codigo = pieza.getNombre().charAt(0) + "";
 		boolean checker = true;
 		switch (codigo) {
 		case "G":// Peon
@@ -277,7 +279,7 @@ public class JuegoAjedrez extends Juego {
 		for (int i = 0; i < 8; i++) {
 			for (int e = 0; e < 8; e++) {
 				if (posicion.equals(partida.tablero[i][e])) {
-					retorno = partida.tableroPosiciones[i][e].nombre;
+					retorno = partida.tableroPosiciones[i][e].getNombre();
 				}
 			}
 		}
@@ -285,11 +287,11 @@ public class JuegoAjedrez extends Juego {
 		return retorno;
 	}
 
-	public static PiezaAjedrez[][] retornarTablerojuego() {
+	public static Pieza[][] retornarTablerojuego() {
 		return partida.getTableroPosiciones();
 	}
 
-	public static boolean movimientoPeon(String posicionInicial, String posicionFinal, PiezaAjedrez peon) {
+	public static boolean movimientoPeon(String posicionInicial, String posicionFinal, Pieza peon) {
 		boolean checker = false;
 
 		if (posicionInicial.contentEquals(posicionFinal)) {
@@ -302,13 +304,13 @@ public class JuegoAjedrez extends Juego {
 																			// sola posicion al frente.
 					if (Character.getNumericValue(posicionInicial.charAt(1)) + 1 == Character
 							.getNumericValue(posicionFinal.charAt(1))) {
-						if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
+						if (retornarPiezaPosicion(posicionFinal).getNombre().equals("--")) {
 							checker = true;
 						}
 					}
 					if (Character.getNumericValue(posicionInicial.charAt(1)) + 2 == Character
 							.getNumericValue(posicionFinal.charAt(1)) && peon.getCantidadMovimientos() == 0) {
-						if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
+						if (retornarPiezaPosicion(posicionFinal).getNombre().equals("--")) {
 							checker = true;
 						}
 					}
@@ -318,7 +320,7 @@ public class JuegoAjedrez extends Juego {
 					// Cuando se quiere comer una posicion
 					if (Character.getNumericValue(posicionInicial.charAt(1)) + 1 == Character
 							.getNumericValue(posicionFinal.charAt(1))) {
-						if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
+						if (retornarPiezaPosicion(posicionFinal).getNombre().equals("--")) {
 
 						} else {
 							checker = true;
@@ -329,7 +331,7 @@ public class JuegoAjedrez extends Juego {
 					// Cuando se quiere comer una posicion
 					if (Character.getNumericValue(posicionInicial.charAt(1)) + 1 == Character
 							.getNumericValue(posicionFinal.charAt(1))) {
-						if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
+						if (retornarPiezaPosicion(posicionFinal).getNombre().equals("--")) {
 
 						} else {
 							checker = true;
@@ -344,13 +346,13 @@ public class JuegoAjedrez extends Juego {
 					// sola posicion al frente.
 					if (Character.getNumericValue(posicionInicial.charAt(1)) - 1 == Character
 							.getNumericValue(posicionFinal.charAt(1))) {
-						if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
+						if (retornarPiezaPosicion(posicionFinal).getNombre().equals("--")) {
 							checker = true;
 						}
 					}
 					if (Character.getNumericValue(posicionInicial.charAt(1)) - 2 == Character
 							.getNumericValue(posicionFinal.charAt(1)) && peon.getCantidadMovimientos() == 0) {
-						if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
+						if (retornarPiezaPosicion(posicionFinal).getNombre().equals("--")) {
 							checker = true;
 						}
 					}
@@ -360,7 +362,7 @@ public class JuegoAjedrez extends Juego {
 //					Cuando se quiere comer una posicion
 					if (Character.getNumericValue(posicionInicial.charAt(1)) - 1 == Character
 							.getNumericValue(posicionFinal.charAt(1))) {
-						if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
+						if (retornarPiezaPosicion(posicionFinal).getNombre().equals("--")) {
 
 						} else {
 							checker = true;
@@ -371,7 +373,7 @@ public class JuegoAjedrez extends Juego {
 					// Cuando se quiere comer una posicion
 					if (Character.getNumericValue(posicionInicial.charAt(1)) - 1 == Character
 							.getNumericValue(posicionFinal.charAt(1))) {
-						if (retornarPiezaPosicion(posicionFinal).nombre.equals("--")) {
+						if (retornarPiezaPosicion(posicionFinal).getNombre().equals("--")) {
 
 						} else {
 							checker = true;
@@ -535,7 +537,7 @@ public class JuegoAjedrez extends Juego {
 		boolean checker = true;
 		boolean piezasEnMedio = false;
 		String posicionActual = inicial;
-		PiezaAjedrez piezaTemp = null;
+		Pieza piezaTemp = null;
 		String lado = "";
 
 		if (Character.getNumericValue(inicial.charAt(1)) == Character.getNumericValue(Final.charAt(1))) {
@@ -548,7 +550,7 @@ public class JuegoAjedrez extends Juego {
 					posicionActual = retornarSiguienteColumna(Character.toString(posicionActual.charAt(0)))
 							+ Character.toString(inicial.charAt(1));
 					piezaTemp = retornarPiezaPosicion(posicionActual);
-					if (piezaTemp.nombre.contentEquals("--")) {
+					if (piezaTemp.getNombre().contentEquals("--")) {
 
 					} else {
 						piezasEnMedio = true;
@@ -561,7 +563,7 @@ public class JuegoAjedrez extends Juego {
 					posicionActual = retornarAnteriorColumna(Character.toString(posicionActual.charAt(0)))
 							+ Character.toString(inicial.charAt(1));
 					piezaTemp = retornarPiezaPosicion(posicionActual);
-					if (piezaTemp.nombre.contentEquals("--")) {
+					if (piezaTemp.getNombre().contentEquals("--")) {
 
 					} else {
 						piezasEnMedio = true;
@@ -588,7 +590,7 @@ public class JuegoAjedrez extends Juego {
 		boolean checker = true;
 		boolean piezasEnMedio = false;
 		String columna = Character.toString(inicial.charAt(0));
-		PiezaAjedrez piezaTemp = null;
+		Pieza piezaTemp = null;
 		int contador = 0;
 		int posInicial = Character.getNumericValue(inicial.charAt(1));
 		int posFinal = Character.getNumericValue(Final.charAt(1));
@@ -600,7 +602,7 @@ public class JuegoAjedrez extends Juego {
 				for (int i = posInicial; i < posFinal; i++) {
 
 					piezaTemp = retornarPiezaPosicion(columna + i);
-					if (piezaTemp.nombre.contentEquals("--")) {
+					if (piezaTemp.getNombre().contentEquals("--")) {
 
 					} else {
 						piezasEnMedio = true;
@@ -616,7 +618,7 @@ public class JuegoAjedrez extends Juego {
 				for (int i = posInicial; i > posFinal; i--) {
 
 					piezaTemp = retornarPiezaPosicion(columna + i);
-					if (piezaTemp.nombre.contentEquals("--")) {
+					if (piezaTemp.getNombre().contentEquals("--")) {
 
 					} else {
 						piezasEnMedio = true;
@@ -649,7 +651,7 @@ public class JuegoAjedrez extends Juego {
 		boolean sideFound = false;
 		int siguiente = 0;
 		String posicionTemporal = inicial;
-		PiezaAjedrez piezaTemp = null;
+		Pieza piezaTemp = null;
 
 		// Seccion de arriba derecha
 		while (breaker == false) {
@@ -665,10 +667,10 @@ public class JuegoAjedrez extends Juego {
 					siguiente = Character.getNumericValue(posicionTemporal.charAt(1)) + 1;
 					posicionTemporal = retornarSiguienteColumna(posicionTemporal.charAt(0) + "") + siguiente;
 					piezaTemp = retornarPiezaPosicion(posicionTemporal);
-					if (piezaTemp.nombre.contentEquals("--")) {
+					if (piezaTemp.getNombre().contentEquals("--")) {
 
 					} else {
-						if (retornarPiezaPosicion(Final).nombre.contentEquals(piezaTemp.nombre)) {
+						if (retornarPiezaPosicion(Final).getNombre().contentEquals(piezaTemp.getNombre())) {
 
 						} else {
 							piezasEnMedio = true;
@@ -701,10 +703,10 @@ public class JuegoAjedrez extends Juego {
 						siguiente = Character.getNumericValue(posicionTemporal.charAt(1)) - 1;
 						posicionTemporal = retornarSiguienteColumna(posicionTemporal.charAt(0) + "") + siguiente;
 						piezaTemp = retornarPiezaPosicion(posicionTemporal);
-						if (piezaTemp.nombre.contentEquals("--")) {
+						if (piezaTemp.getNombre().contentEquals("--")) {
 
 						} else {
-							if (retornarPiezaPosicion(Final).nombre.contentEquals(piezaTemp.nombre)) {
+							if (retornarPiezaPosicion(Final).getNombre().contentEquals(piezaTemp.getNombre())) {
 
 							} else {
 								piezasEnMedio = true;
@@ -740,10 +742,10 @@ public class JuegoAjedrez extends Juego {
 						siguiente = Character.getNumericValue(posicionTemporal.charAt(1)) + 1;
 						posicionTemporal = retornarAnteriorColumna(posicionTemporal.charAt(0) + "") + siguiente;
 						piezaTemp = retornarPiezaPosicion(posicionTemporal);
-						if (piezaTemp.nombre.contentEquals("--")) {
+						if (piezaTemp.getNombre().contentEquals("--")) {
 
 						} else {
-							if (retornarPiezaPosicion(Final).nombre.contentEquals(piezaTemp.nombre)) {
+							if (retornarPiezaPosicion(Final).getNombre().contentEquals(piezaTemp.getNombre())) {
 
 							} else {
 								piezasEnMedio = true;
@@ -779,10 +781,10 @@ public class JuegoAjedrez extends Juego {
 						siguiente = Character.getNumericValue(posicionTemporal.charAt(1)) - 1;
 						posicionTemporal = retornarAnteriorColumna(posicionTemporal.charAt(0) + "") + siguiente;
 						piezaTemp = retornarPiezaPosicion(posicionTemporal);
-						if (piezaTemp.nombre.contentEquals("--")) {
+						if (piezaTemp.getNombre().contentEquals("--")) {
 
 						} else {
-							if (retornarPiezaPosicion(Final).nombre.contentEquals(piezaTemp.nombre)) {
+							if (retornarPiezaPosicion(Final).getNombre().contentEquals(piezaTemp.getNombre())) {
 
 							} else {
 								piezasEnMedio = true;
@@ -827,9 +829,9 @@ public class JuegoAjedrez extends Juego {
 		return lado;
 	}
 
-	public static PiezaAjedrez retornarPiezaPosicion(String posicionInicial) {
+	public static Pieza retornarPiezaPosicion(String posicionInicial) {
 
-		PiezaAjedrez piezaTemp = new PiezaAjedrez("--", "*", "*", "*");
+		Pieza piezaTemp = null;
 
 		for (int i = 0; i < 8; i++) {
 			for (int e = 0; e < 8; e++) {
@@ -856,7 +858,7 @@ public class JuegoAjedrez extends Juego {
 			}
 			System.out.print("            ");
 			for (int e = 0; e < 8; e++) {
-				System.out.print(partida.tableroPosiciones[i][e].nombre + " ");
+				System.out.print(partida.tableroPosiciones[i][e].getNombre() + " ");
 			}
 			System.out.println();
 		}
@@ -880,7 +882,7 @@ public class JuegoAjedrez extends Juego {
 		for (int i = 0; i < 8; i++) {
 			System.out.print("                                                                         ");
 			for (int e = 0; e < 8; e++) {
-				System.out.print(retornarLogo(partida.tableroPosiciones[i][e].nombre) + " ");
+				System.out.print(retornarLogo(partida.tableroPosiciones[i][e].getNombre()) + " ");
 			}
 			System.out.println();
 		}
@@ -895,9 +897,9 @@ public class JuegoAjedrez extends Juego {
 
 		for (int i = 0; i < 8; i++) {
 			for (int e = 0; e < 8; e++) {
-				if (partida.tableroPosiciones[i][e].nombre.contentEquals("KB")) {
+				if (partida.tableroPosiciones[i][e].getNombre().contentEquals("KB")) {
 					checkerBlanco = true;
-				} else if (partida.tableroPosiciones[i][e].nombre.contentEquals("KN")) {
+				} else if (partida.tableroPosiciones[i][e].getNombre().contentEquals("KN")) {
 					checkerNegro = true;
 				} else {
 

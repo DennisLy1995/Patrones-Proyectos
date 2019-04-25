@@ -1,8 +1,8 @@
 package cenfotec.proyecto.artefactos.Piezas;
 
 public class Alfil extends Pieza{
-    public Alfil(String jugador) {
-        super(jugador);
+    public Alfil(){
+        super();
     }
 
     @Override

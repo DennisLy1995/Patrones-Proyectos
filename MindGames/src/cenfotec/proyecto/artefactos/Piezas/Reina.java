@@ -1,8 +1,8 @@
 package cenfotec.proyecto.artefactos.Piezas;
 
 public class Reina extends Pieza{
-    public Reina(String jugador) {
-        super(jugador);
+    public Reina() {
+        super();
     }
 
     @Override
@@ -12,6 +12,6 @@ public class Reina extends Pieza{
 
     @Override
     public String getNombre() {
-        return null;
+        return  this.nombre;
     }
 }
