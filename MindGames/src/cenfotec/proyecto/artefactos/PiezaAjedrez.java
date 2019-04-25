@@ -1,6 +1,8 @@
 package cenfotec.proyecto.artefactos;
 
-public class PiezaAjedrez extends Pieza{
+import cenfotec.proyecto.artefactos.Piezas.Pieza;
+
+public class PiezaAjedrez extends Pieza {
 	
 	String movimiento;
 	String color;
@@ -43,16 +45,16 @@ public class PiezaAjedrez extends Pieza{
 		return movimientoPieza;
 	}
 
-	
+
 	public void sumarMovimiento() {
 		cantidadMovimientos++;
 	}
-	
+
 	public void restarMovimiento() {
 		cantidadMovimientos--;
 	}
-	
-	
+
+
 	public String getMovimiento() {
 		return movimiento;
 	}
@@ -81,8 +83,8 @@ public class PiezaAjedrez extends Pieza{
 	public void setCantidadMovimientos(int cantidadMovimientos) {
 		this.cantidadMovimientos = cantidadMovimientos;
 	}
-	
-	
-	
-	
+
+
+
+
 }

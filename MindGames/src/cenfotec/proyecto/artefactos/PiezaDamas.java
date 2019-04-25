@@ -1,6 +1,8 @@
 package cenfotec.proyecto.artefactos;
 
-public class PiezaDamas extends Pieza{
+import cenfotec.proyecto.artefactos.Piezas.Pieza;
+
+public class PiezaDamas extends Pieza {
 
 	private String color;
 	
