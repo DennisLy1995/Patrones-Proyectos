@@ -1,5 +1,7 @@
 package cenfotec.proyecto.juegos;
 
+import static cenfotec.proyecto.artefactos.Piezas.PiezasTypes.TYPE_DEFAULT;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -11,6 +13,9 @@ import cenfotec.proyecto.artefactos.PartidaAjedrez;
 import cenfotec.proyecto.artefactos.PiezaAjedrez;
 import cenfotec.proyecto.artefactos.Piezas.Pieza;
 import cenfotec.proyecto.artefactos.Tablero;
+import cenfotec.proyecto.artefactos.Fabricas.Fabrica;
+import cenfotec.proyecto.artefactos.Fabricas.FabricaPiezas;
+import cenfotec.proyecto.artefactos.Fabricas.FabricasTypes;
 import cenfotec.proyecto.utiles.PersistenciaTexto;
 import cenfotec.proyecto.utiles.Serializer;
 
@@ -181,19 +186,24 @@ public class JuegoAjedrez extends Juego {
 
     private static void colocarPieza(String coordenadaInicial, String coordenadaFinal, String color) {
         Pieza temp = null;
+        Pieza temp2 = null;
         // Validar que el movimiento sea valido segun la pieza.
 
         Pieza piezaTemp = retornarPiezaPosicion(coordenadaInicial);
         boolean checker = validarMovimiento(piezaTemp, coordenadaInicial, coordenadaFinal);
-
+        Fabrica fabricaPiezas = new FabricaPiezas().getFabrica(FabricasTypes.TYPE_AJEDREZ);
+        
         if (checker && !verificarPiezasDiferenteEquipo(coordenadaInicial, coordenadaFinal)) {
             // Remover pieza de posicion inicial.
             for (int i = 0; i < 8; i++) {
                 for (int e = 0; e < 8; e++) {
                     if (coordenadaInicial.equals(partida.tablero[i][e])) {
                         temp = partida.tableroPosiciones[i][e];
-                        partida.tableroPosiciones[i][e] = null;
+                        temp2 = fabricaPiezas.getPieza(TYPE_DEFAULT);
+                        temp2.setAtributos("--", "*", "*");
+                        partida.tableroPosiciones[i][e] = temp2;
                         //partida.tableroPosiciones[i][e] = new PiezaAjedrez("--", "*", "*", "*");
+                        
                     }
                 }
             }
