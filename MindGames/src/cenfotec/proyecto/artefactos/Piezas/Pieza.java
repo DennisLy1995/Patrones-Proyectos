@@ -12,7 +12,7 @@ public abstract class Pieza {
         this.color = "";
         cantidadMovimientos = 0;
     }
-    public void setAtributos(String NOMBRE_JUGADOR, String NOMBRE_PIEZA, String NOMBRE_COLOR){
+    public void setAtributos(String NOMBRE_PIEZA, String NOMBRE_JUGADOR, String NOMBRE_COLOR){
         this.jugador = NOMBRE_JUGADOR;
         this.nombre = NOMBRE_PIEZA;
         this.color = NOMBRE_COLOR;

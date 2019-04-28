@@ -1,9 +1,10 @@
 package cenfotec.proyecto.artefactos.Piezas;
 
-public class Caballo extends Pieza {
-    public Caballo() {
-        super();
-    }
+public class PiezaAjedrezVacia extends Pieza{
+
+	public PiezaAjedrezVacia() {
+		super();
+	}
 
     @Override
     public String retornarMovimiento() {
@@ -14,4 +15,5 @@ public class Caballo extends Pieza {
     public String getNombre() {
         return this.nombre;
     }
+
 }

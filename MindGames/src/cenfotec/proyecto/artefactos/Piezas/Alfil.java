@@ -12,6 +12,6 @@ public class Alfil extends Pieza{
 
     @Override
     public String getNombre() {
-        return null;
+        return this.nombre;
     }
 }

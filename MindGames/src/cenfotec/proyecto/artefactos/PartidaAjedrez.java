@@ -33,20 +33,22 @@ public class PartidaAjedrez extends Tablero {
         //Se agregan las piezas y sus respectivas posiciones iniciales.
         for (int i = 0; i < 8; i++) {
             for (int e = 2; e < 6; e++) {
-                tableroPosiciones[e][i] = null;
+            	Pieza piezaVacia = fabricaPiezas.getPieza(TYPE_DEFAULT);
+            	piezaVacia.setAtributos("--", "*", "*");
+                tableroPosiciones[e][i] = piezaVacia;
                 //tableroPosiciones[e][i] = new PiezaAjedrez("--", "*", "*", "*");
             }
         }
         //Ciclos for para agregar los peones
         for (int i = 0; i < 8; i++) {
             Pieza peon = fabricaPiezas.getPieza(TYPE_PEON);
-            peon.setAtributos( "Jugador1", "GN", "Negro");
+            peon.setAtributos("GN", "Jugador1", "Negro");
            // PiezaAjedrez peon = new PiezaAjedrez("GN", "Jugador1", "peon", "Negro");
             tableroPosiciones[1][i] = peon;
         }
         for (int i = 0; i < 8; i++) {
             Pieza peon = fabricaPiezas.getPieza(TYPE_PEON);
-            peon.setAtributos("Jugador2", "GB", "Blanco");
+            peon.setAtributos("GB", "Jugador2", "Blanco");
             //PiezaAjedrez peon = new PiezaAjedrez("GB", "Jugador2", "peon", "Blanco");
             tableroPosiciones[6][i] = peon;
         }

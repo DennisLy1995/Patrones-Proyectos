@@ -17,6 +17,8 @@ public class FabricaPiezasAjedrez extends Fabrica{
                 return new Torre();
             case TYPE_CABALLO:
                 return new Caballo();
+            case TYPE_DEFAULT:
+            	return new PiezaAjedrezVacia();
             default:
                 throw new RuntimeException("El tipo de pieza ingresado no se encontró.");
         }

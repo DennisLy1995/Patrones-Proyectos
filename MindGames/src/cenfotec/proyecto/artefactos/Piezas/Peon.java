@@ -12,6 +12,6 @@ public class Peon extends Pieza{
 
     @Override
     public String getNombre() {
-        return "Peón";
+        return this.nombre;
     }
 }

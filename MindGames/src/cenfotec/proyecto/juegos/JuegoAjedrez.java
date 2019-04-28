@@ -895,6 +895,7 @@ public class JuegoAjedrez extends Juego {
         String ganador = "Ninguno";
         boolean checkerNegro = false;
         boolean checkerBlanco = false;
+        Pieza temp = null;
 
         for (int i = 0; i < 8; i++) {
             for (int e = 0; e < 8; e++) {
