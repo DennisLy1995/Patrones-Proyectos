@@ -20,7 +20,7 @@ public class FabricaPiezasAjedrez extends Fabrica{
             case TYPE_DEFAULT:
             	return new PiezaAjedrezVacia();
             default:
-                throw new RuntimeException("El tipo de pieza ingresado no se encontró.");
+                throw new RuntimeException("El tipo de pieza ingresado no se encontra.");
         }
     }
 

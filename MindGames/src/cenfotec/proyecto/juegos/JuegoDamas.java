@@ -7,7 +7,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import cenfotec.proyecto.artefactos.PartidaDamas;
 import cenfotec.proyecto.artefactos.Piezas.Pieza;
+import cenfotec.proyecto.artefactos.Piezas.PiezasTypes;
 import cenfotec.proyecto.artefactos.Tablero;
+import cenfotec.proyecto.artefactos.Fabricas.Fabrica;
+import cenfotec.proyecto.artefactos.Fabricas.FabricaPiezas;
+import cenfotec.proyecto.artefactos.Fabricas.FabricasTypes;
 import cenfotec.proyecto.utiles.PersistenciaTexto;
 import cenfotec.proyecto.utiles.Serializer;
 
@@ -141,6 +145,7 @@ public class JuegoDamas extends Juego {
 
 	private static void intercambiarPiezas(String coordenadaInicial, String coordenadaFinal) {
 		Pieza temp = null;
+		Fabrica fabricaPiezas = new FabricaPiezas().getFabrica(FabricasTypes.TYPE_DAMAS);
 
 		// Remover pieza de posicion inicial.
 		for (int i = 0; i < 10; i++) {
@@ -148,7 +153,8 @@ public class JuegoDamas extends Juego {
 				if (coordenadaInicial.equals(partida.tablero[i][e])) {
 					temp = partida.tableroPiezas[i][e];
 					//partida.tableroPiezas[i][e] = new Pieza("-", "-", "-", "-"); //REVISAR
-					partida.tableroPiezas[i][e] = null;
+					partida.tableroPiezas[i][e] = fabricaPiezas.getPieza(PiezasTypes.TYPE_DEFAULT);
+					partida.tableroPiezas[i][e].setAtributos("-", "-", "-");
 				}
 			}
 		}
@@ -647,8 +653,11 @@ public class JuegoDamas extends Juego {
 
 	private static void removerPieza(String posicion) {
 
-		Pieza temp = null;//new Pieza("-", "-", "-", "-") REVISAR;
-
+		Fabrica fabricaPiezas = new FabricaPiezas().getFabrica(FabricasTypes.TYPE_DAMAS);
+		
+		Pieza temp = fabricaPiezas.getPieza(PiezasTypes.TYPE_DEFAULT);
+		temp.setAtributos("-", "-", "-");
+		
 		for (int i = 0; i < 10; i++) {
 			for (int e = 0; e < 10; e++) {
 				if (partida.tablero[i][e].contentEquals(posicion)) {
@@ -728,7 +737,10 @@ public class JuegoDamas extends Juego {
 
 	public static Pieza retornarPiezaPosicion(String posicionInicial) {
 
-		Pieza piezaTemp = null;//new Pieza("-", "-", "-", "-") REVISAR;
+		Fabrica fabricaPiezas = new FabricaPiezas().getFabrica(FabricasTypes.TYPE_DAMAS);
+		
+		Pieza piezaTemp = fabricaPiezas.getPieza(PiezasTypes.TYPE_DEFAULT);
+		piezaTemp.setAtributos("-", "-", "-");
 
 		for (int i = 0; i < 10; i++) {
 			for (int e = 0; e < 10; e++) {
@@ -770,9 +782,11 @@ public class JuegoDamas extends Juego {
 
 	public static int contadorPiezasNegras() {
 		int contador = 0;
+		Pieza temp;
 
 		for (int i = 0; i < 10; i++) {
 			for (int e = 0; e < 10; e++) {
+				temp = partida.tableroPiezas[i][e];
 				if (partida.tableroPiezas[i][e].getColor().contentEquals("N")) {
 					contador++;
 				}

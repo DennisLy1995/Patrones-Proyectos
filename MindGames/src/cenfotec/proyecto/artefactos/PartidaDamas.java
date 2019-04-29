@@ -84,6 +84,8 @@ public class PartidaDamas extends Tablero {
 			temporal.setAtributos("N", "P", "N");
 		}else if(fila>=4 && fila <=5) {
 			//temporal =  null;
+			temporal = fabricaPiezas.getPieza(PiezasTypes.TYPE_DEFAULT);
+			temporal.setAtributos("-", "-", "-");
 		}else if(fila>=6) {
 			//temporal = new Pieza("P","B","P","B"); REVISAR
 			temporal = fabricaPiezas.getPieza(PiezasTypes.TYPE_PEON);
