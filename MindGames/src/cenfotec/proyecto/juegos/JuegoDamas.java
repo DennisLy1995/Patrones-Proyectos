@@ -839,9 +839,8 @@ public class JuegoDamas extends Juego {
 			}
 			System.out.print("             ");
 			for (int e = 0; e < 10; e++) {
-				System.out
-						.print(retornarLogo(partida.tableroPiezas[i][e].getNombre() + partida.tableroPiezas[i][e].getColor())
-								+ " ");
+				System.out.print(retornarLogo(partida.tableroPiezas[i][e].getNombre() + 
+						partida.tableroPiezas[i][e].getColor()) + " ");
 			}
 			System.out.println();
 		}
