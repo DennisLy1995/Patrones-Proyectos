@@ -670,7 +670,8 @@ public class JuegoAjedrez extends Juego {
                 breaker = true;
                 sideFound = true;
             } else {
-                if (retornarSiguienteColumna(posicionTemporal.charAt(0) + "").contentEquals("NO")) {
+                if (retornarSiguienteColumna(posicionTemporal.charAt(0) + "").contentEquals("NO") || 
+                		(Character.getNumericValue(posicionTemporal.charAt(1)) + 1) > 8) {
                     checker = false;
                     breaker = true;
                     piezasEnMedio = false;
@@ -706,7 +707,8 @@ public class JuegoAjedrez extends Juego {
                     breaker = true;
                     sideFound = true;
                 } else {
-                    if (retornarSiguienteColumna(posicionTemporal.charAt(0) + "").contentEquals("NO")) {
+                    if (retornarSiguienteColumna(posicionTemporal.charAt(0) + "").contentEquals("NO") || 
+                    		(Character.getNumericValue(posicionTemporal.charAt(1))-1) <= 0) {
                         checker = false;
                         breaker = true;
                         piezasEnMedio = false;
@@ -745,7 +747,8 @@ public class JuegoAjedrez extends Juego {
                     breaker = true;
                     sideFound = true;
                 } else {
-                    if (retornarAnteriorColumna(posicionTemporal.charAt(0) + "").contentEquals("NO")) {
+                    if (retornarAnteriorColumna(posicionTemporal.charAt(0) + "").contentEquals("NO") || 
+                    		(Character.getNumericValue(posicionTemporal.charAt(1)) + 1) > 8) {
                         checker = false;
                         breaker = true;
                         piezasEnMedio = false;
@@ -784,7 +787,8 @@ public class JuegoAjedrez extends Juego {
                     breaker = true;
                     sideFound = true;
                 } else {
-                    if (retornarAnteriorColumna(posicionTemporal.charAt(0) + "").contentEquals("NO")) {
+                    if (retornarAnteriorColumna(posicionTemporal.charAt(0) + "").contentEquals("NO") || 
+                    		(Character.getNumericValue(posicionTemporal.charAt(1))-1) <= 0) {
                         checker = false;
                         breaker = true;
                         piezasEnMedio = false;
