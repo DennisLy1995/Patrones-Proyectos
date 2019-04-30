@@ -5,6 +5,8 @@ import cenfotec.proyecto.artefactos.Piezas.Pieza;
 import cenfotec.proyecto.artefactos.Piezas.PiezaDamasVacia;
 import cenfotec.proyecto.artefactos.Piezas.PiezasTypes;
 import cenfotec.proyecto.artefactos.Piezas.ReinaDamas;
+import cenfotec.proyecto.database.DatabaseConnector;
+import cenfotec.proyecto.database.DatabaseTypes;
 
 
 public class FabricaPiezasDamas extends Fabrica {
@@ -20,5 +22,10 @@ public class FabricaPiezasDamas extends Fabrica {
         default:
             throw new RuntimeException("El tipo de pieza ingresado no se encontró.");
     }
+    }
+
+    @Override
+    public DatabaseConnector getDatabaseConnector(DatabaseTypes type) {
+        throw new UnsupportedOperationException("This function is not implemented.");
     }
 }

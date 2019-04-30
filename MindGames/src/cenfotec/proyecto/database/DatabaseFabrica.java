@@ -9,4 +9,9 @@ public class DatabaseFabrica extends Fabrica {
     public Pieza getPieza(PiezasTypes type) {
         throw new UnsupportedOperationException("This function is not implemented.");
     }
+
+    @Override
+    public DatabaseConnector getDatabaseConnector(DatabaseTypes type) {
+        return null;
+    }
 }

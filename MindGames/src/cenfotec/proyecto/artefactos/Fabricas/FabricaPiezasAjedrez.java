@@ -1,6 +1,8 @@
 package cenfotec.proyecto.artefactos.Fabricas;
 
 import cenfotec.proyecto.artefactos.Piezas.*;
+import cenfotec.proyecto.database.DatabaseConnector;
+import cenfotec.proyecto.database.DatabaseTypes;
 
 public class FabricaPiezasAjedrez extends Fabrica{
     public Pieza getPieza(PiezasTypes type) {
@@ -22,6 +24,11 @@ public class FabricaPiezasAjedrez extends Fabrica{
             default:
                 throw new RuntimeException("El tipo de pieza ingresado no se encontra.");
         }
+    }
+
+    @Override
+    public DatabaseConnector getDatabaseConnector(DatabaseTypes type) {
+        throw new UnsupportedOperationException("This function is not implemented.");
     }
 
 
