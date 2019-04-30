@@ -18,7 +18,7 @@ public class FabricaPiezasDamas extends Fabrica {
         case TYPE_DEFAULT:
         	return new PiezaDamasVacia();
         default:
-            throw new RuntimeException("El tipo de pieza ingresado no se encontra.");
+            throw new RuntimeException("El tipo de pieza ingresado no se encontró.");
     }
     }
 }
