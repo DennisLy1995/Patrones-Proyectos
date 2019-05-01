@@ -8,6 +8,11 @@ public class SqlServerConnector extends  DatabaseConnector {
     }
 
     @Override
+    public void setCurrentConnectionData(String connectionData) {
+
+    }
+
+    @Override
     public String Retrieve(String QUERY) {
         return null;
     }

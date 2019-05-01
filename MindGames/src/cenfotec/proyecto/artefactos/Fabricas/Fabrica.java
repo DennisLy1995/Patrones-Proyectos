@@ -7,5 +7,5 @@ import cenfotec.proyecto.database.DatabaseTypes;
 
 public abstract class Fabrica {
     public abstract Pieza getPieza(PiezasTypes type);
-    public abstract DatabaseConnector getDatabaseConnector(DatabaseTypes type):
+    public abstract DatabaseConnector getDatabaseConnector(DatabaseTypes type);
 }

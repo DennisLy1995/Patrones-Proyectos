@@ -12,6 +12,13 @@ public class DatabaseFabrica extends Fabrica {
 
     @Override
     public DatabaseConnector getDatabaseConnector(DatabaseTypes type) {
-        return null;
+        switch (type){
+            case MYSQL:
+                throw new UnsupportedOperationException("MySQL has not been implemented yet.");
+            case SQL_SERVER:
+                return new SqlServerConnector();
+                default:
+                    return null;
+        }
     }
 }
