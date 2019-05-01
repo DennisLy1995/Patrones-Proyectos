@@ -11,6 +11,7 @@ import java.util.Scanner;
 import cenfotec.proyecto.artefactos.PartidaDamas;
 import cenfotec.proyecto.artefactos.PartidaGo;
 import cenfotec.proyecto.artefactos.Tablero;
+import cenfotec.proyecto.juegos.Menu;
 
 
 public class PersistenciaTexto {
@@ -58,14 +59,14 @@ public class PersistenciaTexto {
 			fileReader.close();
 		}catch(Exception e) {
 			fileReader.close();
-			System.out.println("No se ha logrado leer el archivo.");
+			Menu.imprimirConSaltoLinea("No se ha logrado leer el archivo.");
 		}
 		
 		return lectura;
 	}
 	
 	public static Tablero compararJSONAjedrez(Tablero partida, String tipo) {
-		System.out.println("Ingrese el nombre de la partida:");
+		Menu.imprimirConSaltoLinea("Ingrese el nombre de la partida:");
 		String nombreArchivo = in.nextLine();
 		try {
 			String temp = PersistenciaTexto.leerArchivoTexto(nombreArchivo);
@@ -73,19 +74,19 @@ public class PersistenciaTexto {
 			if(partida.getTipoJuego().equals(tipo)) {
 				return partida;
 			}else {
-				System.out.println("Verifique que el archivo pertenezca a una partida de " + tipo +".");
+				Menu.imprimirConSaltoLinea("Verifique que el archivo pertenezca a una partida de " + tipo +".");
 				return null;
 			}
 			
 		}catch(Exception e) {
-			System.out.println("No se ha cargado el archivo, verifique que el archivo exista.");
+			Menu.imprimirConSaltoLinea("No se ha cargado el archivo, verifique que el archivo exista.");
 			return null;
 		}
 	}
 	
 	
 	public static PartidaDamas compararJSONDamas(PartidaDamas partida, String tipo) {
-		System.out.println("Ingrese el nombre de la partida:");
+		Menu.imprimirConSaltoLinea("Ingrese el nombre de la partida:");
 		String nombreArchivo = in.nextLine();
 		try {
 			String temp = PersistenciaTexto.leerArchivoTexto(nombreArchivo);
@@ -93,19 +94,19 @@ public class PersistenciaTexto {
 			if(partida.getTipoJuego().equals(tipo)) {
 				return partida;
 			}else {
-				System.out.println("Verifique que el archivo pertenezca a una partida de " + tipo +".");
+				Menu.imprimirConSaltoLinea("Verifique que el archivo pertenezca a una partida de " + tipo +".");
 				return null;
 			}
 			
 		}catch(Exception e) {
-			System.out.println("No se ha cargado el archivo, verifique que el archivo exista.");
+			Menu.imprimirConSaltoLinea("No se ha cargado el archivo, verifique que el archivo exista.");
 			return null;
 		}
 	}
 	
 	
 	public static PartidaGo compararJSONGo(PartidaGo partida, String tipo) {
-		System.out.println("Ingrese el nombre de la partida:");
+		Menu.imprimirConSaltoLinea("Ingrese el nombre de la partida:");
 		String nombreArchivo = in.nextLine();
 		try {
 			String temp = PersistenciaTexto.leerArchivoTexto(nombreArchivo);
@@ -113,12 +114,12 @@ public class PersistenciaTexto {
 			if(partida.getTipoJuego().equals(tipo)) {
 				return partida;
 			}else {
-				System.out.println("Verifique que el archivo pertenezca a una partida de " + tipo +".");
+				Menu.imprimirConSaltoLinea("Verifique que el archivo pertenezca a una partida de " + tipo +".");
 				return null;
 			}
 			
 		}catch(Exception e) {
-			System.out.println("No se ha cargado el archivo, verifique que el archivo exista.");
+			Menu.imprimirConSaltoLinea("No se ha cargado el archivo, verifique que el archivo exista.");
 			return null;
 		}
 	}

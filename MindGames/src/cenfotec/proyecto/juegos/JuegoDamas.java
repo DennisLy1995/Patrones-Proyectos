@@ -35,17 +35,17 @@ public class JuegoDamas extends Juego {
 			if (cantNegras <= 0) {
 				breaker = true;
 				ImprimirEstadoJuego();
-				System.out.println("Ganan los peones Blancos.");
+				Menu.imprimirConSaltoLinea("Ganan los peones Blancos.");
 			} else if (cantBlancas <= 0) {
 				breaker = true;
 				ImprimirEstadoJuego();
-				System.out.println("Ganan los peones Blancos.");
+				Menu.imprimirConSaltoLinea("Ganan los peones Blancos.");
 			} else {
 
 				if (cantNegras == 1 && cantBlancas == 1) {
 					breaker = true;
 					ImprimirEstadoJuego();
-					System.out.println("Empate, ninguno ha ganado.");
+					Menu.imprimirConSaltoLinea("Empate, ninguno ha ganado.");
 				} else {
 					ImprimirEstadoJuego();
 					imprimirOpcionesJuego();
@@ -61,7 +61,7 @@ public class JuegoDamas extends Juego {
 						try {
 							guardarPartida();
 						} catch (FileNotFoundException e) {
-							System.out.println("La partida no se ha podido guardar.");
+							Menu.imprimirConSaltoLinea("La partida no se ha podido guardar.");
 						}
 						break;
 					case "4":// salir.
@@ -89,15 +89,15 @@ public class JuegoDamas extends Juego {
 
 		if (partida.getContador() % 2 != 0) {
 			// Mueven piezas negras.
-			System.out.println("Mueven las piezas Negras");
+			Menu.imprimirConSaltoLinea("Mueven las piezas Negras");
 		} else {
 			// Mueven piezas blancas.
-			System.out.println("Mueven las piezas Blancas");
+			Menu.imprimirConSaltoLinea("Mueven las piezas Blancas");
 		}
 
-		System.out.println("Ingrese la coordenada de inicio.");
+		Menu.imprimirConSaltoLinea("Ingrese la coordenada de inicio.");
 		coordenadaInicial = in.nextLine();
-		System.out.println("Ingrese la coordenada final.");
+		Menu.imprimirConSaltoLinea("Ingrese la coordenada final.");
 		coordenadaFinal = in.nextLine();
 
 		if (verificarPosicionTablero(coordenadaInicial) == true && verificarPosicionTablero(coordenadaFinal) == true) {
@@ -135,11 +135,11 @@ public class JuegoDamas extends Juego {
 				}
 
 			} else {
-				System.out.println("La pieza no te pertenece.");
+				Menu.imprimirConSaltoLinea("La pieza no te pertenece.");
 			}
 
 		} else {
-			System.out.println("Movimiento invalido.");
+			Menu.imprimirConSaltoLinea("Movimiento invalido.");
 		}
 	}
 
@@ -418,7 +418,7 @@ public class JuegoDamas extends Juego {
 		if (derechaChecker == true && izquierdaChecker == true) {
 			boolean breakerConsulta = false;
 			while (breakerConsulta == false) {
-				System.out.println(
+				Menu.imprimirConSaltoLinea(
 						"Tienes dos opciones para comer una pieza de tu enemigo:\n" + "1.Derecha.\n2.Izquierda.");
 				consultaDireccion = in.nextLine();
 				if (consultaDireccion.contentEquals("1") || consultaDireccion.contentEquals("2")) {
@@ -773,11 +773,11 @@ public class JuegoDamas extends Juego {
 	}
 
 	public static void imprimirOpcionesJuego() {
-		System.out.println("");
-		System.out.println("1.Mover Pieza.");
-		System.out.println("2.Terminar turno.");
-		System.out.println("3.Guardar partida.");
-		System.out.println("4.Salir.");
+		Menu.imprimirConSaltoLinea("");
+		Menu.imprimirConSaltoLinea("1.Mover Pieza.");
+		Menu.imprimirConSaltoLinea("2.Terminar turno.");
+		Menu.imprimirConSaltoLinea("3.Guardar partida.");
+		Menu.imprimirConSaltoLinea("4.Salir.");
 	}
 
 	public static int contadorPiezasNegras() {
@@ -811,38 +811,38 @@ public class JuegoDamas extends Juego {
 	}
 
 	public static void ImprimirEstadoJuego() {
-		System.out.println("|-------------------------------|          |-------------------------------|");
-		System.out.println("|          Coordenadas          |          |        Colores tablero        |");
-		System.out.println("|-------------------------------|          |-------------------------------|");
-		System.out.println();
+		Menu.imprimirConSaltoLinea("|-------------------------------|          |-------------------------------|");
+		Menu.imprimirConSaltoLinea("|          Coordenadas          |          |        Colores tablero        |");
+		Menu.imprimirConSaltoLinea("|-------------------------------|          |-------------------------------|");
+		Menu.imprimirConSaltoLinea("");
 
 		for (int i = 0; i < 10; i++) {
-			System.out.print("  ");
+			Menu.imprimirSinSaltoLinea("  ");
 			for (int e = 0; e < 10; e++) {
-				System.out.print(partida.tablero[i][e] + " ");
+				Menu.imprimirSinSaltoLinea(partida.tablero[i][e] + " ");
 			}
-			System.out.print("             ");
+			Menu.imprimirSinSaltoLinea("             ");
 			for (int e = 0; e < 10; e++) {
-				System.out.print(retornarLogoColor(partida.tableroColores[i][e]) + " ");
+				Menu.imprimirSinSaltoLinea(retornarLogoColor(partida.tableroColores[i][e]) + " ");
 			}
-			System.out.println();
+			Menu.imprimirConSaltoLinea("");
 		}
-		System.out.println();
-		System.out.println("|--------------------------------------------------------------------------|");
-		System.out.println("|                                 Partida                                  |");
-		System.out.println("|--------------------------------------------------------------------------|");
-		System.out.println();
+		Menu.imprimirConSaltoLinea("");
+		Menu.imprimirConSaltoLinea("|--------------------------------------------------------------------------|");
+		Menu.imprimirConSaltoLinea("|                                 Partida                                  |");
+		Menu.imprimirConSaltoLinea("|--------------------------------------------------------------------------|");
+		Menu.imprimirConSaltoLinea("");
 		for (int i = 0; i < 10; i++) {
-			System.out.print("    ");
+			Menu.imprimirSinSaltoLinea("    ");
 			for (int e = 0; e < 10; e++) {
-				System.out.print(partida.tableroPiezas[i][e].getNombre() + partida.tableroPiezas[i][e].getColor() + " ");
+				Menu.imprimirSinSaltoLinea(partida.tableroPiezas[i][e].getNombre() + partida.tableroPiezas[i][e].getColor() + " ");
 			}
-			System.out.print("             ");
+			Menu.imprimirSinSaltoLinea("             ");
 			for (int e = 0; e < 10; e++) {
-				System.out.print(retornarLogo(partida.tableroPiezas[i][e].getNombre() + 
+				Menu.imprimirSinSaltoLinea(retornarLogo(partida.tableroPiezas[i][e].getNombre() + 
 						partida.tableroPiezas[i][e].getColor()) + " ");
 			}
-			System.out.println();
+			Menu.imprimirConSaltoLinea("");
 		}
 	}
 
@@ -851,12 +851,12 @@ public class JuegoDamas extends Juego {
 		String json = Serializer.convertirPartidaJSON(2);
 		String nombrePartida = "";
 		if (json.equals("Default")) {
-			System.out.println("Upps, no se ha logrado convertir la partida en formato JSON.");
+			Menu.imprimirConSaltoLinea("Upps, no se ha logrado convertir la partida en formato JSON.");
 		} else {
-			System.out.println("Ingrese el nombre de la partida:");
+			Menu.imprimirConSaltoLinea("Ingrese el nombre de la partida:");
 			nombrePartida = in.nextLine();
 			PersistenciaTexto.guardarArchivo(nombrePartida, json);
-			System.out.println("Partida guardada en la siguiente direccion: C:\\Users\\Public\\Documents\\"
+			Menu.imprimirConSaltoLinea("Partida guardada en la siguiente direccion: C:\\Users\\Public\\Documents\\"
 					+ nombrePartida + ".txt");
 		}
 	}

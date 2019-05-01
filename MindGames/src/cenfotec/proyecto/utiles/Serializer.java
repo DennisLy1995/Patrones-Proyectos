@@ -9,6 +9,7 @@ import cenfotec.proyecto.artefactos.Tablero;
 import cenfotec.proyecto.juegos.JuegoAjedrez;
 import cenfotec.proyecto.juegos.JuegoDamas;
 import cenfotec.proyecto.juegos.JuegoGo;
+import cenfotec.proyecto.juegos.Menu;
 
 public class Serializer {
 
@@ -38,7 +39,7 @@ public class Serializer {
 		try{
 			partidaTemp = gson.toJson(retornarPartida(tipoJuego));
 		}catch(Exception e) {
-			System.out.println(e);
+			Menu.imprimirConSaltoLinea(e.toString());
 		}
 		
 		return partidaTemp;

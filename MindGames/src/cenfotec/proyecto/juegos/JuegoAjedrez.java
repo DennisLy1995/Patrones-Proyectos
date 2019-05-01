@@ -31,7 +31,7 @@ public class JuegoAjedrez extends Juego {
 
     public static void iniciarPartida() {
 
-        System.out.println("Inician las piezas Negras.");
+        Menu.imprimirConSaltoLinea("Inician las piezas Negras.");
         partida = new PartidaAjedrez();
         String ganador;
 
@@ -44,10 +44,10 @@ public class JuegoAjedrez extends Juego {
                 switch (lecturaOpcionMenu()) {
                     case "1":
                         if (contador % 2 == 0) {
-                            System.out.println("Mueven las piezas negras.");
+                            Menu.imprimirConSaltoLinea("Mueven las piezas negras.");
                             moverPieza("N");
                         } else {
-                            System.out.println("Mueven las piezas blancas.");
+                            Menu.imprimirConSaltoLinea("Mueven las piezas blancas.");
                             moverPieza("B");
                         }
                         breaker = false;
@@ -56,7 +56,7 @@ public class JuegoAjedrez extends Juego {
                         try {
                             guardarPartida();
                         } catch (Exception e) {
-                            System.out.println("Ha ocurrido un problema al guardar la partida.");
+                            Menu.imprimirConSaltoLinea("Ha ocurrido un problema al guardar la partida.");
                         }
                         breaker = false;
                         break;
@@ -64,15 +64,15 @@ public class JuegoAjedrez extends Juego {
                         breaker = true;
                         break;
                     default:
-                        System.out.println("Opcion no valida.");
+                        Menu.imprimirConSaltoLinea("Opcion no valida.");
                         breaker = false;
                         break;
 
                 }
             } else {
                 ImprimirEstadoJuego();
-                System.out.println("Gana el rey " + ganador);
-                System.out.println("            GAME OVER");
+                Menu.imprimirConSaltoLinea("Gana el rey " + ganador);
+                Menu.imprimirConSaltoLinea("            GAME OVER");
                 breaker = true;
             }
         }
@@ -80,7 +80,7 @@ public class JuegoAjedrez extends Juego {
     }
 
     public static void continuarPartida() {
-        System.out.println("El contador esta en: " + contador);
+        Menu.imprimirConSaltoLinea("El contador esta en: " + contador);
         String ganador = "";
         boolean breaker = false;
 
@@ -91,10 +91,10 @@ public class JuegoAjedrez extends Juego {
                 switch (lecturaOpcionMenu()) {
                     case "1":
                         if (contador % 2 == 0) {
-                            System.out.println("Mueven las piezas negras.");
+                            Menu.imprimirConSaltoLinea("Mueven las piezas negras.");
                             moverPieza("N");
                         } else {
-                            System.out.println("Mueven las piezas blancas.");
+                            Menu.imprimirConSaltoLinea("Mueven las piezas blancas.");
                             moverPieza("B");
                         }
                         breaker = false;
@@ -103,7 +103,7 @@ public class JuegoAjedrez extends Juego {
                         try {
                             guardarPartida();
                         } catch (Exception e) {
-                            System.out.println("Ha ocurrido un problema al guardar la partida.");
+                            Menu.imprimirConSaltoLinea("Ha ocurrido un problema al guardar la partida.");
                         }
                         breaker = false;
                         break;
@@ -111,24 +111,24 @@ public class JuegoAjedrez extends Juego {
                         breaker = true;
                         break;
                     default:
-                        System.out.println("Opcion no valida.");
+                        Menu.imprimirConSaltoLinea("Opcion no valida.");
                         breaker = false;
                         break;
                 }
             } else {
                 ImprimirEstadoJuego();
-                System.out.println("Gana el rey " + ganador);
-                System.out.println("            GAME OVER");
+                Menu.imprimirConSaltoLinea("Gana el rey " + ganador);
+                Menu.imprimirConSaltoLinea("            GAME OVER");
                 breaker = true;
             }
         }
     }
 
     public static void imprimirOpcionesJuego() {
-        System.out.println("");
-        System.out.println("1.Mover Pieza.");
-        System.out.println("2.Guardar partida.");
-        System.out.println("3.Salir.");
+        Menu.imprimirConSaltoLinea("");
+        Menu.imprimirConSaltoLinea("1.Mover Pieza.");
+        Menu.imprimirConSaltoLinea("2.Guardar partida.");
+        Menu.imprimirConSaltoLinea("3.Salir.");
 
     }
 
@@ -149,9 +149,9 @@ public class JuegoAjedrez extends Juego {
         String coordenadaFinal;
         String piezaRetorno = "";
 
-        System.out.println("Ingrese la coordenada donde la pieza se encuentra ubicada:");
+        Menu.imprimirConSaltoLinea("Ingrese la coordenada donde la pieza se encuentra ubicada:");
         coordenadaInicial = in.nextLine();
-        System.out.println("Ingrese la coordenada final:");
+        Menu.imprimirConSaltoLinea("Ingrese la coordenada final:");
         coordenadaFinal = in.nextLine();
         if (verificarPosicion(coordenadaInicial) == true
                 && verificarPosicion(coordenadaFinal) == true) {
@@ -160,12 +160,12 @@ public class JuegoAjedrez extends Juego {
                 colocarPieza(coordenadaInicial, coordenadaFinal, color);
 
             } else {
-                System.out.println(
+                Menu.imprimirConSaltoLinea(
                         "No puedes mover la pieza en la posicion " + coordenadaInicial + " porque no te pertenece.");
             }
 
         } else {
-            System.out.println("Coordenadas incorrectas.");
+            Menu.imprimirConSaltoLinea("Coordenadas incorrectas.");
         }
 
     }
@@ -220,7 +220,7 @@ public class JuegoAjedrez extends Juego {
             contador++;
             partida.sumarcontador();
         } else if (checker == false) {
-            System.out.println("No puedes realizar ese movimiento, vuelvelo a intentar.");
+            Menu.imprimirConSaltoLinea("No puedes realizar ese movimiento, vuelvelo a intentar.");
         }
 
     }
@@ -306,7 +306,7 @@ public class JuegoAjedrez extends Juego {
         boolean checker = false;
 
         if (posicionInicial.contentEquals(posicionFinal)) {
-            System.out.println("Las coordenadas no pueden coincidir.");
+            Menu.imprimirConSaltoLinea("Las coordenadas no pueden coincidir.");
         } else {
             if (contador % 2 == 0) {// Si pieza es negra.
 
@@ -861,21 +861,21 @@ public class JuegoAjedrez extends Juego {
     }
 
     public static void ImprimirEstadoJuego() {
-        System.out.println("|-------------------------------|   |-------------------------------|");
-        System.out.println("|          Coordenadas          |   |         Partida actual        |");
-        System.out.println("|-------------------------------|   |-------------------------------|");
-        System.out.println();
+        Menu.imprimirConSaltoLinea("|-------------------------------|   |-------------------------------|");
+        Menu.imprimirConSaltoLinea("|          Coordenadas          |   |         Partida actual        |");
+        Menu.imprimirConSaltoLinea("|-------------------------------|   |-------------------------------|");
+        Menu.imprimirConSaltoLinea("");
 
         for (int i = 0; i < 8; i++) {
-            System.out.print("     ");
+            Menu.imprimirSinSaltoLinea("     ");
             for (int e = 0; e < 8; e++) {
-                System.out.print(partida.tablero[i][e] + " ");
+                Menu.imprimirSinSaltoLinea(partida.tablero[i][e] + " ");
             }
-            System.out.print("            ");
+            Menu.imprimirSinSaltoLinea("            ");
             for (int e = 0; e < 8; e++) {
-                System.out.print(partida.tableroPosiciones[i][e].getNombre() + " ");
+                Menu.imprimirSinSaltoLinea(partida.tableroPosiciones[i][e].getNombre() + " ");
             }
-            System.out.println();
+            Menu.imprimirConSaltoLinea("");
         }
         // Impresion de los Simbolos.
         try {
@@ -888,18 +888,18 @@ public class JuegoAjedrez extends Juego {
 
     public static void imprimirTableroLogos() throws UnsupportedEncodingException {
 
-        System.out.println();
-        System.out.println("                  |-------------------------------|");
-        System.out.println("                  |             Juego             |");
-        System.out.println("                  |-------------------------------|");
-        System.out.println();
+        Menu.imprimirConSaltoLinea("");
+        Menu.imprimirConSaltoLinea("                  |-------------------------------|");
+        Menu.imprimirConSaltoLinea("                  |             Juego             |");
+        Menu.imprimirConSaltoLinea("                  |-------------------------------|");
+        Menu.imprimirConSaltoLinea("");
 
         for (int i = 0; i < 8; i++) {
-            System.out.print("                                                                         ");
+            Menu.imprimirSinSaltoLinea("                                                                         ");
             for (int e = 0; e < 8; e++) {
-                System.out.print(retornarLogo(partida.tableroPosiciones[i][e].getNombre()) + " ");
+                Menu.imprimirSinSaltoLinea(retornarLogo(partida.tableroPosiciones[i][e].getNombre()) + " ");
             }
-            System.out.println();
+            Menu.imprimirConSaltoLinea("");
         }
 
     }
@@ -990,12 +990,12 @@ public class JuegoAjedrez extends Juego {
         String json = Serializer.convertirPartidaJSON(1);
         String nombrePartida = "";
         if (json.equals("Default")) {
-            System.out.println("Upps, no se ha logrado convertir la partida en formato JSON.");
+            Menu.imprimirConSaltoLinea("Upps, no se ha logrado convertir la partida en formato JSON.");
         } else {
-            System.out.println("Ingrese el nombre de la partida:");
+            Menu.imprimirConSaltoLinea("Ingrese el nombre de la partida:");
             nombrePartida = in.nextLine();
             PersistenciaTexto.guardarArchivo(nombrePartida, json);
-            System.out.println("Partida guardada en la siguiente direccion: C:\\Users\\Public\\Documents\\"
+            Menu.imprimirConSaltoLinea("Partida guardada en la siguiente direccion: C:\\Users\\Public\\Documents\\"
                     + nombrePartida + ".txt");
         }
     }

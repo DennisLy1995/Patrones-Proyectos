@@ -18,17 +18,17 @@ public class JuegoGo extends Juego{
 	}
 
 	public static void ImprimirEstadoJuego() {
-		System.out.println("           |-------------------------------|");
-		System.out.println("           |          Coordenadas          |");
-		System.out.println("           |-------------------------------|");
-		System.out.println();
+		Menu.imprimirConSaltoLinea("           |-------------------------------|");
+		Menu.imprimirConSaltoLinea("           |          Coordenadas          |");
+		Menu.imprimirConSaltoLinea("           |-------------------------------|");
+		Menu.imprimirConSaltoLinea("");
 		PartidaGo test = new PartidaGo();
 		for (int i = 0; i < 19; i++) {
-			System.out.print("  ");
+			Menu.imprimirSinSaltoLinea("  ");
 			for (int e = 0; e < 19; e++) {
-				System.out.print(test.tablero[i][e] + " ");
+				Menu.imprimirSinSaltoLinea(test.tablero[i][e] + " ");
 			}
-			System.out.println();
+			Menu.imprimirConSaltoLinea("");
 		}
 	}
 	
@@ -37,12 +37,12 @@ public class JuegoGo extends Juego{
 		String json = Serializer.convertirPartidaJSON(3);
 		String nombrePartida = "";
 		if(json.equals("Default")) {
-			System.out.println("Upps, no se ha logrado convertir la partida en formato JSON.");
+			Menu.imprimirConSaltoLinea("Upps, no se ha logrado convertir la partida en formato JSON.");
 		}else {
-			System.out.println("Ingrese el nombre de la partida:");
+			Menu.imprimirConSaltoLinea("Ingrese el nombre de la partida:");
 			nombrePartida = in.nextLine();
 			PersistenciaTexto.guardarArchivo(nombrePartida, json);
-			System.out.println("Partida guardada en la siguiente direccion: C:\\Users\\Public\\Documents\\"+nombrePartida+".txt");
+			Menu.imprimirConSaltoLinea("Partida guardada en la siguiente direccion: C:\\Users\\Public\\Documents\\"+nombrePartida+".txt");
 		}
 	}
 	
