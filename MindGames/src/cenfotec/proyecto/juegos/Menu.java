@@ -289,4 +289,12 @@ public class Menu {
 		}
 	}
 	
+	public static void imprimirSinSaltoLinea(String valor) {
+		System.out.print(valor);
+	}
+	
+	public static void imprimirConSaltoLinea(String valor) {
+		System.out.println(valor);
+	}
+	
 }
